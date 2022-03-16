@@ -1,10 +1,15 @@
 
 
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response,request
 import cv2
 import face_recognition
 import numpy as np
+from flask_cors import CORS
+from VideoCamera import VideoCamera
+
 app=Flask(__name__)
+CORS(app)
+
 camera = cv2.VideoCapture(0)
 # Load a sample picture and learn how to recognize it.
 krish_image = face_recognition.load_image_file(r"userPhotos\Teoman/Teoman.jpg")
@@ -35,7 +40,7 @@ face_encodings = []
 face_names = []
 process_this_frame = True
 
-def gen_frames():  
+def gen_frames():
     while True:
         success, frame = camera.read()  # read the camera frame
         if not success:
@@ -80,17 +85,18 @@ def gen_frames():
                 cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
                 font = cv2.FONT_HERSHEY_DUPLEX
                 cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
-
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def index():
     return render_template('index.html')
-@app.route('/video_feed')
+@app.route('/video_feed', methods=['POST', 'GET'])
 def video_feed():
-    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen_frames(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
 if __name__=='__main__':
     app.run(debug=True)
