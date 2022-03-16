@@ -3,7 +3,7 @@ package com.hst.metagen.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 @Data
 @Entity
@@ -19,6 +19,6 @@ public class Instructor {
 
     private String identityNumber;
 
-    @OneToMany
-    private LinkedList<Lecture> givenLectures;
+    @OneToOne
+    private Lecture givenLectures;
 }

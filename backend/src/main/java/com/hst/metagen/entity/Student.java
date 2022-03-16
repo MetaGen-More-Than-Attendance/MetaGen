@@ -23,6 +23,4 @@ public class Student {
 
     private String facePhoto;
 
-    @ManyToMany
-    private LinkedList<Lecture> takenLectures;
 }

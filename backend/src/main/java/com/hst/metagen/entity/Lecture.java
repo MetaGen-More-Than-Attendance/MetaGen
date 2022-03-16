@@ -13,10 +13,8 @@ public class Lecture {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToMany
-    private LinkedList<Student> student;
-
-    @ManyToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="instructor_id", nullable=false)
     private Instructor instructor;
 
     @OneToOne
