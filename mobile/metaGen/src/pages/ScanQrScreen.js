@@ -3,6 +3,8 @@ import { StyleSheet, Text, Image, View, Button, TouchableOpacity } from 'react-n
 import { Camera } from 'expo-camera';
 import * as FaceDetector from 'expo-face-detector';
 import { Ionicons } from '@expo/vector-icons';
+import * as MediaLibrary from 'expo-media-library';
+import * as Permissions from "expo-permissions";
 
 const ScanQrScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -38,8 +40,9 @@ const ScanQrScreen = () => {
     if (camera) {
       const data = await camera.takePictureAsync(null)
       setImage(data.uri);
+      await handleSave(data.uri);
     }
-    console.log(image);
+    //console.log(image);
   }
 
   const handleFlashMode = async () => {
@@ -56,6 +59,17 @@ const ScanQrScreen = () => {
         ? Camera.Constants.Type.front
         : Camera.Constants.Type.back
     );
+  }
+
+  const handleSave = async (image) => {
+    const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+    // const { status } = await Camera.Permissions.MEDIA_LIBRARY;
+    if (status === "granted") {
+      const assert = await MediaLibrary.createAssetAsync(image);
+      MediaLibrary.createAlbumAsync("MetaGen", assert);
+    } else {
+      console.log("You missed to give permission !");
+    }
   }
 
   return (
