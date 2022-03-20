@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, Image, View, Button, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
+import * as FaceDetector from 'expo-face-detector';
 
 const ScanQrScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [camera, setCamera] = useState(null);
   const [image, setImage] = useState(null);
+  const [faces, setFaces] = useState([])
+  const [flash, setFlash] = useState(false)
+
+  const handleFacesDetected = ({ faces }) => {
+    setFaces(faces);
+  }
+
+  //console.log(faces);
+  //{faces.map(e => e.smilingProbability > 0.5 ? console.log("smiling"):console.log("not smiling"))}
 
   useEffect(() => {
     (async () => {
@@ -29,6 +39,7 @@ const ScanQrScreen = () => {
     }
     console.log(image);
   }
+
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.cameraContainer}>
@@ -36,7 +47,17 @@ const ScanQrScreen = () => {
           ref={ref => setCamera(ref)}
           style={styles.fixedRatio}
           type={type}
-          ratio={'1:1'} />
+          ratio={'1:1'}
+          flashMode={flash}
+          onFacesDetected={handleFacesDetected}
+          faceDetectorSettings={{
+            mode: FaceDetector.FaceDetectorMode.fast,
+            detectLandmarks: FaceDetector.FaceDetectorLandmarks.none,
+            runClassifications: FaceDetector.FaceDetectorClassifications.all,
+            minDetectionInterval: 1000,
+            tracking: false,
+          }}
+        />
       </View>
       <TouchableOpacity
         style={{
@@ -62,8 +83,14 @@ const ScanQrScreen = () => {
           borderRadius: 10,
         }}>
         <Button title="Take Picture" color='tomato' style={styles.button} onPress={() => takePicture()} />
-
       </TouchableOpacity>
+      <Button title="Open Flash" color='tomato' style={styles.button} onPress={() => {
+        setFlash(
+          flash === Camera.Constants.FlashMode.off
+            ? Camera.Constants.FlashMode.torch
+            : Camera.Constants.FlashMode.off
+        )
+      }} />
       {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
     </View>
   )
