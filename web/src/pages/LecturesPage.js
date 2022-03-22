@@ -1,8 +1,12 @@
 import React from 'react'
+import LectureCard from '../components/LectureCard'
 
 const LecturesPage = () => {
   return (
-    <div>LecturesPage</div>
+    <div>
+      LecturesPage
+      <LectureCard  />  
+    </div>
   )
 }
 
