@@ -1,9 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Button } from 'react-native';
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Login!</Text>
+            <Button
+              onPress={() => navigation.navigate("Profile")}
+              title="Login"
+              color="#000"
+            />
         </View>
     )
 }

@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import LoginScreen from '../pages/LoginScreen';
 import CameraStack from '../pages/CameraStack';
 import AttendanceReportScreen from '../pages/AttendanceReportScreen';
+import AccountStack from '../pages/AccountStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -45,7 +46,7 @@ const MyTabs = () => {
                 <Tab.Screen name="Attendance" component={AttendanceReportScreen} />
                 <Tab.Screen name="Scan" component={CameraStack} />
                 <Tab.Screen name="Settings" component={SettingsScreen} />
-                <Tab.Screen name="Account" component={LoginScreen} />
+                <Tab.Screen name="Account" component={AccountStack} />
             </Tab.Navigator>
           
         </NavigationContainer>
