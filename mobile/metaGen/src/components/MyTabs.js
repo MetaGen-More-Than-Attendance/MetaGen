@@ -5,8 +5,9 @@ import SettingsScreen from '../pages/SettingsScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import ScanQrScreen from '../pages/ScanQrScreen';
-import LoginScreen from '../pages/LoginScreen';
+import LoginScreen from '../pages/LoginScreen'; 
 import AttendanceTrackingScreen from '../pages/AttendanceTrackingScren';
+import Demo from '../pages/Demo';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +23,7 @@ const MyTabs = () => {
                             iconName = focused
                                 ? 'home'
                                 : 'home-outline';
-                        } else if (route.name === 'Scan Qr') {
+                        } else if (route.name === 'Scan') {
                             iconName = focused ? 'scan-circle' : 'scan-circle-outline';
                         }
                         else if (route.name === 'Attendance') {
@@ -43,7 +44,7 @@ const MyTabs = () => {
             >
                 <Tab.Screen name="Home" component={HomeScreen} />
                 <Tab.Screen name="Attendance" component={AttendanceTrackingScreen} />
-                <Tab.Screen name="Scan Qr" component={ScanQrScreen} />
+                <Tab.Screen name="Scan" component={ScanQrScreen} />
                 <Tab.Screen name="Settings" component={SettingsScreen} />
                 <Tab.Screen name="Account" component={LoginScreen} />
             </Tab.Navigator>
