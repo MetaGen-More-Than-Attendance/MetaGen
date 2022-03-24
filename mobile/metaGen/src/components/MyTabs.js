@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../pages/HomeScreen';
 import SettingsScreen from '../pages/SettingsScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -18,10 +17,10 @@ const MyTabs = () => {
                     tabBarIcon: ({ focused, color, size }) => {
                         let iconName;
 
-                        if (route.name === 'Home') {
+                        if (route.name === 'Account') {
                             iconName = focused
-                                ? 'home'
-                                : 'home-outline';
+                                ? 'people'
+                                : 'people-outline';
                         } else if (route.name === 'Scan') {
                             iconName = focused ? 'scan-circle' : 'scan-circle-outline';
                         }
@@ -31,9 +30,7 @@ const MyTabs = () => {
                         else if (route.name === 'Settings') {
                             iconName = focused ? 'settings' : 'settings-outline';
                         }
-                        else if (route.name === 'Account') {
-                            iconName = focused ? 'people' : 'people-outline';
-                        }
+                        
 
                         return <Ionicons name={iconName} size={size} color={color} />;
                     },
@@ -42,7 +39,6 @@ const MyTabs = () => {
                     headerShown: false
                 })}
             >
-                <Tab.Screen name="Home" component={HomeScreen} />
                 <Tab.Screen name="Attendance" component={AttendanceReportScreen} />
                 <Tab.Screen name="Scan" component={CameraStack} />
                 <Tab.Screen name="Settings" component={SettingsScreen} />
