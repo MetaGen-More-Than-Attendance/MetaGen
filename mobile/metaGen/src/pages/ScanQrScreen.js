@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, Image, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as FaceDetector from 'expo-face-detector';
 import { Ionicons } from '@expo/vector-icons';
@@ -42,7 +42,6 @@ const ScanQrScreen = ({ navigation }) => {
       setImage(data.uri);
       await handleSave(data.uri);
     }
-    //console.log(image);
   }
 
   const handleFlashMode = async () => {

@@ -1,13 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyleSheet } from 'react-native';
 import HomeScreen from '../pages/HomeScreen';
 import SettingsScreen from '../pages/SettingsScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import ScanQrScreen from '../pages/ScanQrScreen';
-import LoginScreen from '../pages/LoginScreen'; 
-import AttendanceTrackingScreen from '../pages/AttendanceTrackingScren';
-import Demo from '../pages/Demo';
+import LoginScreen from '../pages/LoginScreen';
+import CameraStack from '../pages/CameraStack';
+import AttendanceReportScreen from '../pages/AttendanceReportScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,14 +38,16 @@ const MyTabs = () => {
                     },
                     tabBarActiveTintColor: 'tomato',
                     tabBarInactiveTintColor: 'gray',
+                    headerShown: false
                 })}
             >
                 <Tab.Screen name="Home" component={HomeScreen} />
-                <Tab.Screen name="Attendance" component={AttendanceTrackingScreen} />
-                <Tab.Screen name="Scan" component={ScanQrScreen} />
+                <Tab.Screen name="Attendance" component={AttendanceReportScreen} />
+                <Tab.Screen name="Scan" component={CameraStack} />
                 <Tab.Screen name="Settings" component={SettingsScreen} />
                 <Tab.Screen name="Account" component={LoginScreen} />
             </Tab.Navigator>
+          
         </NavigationContainer>
     );
 }

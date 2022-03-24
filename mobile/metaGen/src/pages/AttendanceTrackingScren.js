@@ -16,7 +16,7 @@ const AttendanceTrackingScreen = ({ navigation }) => {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    navigation.navigate("Scan")
+    navigation.navigate("Scan Your Face")
   }
 
   if (hasPermission === null) {
