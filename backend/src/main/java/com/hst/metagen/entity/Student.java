@@ -1,9 +1,9 @@
 package com.hst.metagen.entity;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.util.LinkedList;
 
 @Data
 @Entity
@@ -21,6 +21,7 @@ public class Student {
 
     private String password;
 
-    private String facePhoto;
+    @Lob
+    private byte[] facePhoto;
 
 }
