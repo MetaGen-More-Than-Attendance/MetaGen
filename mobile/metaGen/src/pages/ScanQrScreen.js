@@ -113,9 +113,9 @@ const ScanQrScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.cameraContainer}>
-        {!showCamera && (
+      {/* {!showCamera && (
           <Image style={{ width: 100, height: 100 }} source={{ uri: image }} />
-        )}
+        )} */}
         {showCamera && (
           <Camera
             ref={(ref) => setCamera(ref)}
