@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Header from './components/Header';
 import HomePage from "./pages/HomePage";
+import LectureDetails from "./pages/LectureDetails";
 import LecturesPage from "./pages/LecturesPage";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -17,6 +18,7 @@ function App() {
         <Route element={<LoginPage />} path="/login" />
         <Route element={<SignUpPage />} path="/signup" />
         <Route element={<ProfilePage />} path="/profile" />
+        <Route element={<LectureDetails />} path="/lectureDetails" />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </div>

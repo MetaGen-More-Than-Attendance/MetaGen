@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Card, Button, Modal } from 'react-bootstrap';
 import img from "../images/java.jpeg";
 import QRCode from "react-qr-code";
+import { useNavigate } from 'react-router-dom';
 
 const LectureCard = () => {
     const [text, setText] = useState("");
@@ -14,6 +15,7 @@ const LectureCard = () => {
         const date = new Date();
         setText(date.toLocaleDateString() + date.toLocaleTimeString());
     };
+    const navigate = useNavigate();
 
     return (
         <div>
@@ -26,7 +28,7 @@ const LectureCard = () => {
                         the card's content.
                     </Card.Text>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} >Details</Button>
+                    <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={()=> navigate("/lectureDetails")} >Details</Button>
                     <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow} >
                         Generate Qr Code
                     </Button>
