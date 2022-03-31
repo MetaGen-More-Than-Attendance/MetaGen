@@ -4,7 +4,6 @@ import LectureCard from '../components/LectureCard'
 const LecturesPage = () => {
   return (
     <div>
-      LecturesPage
       <LectureCard  />  
     </div>
   )
