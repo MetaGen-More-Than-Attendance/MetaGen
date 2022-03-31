@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Card, Button, Modal } from 'react-bootstrap';
-import img from "./logo192.png";
+import img from "../images/java.jpeg";
 import QRCode from "react-qr-code";
+import { useNavigate } from 'react-router-dom';
 
 const LectureCard = () => {
     const [text, setText] = useState("");
@@ -14,33 +15,37 @@ const LectureCard = () => {
         const date = new Date();
         setText(date.toLocaleDateString() + date.toLocaleTimeString());
     };
+    const navigate = useNavigate();
 
     return (
         <div>
-            <Card border="primary" style={{ width: '18rem', margin: '2rem' }}>
-                <Card.Img variant="top" src={img} style={{ height: '7rem' }} />
+            <Card style={{ width: '18rem', margin: '2rem', borderWidth: 1 ,borderColor: "#393E46", borderRadius: 20, boxShadow:"1px 1px 1px 1px #393E46" }}>
+                <Card.Img variant="top" src={img} style={{ height: '7rem', borderTopLeftRadius: 20, borderTopRightRadius: 20 }} />
                 <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
+                    <Card.Title style={{ display: "flex", justifyContent: "center"}}>Lecture Name</Card.Title>
                     <Card.Text>
                         Some quick example text to build on the card title and make up the bulk of
                         the card's content.
                     </Card.Text>
-                    <Button variant="primary" style={{ marginBottom: '10px' }}>Show more</Button>
-                    <Button variant="primary" onClick={handleShow} >
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={()=> navigate("/lectureDetails")} >Details</Button>
+                    <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow} >
                         Generate Qr Code
                     </Button>
+                    </div>
+                   
                 </Card.Body>
             </Card>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} >
                 <Modal.Header closeButton>
-                    <Modal.Title>Today's QR</Modal.Title>
+                    <Modal.Title>Today's QR Code</Modal.Title>
                 </Modal.Header>
-                <Modal.Body style={{ alignItems: 'center' }}>
+                <Modal.Body style={{ display: 'flex', justifyContent: "center"}} >
                     <QRCode value={text} />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleClose}>
                         Close
                     </Button>
                 </Modal.Footer>
