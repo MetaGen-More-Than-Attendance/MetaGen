@@ -2,6 +2,8 @@
 
 from flask import Flask, render_template, Response,request
 import cv2
+import psycopg2
+import os
 import face_recognition
 import numpy as np
 from flask_cors import CORS
@@ -11,6 +13,8 @@ app=Flask(__name__)
 CORS(app)
 
 camera = cv2.VideoCapture(0)
+sys.path.append(os.path.abspath(os.path.join('..','..','..','..', 'config')))
+
 # Load a sample picture and learn how to recognize it.
 krish_image = face_recognition.load_image_file(r"userPhotos\Teoman/Teoman.jpg")
 krish_face_encoding = face_recognition.face_encodings(krish_image)[0]
@@ -40,9 +44,17 @@ face_encodings = []
 face_names = []
 process_this_frame = True
 
+def get_db_connection():
+    conn = psycopg2.connect(host='localhost',
+                            database='MetaGen',
+                            user='postgres',
+                            password='12345')
+    return conn
+
 def gen_frames():
     while True:
-        success, frame = camera.read()  # read the camera frame
+        frame = bradley_image  # read the camera frame
+        success = True
         if not success:
             break
         else:
@@ -52,7 +64,7 @@ def gen_frames():
             rgb_small_frame = small_frame[:, :, ::-1]
 
             # Only process every other frame of video to save time
-           
+
             # Find all the faces and face encodings in the current frame of video
             face_locations = face_recognition.face_locations(rgb_small_frame)
             face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
@@ -66,7 +78,7 @@ def gen_frames():
                 best_match_index = np.argmin(face_distances)
                 if matches[best_match_index]:
                     name = known_face_names[best_match_index]
-
+                    print(name)
                 face_names.append(name)
             
 
@@ -95,6 +107,11 @@ def index():
     return render_template('index.html')
 @app.route('/video_feed', methods=['POST', 'GET'])
 def video_feed():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('SELECT photo_path FROM student where id=20;')
+    path = cur.fetchall()
+    print(path)
     return Response(gen_frames(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
