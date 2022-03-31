@@ -1,5 +1,4 @@
-
-
+import requests
 from flask import Flask, render_template, Response,request
 import cv2
 import psycopg2
@@ -13,7 +12,6 @@ app=Flask(__name__)
 CORS(app)
 
 camera = cv2.VideoCapture(0)
-sys.path.append(os.path.abspath(os.path.join('..','..','..','..', 'config')))
 
 # Load a sample picture and learn how to recognize it.
 krish_image = face_recognition.load_image_file(r"userPhotos\Teoman/Teoman.jpg")
@@ -51,9 +49,10 @@ def get_db_connection():
                             password='12345')
     return conn
 
-def gen_frames():
+def gen_frames(r):
     while True:
-        frame = bradley_image  # read the camera frame
+        print(r)
+        frame = r  # read the camera frame
         success = True
         if not success:
             break
@@ -105,14 +104,11 @@ def gen_frames():
 @app.route('/', methods=['POST', 'GET'])
 def index():
     return render_template('index.html')
-@app.route('/video_feed', methods=['POST', 'GET'])
-def video_feed():
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute('SELECT photo_path FROM student where id=20;')
-    path = cur.fetchall()
-    print(path)
-    return Response(gen_frames(),
+@app.route('/video_feed/<id>', methods=['POST', 'GET'])
+def video_feed(id):
+    r = requests.get('http://localhost:8080/api/student?id='+id)
+    #print(r.content)
+    return Response(gen_frames(r),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__=='__main__':
