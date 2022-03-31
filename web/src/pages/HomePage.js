@@ -1,8 +1,14 @@
 import React from 'react'
+import AdminSideMenu from '../components/AdminSideMenu'
 
 const HomePage = () => {
   return (
-    <div>HomePage</div>
+    <div style={{ height: "80vh", display: "flex" }}>
+      <AdminSideMenu />
+      <div style={{ marginLeft: 15, width: '100%' }}>
+    
+      </div>
+    </div>
   )
 }
 
