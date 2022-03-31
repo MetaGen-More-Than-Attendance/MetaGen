@@ -1,2 +1,4 @@
-package com.hst.metagen.security;public interface StudentService {
+package com.hst.metagen.security;
+
+public interface StudentService {
 }
