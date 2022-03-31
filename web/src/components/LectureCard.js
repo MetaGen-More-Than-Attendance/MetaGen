@@ -35,15 +35,15 @@ const LectureCard = () => {
                 </Card.Body>
             </Card>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} >
                 <Modal.Header closeButton>
-                    <Modal.Title>Today's QR</Modal.Title>
+                    <Modal.Title>Today's QR Code</Modal.Title>
                 </Modal.Header>
-                <Modal.Body style={{ alignItems: 'center' }}>
+                <Modal.Body style={{ display: 'flex', justifyContent: "center"}} >
                     <QRCode value={text} />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleClose}>
                         Close
                     </Button>
                 </Modal.Footer>
