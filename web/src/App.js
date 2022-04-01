@@ -11,6 +11,7 @@ import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage";
 import SignUpPage from "./pages/SignUpPage";
+import AddTeacher from "./pages/AddTeacher";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route element={<LecDetAttendance />} path="/lectureDetails/attendance" />
         <Route element={<LecDetCalendar />} path="/lectureDetails/calendar" />
         <Route element={<LecDetPeople />} path="/lectureDetails/people" />
+        <Route element={<AddTeacher />} path="/admin/addTeacher" />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </div>
