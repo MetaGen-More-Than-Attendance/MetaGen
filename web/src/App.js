@@ -12,6 +12,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage";
 import SignUpPage from "./pages/SignUpPage";
 import AddTeacher from "./pages/AddTeacher";
+import AddStudent from "./pages/AddStudent";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route element={<LecDetCalendar />} path="/lectureDetails/calendar" />
         <Route element={<LecDetPeople />} path="/lectureDetails/people" />
         <Route element={<AddTeacher />} path="/admin/addTeacher" />
+        <Route element={<AddStudent />} path="/admin/addStudent" />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </div>
