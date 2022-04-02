@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap'
+import { Button, Image } from 'react-bootstrap'
 import React from 'react'
 import ProfileSideMenu from '../components/ProfileSideMenu'
 import avatar from '../images/logo512.png'
@@ -11,8 +11,8 @@ const ProfilePage = () => {
         <h1 style={{ color: '#9C9FA3' }}>My Account</h1>
         <hr style={{ color: '#222831', width: '97%' }} />
 
-        <div style={{ display: 'flex', float: 'left ', width: '30%', flexDirection: 'column', justifyContent: 'space-between' }} >
-          <img src={avatar} alt="avatar" style={{ backgroundColor: 'black', borderRadius: '5rem', width: '70%' }} />
+        <div style={{ display: 'flex', float: 'left ', width: '30%', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }} >
+          <Image src={avatar} roundedCircle={true} className="mt-5 mr-5" style={{ backgroundColor: 'black', width: '70%' }} />
         </div>
 
         <div style={{ width: '70%', float: "right" }}>
