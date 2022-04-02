@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, Image } from 'react-bootstrap'
 import AdminSideMenu from '../components/AdminSideMenu'
 
 const AddTeacher = () => {
@@ -20,11 +20,13 @@ const AddTeacher = () => {
                 <h1 style={{ color: '#9C9FA3' }}>Save Teacher</h1>
                 <hr style={{ color: '#222831', width: '97%' }} />
 
-                <div style={{ display: 'flex', float: 'left ', width: '30%', flexDirection: 'column', justifyContent: 'space-between' }} >
-                    <input type="file" name="file" onChange={changeHandler} style={{ marginBottom: '5rem' }} />
-                    {isFilePicked && <img src={selectedFile} alt="selectedImg" style={{ width: '5rem' }} />}
+                <div style={{ display: 'flex', float: 'left ', width: '30%', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }} >
+                    <Form.Group controlId="formFile" className="mr-5" style={{ width: '70%' }}>
+                        <Form.Control type="file" onChange={changeHandler} />
+                    </Form.Group>
+                    {isFilePicked && <Image src={selectedFile} roundedCircle={true} className="mt-5 mr-5"  style={{ width:'70%' }} />}
                 </div>
-
+                {/* <img src={selectedFile} alt="selectedImg" style={{ width: '5rem' }} */}
                 <Form style={{ width: '70%', float: "right" }}>
                     <Form.Group className="mb-1" controlId="formBasicEmail" style={{ width: '60%' }}>
                         <Form.Label>Name</Form.Label>
