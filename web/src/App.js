@@ -31,6 +31,7 @@ function App() {
         <Route element={<LecDetPeople />} path="/lectureDetails/people" />
         <Route element={<AddTeacher />} path="/admin/addTeacher" />
         <Route element={<AddStudent />} path="/admin/addStudent" />
+        <Route element={<ProfilePage />} path="/profile" />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </div>
