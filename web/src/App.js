@@ -14,6 +14,7 @@ import SignUpPage from "./pages/SignUpPage";
 import AddTeacher from "./pages/AddTeacher";
 import AddStudent from "./pages/AddStudent";
 import AddLecture from "./pages/AddLecture";
+import AddSemester from "./pages/AddSemester";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route element={<AddStudent />} path="/admin/addStudent" />
         <Route element={<ProfilePage />} path="/profile" />
         <Route element={<AddLecture />} path="/admin/addLecture" />
+        <Route element={<AddSemester />} path="/admin/addSemester" />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </div>
