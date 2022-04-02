@@ -15,6 +15,10 @@ import AddTeacher from "./pages/AddTeacher";
 import AddStudent from "./pages/AddStudent";
 import AddLecture from "./pages/AddLecture";
 import AddSemester from "./pages/AddSemester";
+import AdminDisplayLectures from "./pages/AdminDisplayLectures";
+import AdminDisplaySemesters from "./pages/AdminDisplaySemesters";
+import AdminDisplayStudents from "./pages/AdminDisplayStudents";
+import AdminDisplayTeachers from "./pages/AdminDisplayTeachers";
 
 function App() {
   return (
@@ -36,6 +40,10 @@ function App() {
         <Route element={<ProfilePage />} path="/profile" />
         <Route element={<AddLecture />} path="/admin/addLecture" />
         <Route element={<AddSemester />} path="/admin/addSemester" />
+        <Route element={<AdminDisplayLectures />} path="/admin/displayLectures" />
+        <Route element={<AdminDisplaySemesters />} path="/admin/displaySemesters" />
+        <Route element={<AdminDisplayStudents />} path="/admin/displayStudents" />
+        <Route element={<AdminDisplayTeachers />} path="/admin/displayTeachers" />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </div>
