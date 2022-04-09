@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Table, Button, Modal, Form } from 'react-bootstrap'
-import AdminSideMenu from '../components/AdminSideMenu'
+import AdminSideMenu from '../../components/AdminSideMenu'
 
 const AdminDisplaySemesters = () => {
   const [show, setShow] = useState(false);
@@ -72,7 +72,7 @@ const AdminDisplaySemesters = () => {
                 />
               </Form.Group>
             </Form>
-            
+
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>

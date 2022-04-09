@@ -1,50 +1,61 @@
 import React, { useState } from 'react'
-import { Table, Button, Modal, Form } from 'react-bootstrap'
-import AdminSideMenu from '../components/AdminSideMenu'
+import { Table, Button, Modal, Form, Image } from 'react-bootstrap'
+import AdminSideMenu from '../../components/AdminSideMenu'
+import avatar from '../../images/logo512.png'
 
-const AdminDisplayLectures = () => {
+const AdminDisplayStudents = () => {
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [selectedFile, setSelectedFile] = useState();
+  const [isFilePicked, setIsFilePicked] = useState(false);
+
+  const changeHandler = (event) => {
+    setSelectedFile(URL.createObjectURL(event.target.files[0]));
+    setIsFilePicked(true);
+  };
+
   return (
     <div style={{ height: "80vh", display: "flex" }}>
       <AdminSideMenu />
       <div style={{ marginLeft: 15, width: '100%', marginRight: 15 }}>
-        <h1 style={{ color: '#9C9FA3' }}>Display All Lectures</h1>
+        <h1 style={{ color: '#9C9FA3' }}>Display All Students</h1>
         <hr style={{ color: '#222831', width: '97%' }} />
         <Table striped bordered hover responsive="md">
           <thead>
             <tr>
               <th></th>
-              <th>Lecture</th>
-              <th>Teacher</th>
-              <th>Semester</th>
-              <th>Lecture Code</th>
-              <th>Start Date</th>
-              <th>Start Hour</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>Identity Number</th>
+              <th>Department</th>
+              <th>Email</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>1</td>
-              <td>Calculus 1</td>
-              <td>Teoman Bayoglu</td>
-              <td>Fall</td>
-              <td>BIM 344</td>
-              <td>01/01/2022</td>
-              <td>09:00</td>
-              <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow}>Edit</Button></td>
+              <td><Image src={avatar} rounded={true} style={{ backgroundColor: 'black', width: '2rem' }} /></td>
+              <td>Teoman</td>
+              <td>Bayoglu</td>
+              <td>11111111111</td>
+              <td>Computer</td>
+              <td>bayogluteoman@gmail.com</td>
+              <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow} >Edit</Button></td>
             </tr>
             <tr>
               <td>2</td>
-              <td>Calculus 2</td>
-              <td>Teoman Bayoglu</td>
-              <td>Spring</td>
-              <td>BIM 344</td>
-              <td>01/01/2022</td>
-              <td>09:00</td>
+              <td><Image src={avatar} rounded={true} style={{ backgroundColor: 'black', width: '2rem' }} /></td>
+              <td>Teoman</td>
+              <td>Bayoglu</td>
+              <td>11111111111</td>
+              <td>Computer</td>
+              <td>bayogluteoman@gmail.com</td>
               <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}>Edit</Button></td>
             </tr>
           </tbody>
@@ -52,58 +63,55 @@ const AdminDisplayLectures = () => {
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Edit Lecture</Modal.Title>
+            <Modal.Title>Edit Student</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
+              <Form.Group className='mb-3'>
+                <Form.Label>Image</Form.Label>
+                <Form.Control type="file" onChange={changeHandler} />
+              </Form.Group>
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Lecture Name</Form.Label>
+                <Form.Label>Name</Form.Label>
                 <Form.Control
                   type="input"
-                  placeholder="Calculus 1"
+                  placeholder="Teoman"
                   autoFocus
                 />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Teacher Name</Form.Label>
+                <Form.Label>Surname</Form.Label>
                 <Form.Control
                   type="input"
-                  placeholder="Teoman Bayoglu"
+                  placeholder="Bayoglu"
                   autoFocus
                 />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Semester</Form.Label>
+                <Form.Label>Identity Number</Form.Label>
                 <Form.Control
                   type="input"
-                  placeholder="Fall"
+                  placeholder="11111111111"
                   autoFocus
                 />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Lecture Code</Form.Label>
+                <Form.Label>Department</Form.Label>
                 <Form.Control
                   type="input"
-                  placeholder="BIM 344"
+                  placeholder="Computer"
                   autoFocus
                 />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Start Date</Form.Label>
+                <Form.Label>Email</Form.Label>
                 <Form.Control
-                  type="date"
-                  autoFocus
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Start Hour</Form.Label>
-                <Form.Control
-                  type="time"
+                  type="email"
+                  placeholder="bayogluteoman@gmail.com"
                   autoFocus
                 />
               </Form.Group>
@@ -124,4 +132,4 @@ const AdminDisplayLectures = () => {
   )
 }
 
-export default AdminDisplayLectures
+export default AdminDisplayStudents

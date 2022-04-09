@@ -11,14 +11,14 @@ import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage";
 import SignUpPage from "./pages/SignUpPage";
-import AddTeacher from "./pages/AddTeacher";
-import AddStudent from "./pages/AddStudent";
-import AddLecture from "./pages/AddLecture";
-import AddSemester from "./pages/AddSemester";
-import AdminDisplayLectures from "./pages/AdminDisplayLectures";
-import AdminDisplaySemesters from "./pages/AdminDisplaySemesters";
-import AdminDisplayStudents from "./pages/AdminDisplayStudents";
-import AdminDisplayTeachers from "./pages/AdminDisplayTeachers";
+import AddTeacher from "./pages/AdminPages/AddTeacher";
+import AddStudent from "./pages/AdminPages/AddStudent";
+import AddLecture from "./pages/AdminPages/AddLecture";
+import AddSemester from "./pages/AdminPages/AddSemester";
+import AdminDisplayLectures from "./pages/AdminPages/AdminDisplayLectures";
+import AdminDisplaySemesters from "./pages/AdminPages/AdminDisplaySemesters";
+import AdminDisplayStudents from "./pages/AdminPages/AdminDisplayStudents";
+import AdminDisplayTeachers from "./pages/AdminPages/AdminDisplayTeachers";
 
 function App() {
   return (
