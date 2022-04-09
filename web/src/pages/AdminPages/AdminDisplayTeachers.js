@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Table, Button, Modal, Form, Image } from 'react-bootstrap'
-import AdminSideMenu from '../../components/AdminSideMenu'
+import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
 import avatar from '../../images/logo512.png'
 
 const AdminDisplayTeachers = () => {

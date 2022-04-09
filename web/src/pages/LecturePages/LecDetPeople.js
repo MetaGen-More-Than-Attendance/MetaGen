@@ -1,6 +1,6 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
-import SideMenu from '../../components/SideMenu'
+import SideMenu from '../../components/SideMenus/SideMenu'
 
 const LecDetPeople = () => {
   return (

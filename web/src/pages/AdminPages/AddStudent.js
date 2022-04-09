@@ -1,6 +1,6 @@
 import React from 'react'
 import AddUser from '../../components/AddUser'
-import AdminSideMenu from '../../components/AdminSideMenu'
+import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
 
 const AddStudent = () => {
     return (

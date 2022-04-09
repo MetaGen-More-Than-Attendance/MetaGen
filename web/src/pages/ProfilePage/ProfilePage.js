@@ -1,6 +1,6 @@
 import { Button, Image } from 'react-bootstrap'
 import React from 'react'
-import ProfileSideMenu from '../../components/ProfileSideMenu'
+import ProfileSideMenu from '../../components/SideMenus/ProfileSideMenu'
 import avatar from '../../images/logo512.png'
 
 const ProfilePage = () => {

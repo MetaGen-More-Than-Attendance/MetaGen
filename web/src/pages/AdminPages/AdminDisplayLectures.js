@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Table, Button, Modal, Form } from 'react-bootstrap'
-import AdminSideMenu from '../../components/AdminSideMenu'
+import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
 
 const AdminDisplayLectures = () => {
   const [show, setShow] = useState(false);

@@ -8,7 +8,7 @@ import LecDetPeople from "./pages/LecturePages/LecDetPeople";
 import LectureDetails from "./pages/LecturePages/LectureDetails";
 import LecturesPage from "./pages/LecturePages/LecturesPage";
 import LoginPage from "./pages/Authentication/LoginPage";
-import NotFoundPage from "./pages/NotFoundPage";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignUpPage from "./pages/Authentication/SignUpPage";
 import AddTeacher from "./pages/AdminPages/AddTeacher";
