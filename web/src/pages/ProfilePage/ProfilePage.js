@@ -1,7 +1,7 @@
 import { Button, Image } from 'react-bootstrap'
 import React from 'react'
-import ProfileSideMenu from '../components/ProfileSideMenu'
-import avatar from '../images/logo512.png'
+import ProfileSideMenu from '../../components/ProfileSideMenu'
+import avatar from '../../images/logo512.png'
 
 const ProfilePage = () => {
   return (
@@ -26,7 +26,7 @@ const ProfilePage = () => {
           <p style={{ fontSize: '1.5rem' }}>Links</p>
           <p style={{ fontSize: '1.1rem' }}>Lorem ipsum dolor sit amet, consectetur
             adipiscing elit, sed do eiusmod</p>
-            <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}>Edit</Button>
+          <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}>Edit</Button>
         </div>
 
       </div>

@@ -9,7 +9,7 @@ import LectureDetails from "./pages/LecturePages/LectureDetails";
 import LecturesPage from "./pages/LecturePages/LecturesPage";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import ProfilePage from "./pages/ProfilePage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignUpPage from "./pages/SignUpPage";
 import AddTeacher from "./pages/AdminPages/AddTeacher";
 import AddStudent from "./pages/AdminPages/AddStudent";
