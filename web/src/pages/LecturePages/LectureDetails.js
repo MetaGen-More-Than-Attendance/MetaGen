@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { Button, Container, Row, Col } from 'react-bootstrap'
-import SideMenu from '../components/SideMenu';
+import React from 'react'
+import SideMenu from '../../components/SideMenu';
 
 const LectureDetails = () => {
 

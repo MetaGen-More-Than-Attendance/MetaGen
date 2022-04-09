@@ -1,10 +1,10 @@
 import React from 'react'
-import LectureCard from '../components/LectureCard'
+import LectureCard from '../../components/LectureCard'
 
 const LecturesPage = () => {
   return (
     <div>
-      <LectureCard  />  
+      <LectureCard />
     </div>
   )
 }

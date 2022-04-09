@@ -1,8 +1,8 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
-import SideMenu from '../components/SideMenu'
+import SideMenu from '../../components/SideMenu'
 
-const LecDetAttendance = () => {
+const LecDetPeople = () => {
   return (
     <div style={{ height: "80vh", display: "flex" }}>
       <SideMenu />
@@ -11,56 +11,64 @@ const LecDetAttendance = () => {
         <Table striped bordered hover responsive="md">
           <thead>
             <tr>
-              <th colspan="0"></th>
-              <th>Name-Surname</th>
-              <th>DD/MM/YYYY</th>
-
+              <th></th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>1</td>
               <td>Mark</td>
-              <td>YES</td>
-
+              <td>Otto</td>
+              <td>@mdo</td>
             </tr>
             <tr>
               <td>2</td>
               <td>Jacob</td>
-              <td>No</td>
+              <td>Thornton</td>
+              <td>@fat</td>
             </tr>
             <tr>
               <td>3</td>
               <td>Larry</td>
-              <td>Yes</td>
+              <td>Bird</td>
+              <td>@twitter</td>
             </tr> <tr>
               <td>1</td>
               <td>Mark</td>
-              <td>YES</td>
+              <td>Otto</td>
+              <td>@mdo</td>
             </tr>
             <tr>
               <td>2</td>
               <td>Jacob</td>
-              <td>No</td>
+              <td>Thornton</td>
+              <td>@fat</td>
             </tr>
             <tr>
               <td>3</td>
               <td>Larry</td>
-              <td>Yes</td>
+              <td>Bird</td>
+              <td>@twitter</td>
             </tr> <tr>
               <td>1</td>
               <td>Mark</td>
-              <td>YES</td>
+              <td>Otto</td>
+              <td>@mdo</td>
             </tr>
             <tr>
               <td>2</td>
               <td>Jacob</td>
-              <td>No</td>
+              <td>Thornton</td>
+              <td>@fat</td>
             </tr>
             <tr>
               <td>3</td>
               <td>Larry</td>
-              <td>Yes</td>
+              <td>Bird</td>
+              <td>@twitter</td>
             </tr>
           </tbody>
         </Table>
@@ -69,4 +77,4 @@ const LecDetAttendance = () => {
   )
 }
 
-export default LecDetAttendance
+export default LecDetPeople

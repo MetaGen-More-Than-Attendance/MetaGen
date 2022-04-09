@@ -1,9 +1,9 @@
 import React from 'react'
-import SideMenu from '../components/SideMenu'
+import SideMenu from '../../components/SideMenu'
 
 const LecDetAnnouncements = () => {
   return (
-    <div style={{height:"80vh"}}>
+    <div style={{ height: "80vh" }}>
       <SideMenu />
     </div>
   )
