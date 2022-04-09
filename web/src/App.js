@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Header from './components/Header';
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/HomePage/HomePage";
 import LecDetAnnouncements from "./pages/LecturePages/LecDetAnnouncements";
 import LecDetAttendance from "./pages/LecturePages/LecDetAttendance";
 import LecDetCalendar from "./pages/LecturePages/LecDetCalendar";
