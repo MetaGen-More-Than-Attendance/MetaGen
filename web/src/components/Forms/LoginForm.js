@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form } from 'react-bootstrap'
-import loginImg from "../images/java.jpeg"
-import logoImg from "../images/logo512.png"
+import loginImg from "../../images/java.jpeg"
+import logoImg from "../../images/logo512.png"
 
 const LoginForm = () => {
     return (
@@ -26,7 +26,7 @@ const LoginForm = () => {
                         <Form.Label style={{ color: '#EEE' }}>Password</Form.Label>
                         <Form.Control type="password" placeholder="Password" />
                     </Form.Group>
-                    
+
                     <Button type="submit" style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}>
                         Submit
                     </Button>
