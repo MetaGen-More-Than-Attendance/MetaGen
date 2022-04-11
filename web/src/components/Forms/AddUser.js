@@ -5,74 +5,91 @@ import axios from "axios";
 const AddUser = () => {
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
-  const [image, setImage] = useState();
-  const changeHandler = (event) => {
-    setSelectedFile(URL.createObjectURL(event.target.files[0]));
-    setImage(event.currentTarget.files[0]);
+  const [image, setImage] = useState("");
+  const [imageBase64, setImageBase64] = useState("");
+  const [datas, setDatas] = useState();
 
-    console.log(selectedFile);
+
+  const getBase64 = (file, cb) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      cb(reader.result);
+    };
+    reader.onerror = function (error) {
+      console.log("error", error)
+    };
+  }
+
+  const changeHandler = (event) => {
+    setSelectedFile(event.currentTarget.files[0]);
+    setImage(URL.createObjectURL(event.currentTarget.files[0]));
+    console.log(selectedFile)
+    try {
+      getBase64(selectedFile, (base64String) => { setImageBase64(base64String) })
+    } catch (error) {
+      console.log(error)
+    }
     setIsFilePicked(true);
   };
 
+  const postHandling = (e) => {
+    e.preventDefault();
+    console.log(imageBase64);
+    let newData = { ...datas, imageBase64 };
+    console.log(newData);
+    axios.post('https://meta-gen.herokuapp.com/api/student/register', newData)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
+
   const initialValues = {
-    name: "",
-    surname: "",
-    id: "",
-    department: "",
-    email: "",
-    password: "",
-    image: "",
+    userName: "",
+    userSurname: "",
+    identityNumber: "",
+    departmentId: 0,
+    userMail: "",
+    userPassword: ""
   };
+
   return (
     <div>
+
       <Formik
         initialValues={initialValues}
         validate={(values) => {
           const errors = {};
-          if (!values.email) {
-            errors.email = "*";
+          if (!values.userMail) {
+            errors.userMail = "*";
           } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.userMail)
           ) {
-            errors.email = "*Invalid email address!";
+            errors.userMail = "*Invalid userMail address!";
           }
-          if (!values.name) {
-            errors.name = "*";
+          if (!values.userName) {
+            errors.userName = "*";
           }
-          if (!values.surname) {
-            errors.surname = "*";
+          if (!values.userSurname) {
+            errors.userSurname = "*";
           }
-          if (!values.id) {
-            errors.id = "*";
+          if (!values.identityNumber) {
+            errors.identityNumber = "*";
           }
-          if (!values.department) {
-            errors.department = "*";
+          if (!values.departmentId) {
+            errors.departmentId = "*";
           }
-          if (!values.password) {
-            errors.password = "*";
+          if (!values.userPassword) {
+            errors.userPassword = "*";
           }
-          // if (!values.image) {
-          //     errors.image = '*image';
+          // if (!values.imageBase64) {
+          //   errors.imageBase64 = '*image';
           // }
 
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          var formData = new FormData();
-          formData.append("file", image);
-          formData.append("data", JSON.stringify(values));
-
-          axios({
-            method: "post",
-            url: "https://meta-gen.herokuapp.com/api/student",
-            data: formData,
-          })
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (response) {
-              console.log(response);
-            });
+          setDatas(values);
+          console.log(datas);
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
@@ -106,14 +123,13 @@ const AddUser = () => {
               >
                 <Form.Control
                   type="file"
-                  name="image"
+                  name="imageBase64"
                   onChange={changeHandler}
                 />
-                {/* {errors.image && touched.image && (<div style={{ color: 'red', marginRight: 5 }}>{errors.image}</div>)} */}
               </Form.Group>
               {isFilePicked && (
                 <Image
-                  src={selectedFile}
+                  src={image}
                   roundedCircle={true}
                   className="mt-5 mr-5"
                   style={{ width: "70%" }}
@@ -127,9 +143,9 @@ const AddUser = () => {
             >
               <Form.Group className="mb-1" style={{ width: "60%" }}>
                 <div style={{ display: "flex" }}>
-                  {errors.name && touched.name && (
+                  {errors.userName && touched.userName && (
                     <div style={{ color: "red", marginRight: 5 }}>
-                      {errors.name}
+                      {errors.userName}
                     </div>
                   )}
                   <Form.Label>Name</Form.Label>
@@ -137,8 +153,8 @@ const AddUser = () => {
 
                 <Form.Control
                   type="input"
-                  name="name"
-                  value={values.name}
+                  name="userName"
+                  value={values.userName}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder="Enter teacher name"
@@ -147,9 +163,9 @@ const AddUser = () => {
 
               <Form.Group className="mb-1" style={{ width: "60%" }}>
                 <div style={{ display: "flex" }}>
-                  {errors.surname && touched.surname && (
+                  {errors.userSurname && touched.userSurname && (
                     <div style={{ color: "red", marginRight: 5 }}>
-                      {errors.surname}
+                      {errors.userSurname}
                     </div>
                   )}
                   <Form.Label>Surname</Form.Label>
@@ -157,8 +173,8 @@ const AddUser = () => {
 
                 <Form.Control
                   type="input"
-                  name="surname"
-                  value={values.surname}
+                  name="userSurname"
+                  value={values.userSurname}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder="Enter teacher surname"
@@ -167,9 +183,9 @@ const AddUser = () => {
 
               <Form.Group className="mb-1" style={{ width: "60%" }}>
                 <div style={{ display: "flex" }}>
-                  {errors.id && touched.id && (
+                  {errors.identityNumber && touched.identityNumber && (
                     <div style={{ color: "red", marginRight: 5 }}>
-                      {errors.id}
+                      {errors.identityNumber}
                     </div>
                   )}
                   <Form.Label>Identity Number</Form.Label>
@@ -177,8 +193,8 @@ const AddUser = () => {
 
                 <Form.Control
                   type="input"
-                  name="id"
-                  value={values.id}
+                  name="identityNumber"
+                  value={values.identityNumber}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder="Enter teacher identity number"
@@ -187,9 +203,9 @@ const AddUser = () => {
 
               <Form.Group className="mb-1" style={{ width: "60%" }}>
                 <div style={{ display: "flex" }}>
-                  {errors.department && touched.department && (
+                  {errors.departmentId && touched.departmentId && (
                     <div style={{ color: "red", marginRight: 5 }}>
-                      {errors.department}
+                      {errors.departmentId}
                     </div>
                   )}
                   <Form.Label>Department</Form.Label>
@@ -197,8 +213,8 @@ const AddUser = () => {
 
                 <Form.Control
                   type="input"
-                  name="department"
-                  value={values.department}
+                  name="departmentId"
+                  value={values.departmentId}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder="Enter teacher department"
@@ -207,9 +223,9 @@ const AddUser = () => {
 
               <Form.Group className="mb-1" style={{ width: "60%" }}>
                 <div style={{ display: "flex" }}>
-                  {errors.email && touched.email && (
+                  {errors.userMail && touched.userMail && (
                     <div style={{ color: "red", marginRight: 5 }}>
-                      {errors.email}
+                      {errors.userMail}
                     </div>
                   )}
                   <Form.Label>Email address</Form.Label>
@@ -217,8 +233,8 @@ const AddUser = () => {
 
                 <Form.Control
                   type="email"
-                  name="email"
-                  value={values.email}
+                  name="userMail"
+                  value={values.userMail}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder="Enter email"
@@ -227,9 +243,9 @@ const AddUser = () => {
 
               <Form.Group className="mb-1" style={{ width: "60%" }}>
                 <div style={{ display: "flex" }}>
-                  {errors.password && touched.password && (
+                  {errors.userPassword && touched.userPassword && (
                     <div style={{ color: "red", marginRight: 5 }}>
-                      {errors.password}
+                      {errors.userPassword}
                     </div>
                   )}
                   <Form.Label>Password</Form.Label>
@@ -237,8 +253,8 @@ const AddUser = () => {
 
                 <Form.Control
                   type="password"
-                  name="password"
-                  value={values.password}
+                  name="userPassword"
+                  value={values.userPassword}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder="Password"
@@ -250,13 +266,27 @@ const AddUser = () => {
                 disabled={isSubmitting}
                 style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}
               >
-                Submit
+                Check
               </Button>
             </Form>
           </div>
         )}
       </Formik>
-    </div>
+
+      <Form
+        onSubmit={postHandling}
+        style={{ width: "70%", float: "right" }}
+      >
+
+        <Button
+          type="submit"
+          style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}
+        >
+          Submit
+        </Button>
+      </Form>
+
+    </div >
   );
 };
 
