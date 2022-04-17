@@ -1,54 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar, Container, Nav, Image } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import img from "../../images/logo512.png";
 import AuthenticationService from "../../services/AuthenticationService";
-import { useNavigate } from "react-router-dom";
 
-const Header = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const navigate = useNavigate();
+const Header = ({ userHasLogin }) => {
+  const [hasLogin, setHasLogin] = useState(false);
   let authenticationService = new AuthenticationService();
-  function handleSignOut() {
-    setIsAuthenticated(false);
-    authenticationService.logout();
-    navigate("/");
-  }
-
-  function handleSignIn() {
-    navigate("/login");
-  }
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    if (localStorage.getItem("token") != null) {
+      setHasLogin(true);
+    }
+  }, [hasLogin]);
 
-    const isAuth = authenticationService.tokenIsValid(token);
-
-    var isExpired = authenticationService.tokenIsExpired(
-      localStorage.getItem("token")
-    );
-
-    Promise.resolve(isAuth).then(
-      function (value) {
-        console.log(value.data.success);
-        if (value.data.success === false) {
-          setIsAuthenticated(false);
-          Promise.resolve(isExpired).then(function (isExpired) {
-            console.log(token);
-            if (isExpired.data.success === false && token !== null) {
-              localStorage.removeItem("token");
-              localStorage.removeItem("issue");
-              window.location.reload(true);
-            }
-          });
-          //return <Redirect push to='/login'  />
-        } else {
-          setIsAuthenticated(true);
-        }
-      },
-      function (value) {}
-    );
-  }, []);
-
+  function logout() {
+    authenticationService.logout();
+    setHasLogin(false);
+    userHasLogin(false);
+  }
   return (
     <Navbar
       collapseOnSelect
@@ -70,36 +39,47 @@ const Header = () => {
             </Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link
-              as={NavLink}
-              to="/login"
-              style={{
-                marginTop: 6,
-                height: "2.3rem",
-                color: "#000",
-                backgroundColor: "#EEE",
-                borderRadius: 10,
-                marginRight: 5,
-              }}
-            >
-              Login
-            </Nav.Link>
-            <Nav.Link
-              as={NavLink}
-              to="/signup"
-              style={{
-                marginTop: 6,
-                height: "2.3rem",
-                color: "#000",
-                backgroundColor: "#EEE",
-                borderRadius: 10,
-              }}
-            >
-              Register
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/profile" style={{ color: "#EEEEEE" }}>
-              <Image style={{ width: "2rem", height: "2rem" }} src={img} />
-            </Nav.Link>
+            {hasLogin ? (
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <Nav.Link
+                  as={NavLink}
+                  to="/login"
+                  onClick={logout}
+                  style={{
+                    marginTop: 6,
+                    height: "2.3rem",
+                    color: "#000",
+                    backgroundColor: "#EEE",
+                    borderRadius: 10,
+                    marginRight: 5,
+                  }}
+                >
+                  logout
+                </Nav.Link>
+                <Nav.Link
+                  as={NavLink}
+                  to="/profile"
+                  style={{ color: "#EEEEEE" }}
+                >
+                  <Image style={{ width: "2rem", height: "2rem" }} src={img} />
+                </Nav.Link>
+              </div>
+            ) : (
+              <Nav.Link
+                as={NavLink}
+                to="/login"
+                style={{
+                  marginTop: 6,
+                  height: "2.3rem",
+                  color: "#000",
+                  backgroundColor: "#EEE",
+                  borderRadius: 10,
+                  marginRight: 5,
+                }}
+              >
+                Login
+              </Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

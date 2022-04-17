@@ -3,7 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import loginImg from "../../images/java.jpeg";
 import logoImg from "../../images/logo512.png";
 import { Formik, ErrorMessage } from "formik";
-import { useJwt } from "react-jwt";
+import jwt_decode from "jwt-decode";
 import AuthenticationService from "../../services/AuthenticationService";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -62,18 +62,19 @@ const LoginForm = () => {
           }}
           onSubmit={(values, { resetForm }) => {
             axios
-              .post("https://meta-gen.herokuapp.com/login", values)
+              .post("http://localhost:8080" + "/login", values)
               .then((result) => {
-                console.log("test");
-                console.log(result);
+                var decoded = jwt_decode(result.data.token);
                 localStorage.setItem("token", result.data.token);
-                //var decoded = jwt.decode(result.data, { complete: true });
+                localStorage.setItem("exp", decoded.exp);
+                localStorage.setItem("iat", decoded.iat);
+                localStorage.setItem("isAdmin", decoded.isAdmin);
+
                 axios.defaults.headers.common[
                   "Authorization"
                 ] = `Bearer ${result.data}`;
 
                 if (result.data) {
-                  //localStorage.setItem("issue", decoded.payload.sub);
                   navigate("/");
                   window.location.reload(true);
                 }

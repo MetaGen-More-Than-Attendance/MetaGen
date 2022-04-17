@@ -1,5 +1,6 @@
+import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import Header from './components/Header/Header';
+import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import LecDetAnnouncements from "./pages/LecturePages/LecDetAnnouncements";
 import LecDetAttendance from "./pages/LecturePages/LecDetAttendance";
@@ -19,11 +20,20 @@ import AdminDisplayLectures from "./pages/AdminPages/AdminDisplayLectures";
 import AdminDisplaySemesters from "./pages/AdminPages/AdminDisplaySemesters";
 import AdminDisplayStudents from "./pages/AdminPages/AdminDisplayStudents";
 import AdminDisplayTeachers from "./pages/AdminPages/AdminDisplayTeachers";
-
+import AuthenticationService from "./services/AuthenticationService";
 function App() {
+  let authenticationService = new AuthenticationService();
+  const [userHasLogin, setUserHasLogin] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("token") != null) {
+      setUserHasLogin(true);
+    }
+  }, []);
+
   return (
     <div>
-      <Header />
+      {userHasLogin ? <Header userHasLogin={userHasLogin} /> : null}
       <Routes>
         <Route element={<HomePage />} path="/" />
         <Route element={<LecturesPage />} path="/lectures" />
@@ -31,8 +41,14 @@ function App() {
         <Route element={<SignUpPage />} path="/signup" />
         <Route element={<ProfilePage />} path="/profile" />
         <Route element={<LectureDetails />} path="/lectureDetails" />
-        <Route element={<LecDetAnnouncements />} path="/lectureDetails/announcements" />
-        <Route element={<LecDetAttendance />} path="/lectureDetails/attendance" />
+        <Route
+          element={<LecDetAnnouncements />}
+          path="/lectureDetails/announcements"
+        />
+        <Route
+          element={<LecDetAttendance />}
+          path="/lectureDetails/attendance"
+        />
         <Route element={<LecDetCalendar />} path="/lectureDetails/calendar" />
         <Route element={<LecDetPeople />} path="/lectureDetails/people" />
         <Route element={<AddTeacher />} path="/admin/addTeacher" />
@@ -40,11 +56,23 @@ function App() {
         <Route element={<ProfilePage />} path="/profile" />
         <Route element={<AddLecture />} path="/admin/addLecture" />
         <Route element={<AddSemester />} path="/admin/addSemester" />
-        <Route element={<AdminDisplayLectures />} path="/admin/displayLectures" />
-        <Route element={<AdminDisplaySemesters />} path="/admin/displaySemesters" />
-        <Route element={<AdminDisplayStudents />} path="/admin/displayStudents" />
-        <Route element={<AdminDisplayTeachers />} path="/admin/displayTeachers" />
-        <Route path='*' element={<NotFoundPage />} />
+        <Route
+          element={<AdminDisplayLectures />}
+          path="/admin/displayLectures"
+        />
+        <Route
+          element={<AdminDisplaySemesters />}
+          path="/admin/displaySemesters"
+        />
+        <Route
+          element={<AdminDisplayStudents />}
+          path="/admin/displayStudents"
+        />
+        <Route
+          element={<AdminDisplayTeachers />}
+          path="/admin/displayTeachers"
+        />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );
