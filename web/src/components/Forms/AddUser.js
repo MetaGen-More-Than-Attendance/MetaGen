@@ -9,7 +9,6 @@ const AddUser = () => {
   const [imageBase64, setImageBase64] = useState("");
   const [datas, setDatas] = useState();
 
-
   const getBase64 = (file, cb) => {
     let reader = new FileReader();
     reader.readAsDataURL(file);
@@ -17,20 +16,29 @@ const AddUser = () => {
       cb(reader.result);
     };
     reader.onerror = function (error) {
-      console.log("error", error)
+      console.log("error", error);
     };
-  }
+  };
 
-  const changeHandler = (event) => {
-    setSelectedFile(event.currentTarget.files[0]);
-    setImage(URL.createObjectURL(event.currentTarget.files[0]));
-    console.log(selectedFile)
-    try {
-      getBase64(selectedFile, (base64String) => { setImageBase64(base64String) })
-    } catch (error) {
-      console.log(error)
-    }
-    setIsFilePicked(true);
+  const changeHandler = async (event) => {
+    event.persist();
+    // async function
+    await new Promise((resolve) => {
+      setSelectedFile(event.target.files[0]);
+      setImage(URL.createObjectURL(event.target.files[0]));
+      resolve();
+    });
+    await new Promise((resolve) => {
+      try {
+        getBase64(event.target.files[0], (base64String) => {
+          setImageBase64(base64String);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      setIsFilePicked(true);
+      resolve();
+    });
   };
 
   const postHandling = (e) => {
@@ -38,10 +46,11 @@ const AddUser = () => {
     console.log(imageBase64);
     let newData = { ...datas, imageBase64 };
     console.log(newData);
-    axios.post('https://meta-gen.herokuapp.com/api/student/register', newData)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
-  }
+    axios
+      .post("https://meta-gen.herokuapp.com/api/student/register", newData)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   const initialValues = {
     userName: "",
@@ -49,12 +58,11 @@ const AddUser = () => {
     identityNumber: "",
     departmentId: 0,
     userMail: "",
-    userPassword: ""
+    userPassword: "",
   };
 
   return (
     <div>
-
       <Formik
         initialValues={initialValues}
         validate={(values) => {
@@ -81,15 +89,24 @@ const AddUser = () => {
           if (!values.userPassword) {
             errors.userPassword = "*";
           }
-          // if (!values.imageBase64) {
-          //   errors.imageBase64 = '*image';
-          // }
 
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
+          console.log(selectedFile);
           setDatas(values);
-          console.log(datas);
+          console.log(values);
+          console.log(imageBase64);
+          let newData = { ...values, imageBase64 };
+          console.log(newData);
+          axios
+            .post(
+              "https://meta-gen.herokuapp.com/api/student/register",
+              newData
+            )
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+          postHandling();
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
@@ -268,25 +285,18 @@ const AddUser = () => {
               >
                 Check
               </Button>
+
+              <Button
+                type="submit"
+                style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}
+              >
+                Submit
+              </Button>
             </Form>
           </div>
         )}
       </Formik>
-
-      <Form
-        onSubmit={postHandling}
-        style={{ width: "70%", float: "right" }}
-      >
-
-        <Button
-          type="submit"
-          style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}
-        >
-          Submit
-        </Button>
-      </Form>
-
-    </div >
+    </div>
   );
 };
 
