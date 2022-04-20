@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const AdminSideMenu = () => {
     const navigate = useNavigate();
     return (
-        <ListGroup style={{ width: "13%", height: "80%", backgroundColor: "#222831", marginTop: 75, borderTopRightRadius: 10, borderBottomRightRadius: 10 }}>
+        <ListGroup style={{height: "80%", backgroundColor: "#222831", marginTop: 75, borderTopRightRadius: 10, borderBottomRightRadius: 10 }}>
             <DropdownButton action variant="dark" as={ButtonGroup} title="Teacher" id="bg-vertical-dropdown-2" className="mb-3" style={{ backgroundColor: "#222831", color: "#EEE", marginTop: 120 }}>
                 <Dropdown.Item eventKey="1" onClick={() => navigate("/admin/addTeacher")}>Add Teacher</Dropdown.Item>
                 <Dropdown.Item eventKey="2" onClick={() => navigate("/admin/displayTeachers")}>Display Teachers</Dropdown.Item>
