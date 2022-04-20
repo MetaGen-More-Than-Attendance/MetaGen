@@ -62,7 +62,7 @@ const LoginForm = () => {
           }}
           onSubmit={(values, { resetForm }) => {
             axios
-              .post("http://localhost:8080" + "/login", values)
+              .post("https://meta-gen.herokuapp.com/login", values)
               .then((result) => {
                 var decoded = jwt_decode(result.data.token);
                 localStorage.setItem("token", result.data.token);
