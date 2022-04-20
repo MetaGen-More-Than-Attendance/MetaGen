@@ -22,7 +22,7 @@ const AddUser = () => {
 
   const changeHandler = async (event) => {
     event.persist();
-    // async function
+    
     await new Promise((resolve) => {
       setSelectedFile(event.target.files[0]);
       setImage(URL.createObjectURL(event.target.files[0]));

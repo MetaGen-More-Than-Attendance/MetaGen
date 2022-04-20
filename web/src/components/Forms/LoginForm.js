@@ -2,17 +2,14 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import loginImg from "../../images/java.jpeg";
 import logoImg from "../../images/logo512.png";
-import { Formik, ErrorMessage } from "formik";
+import { Formik } from "formik";
 import jwt_decode from "jwt-decode";
-import AuthenticationService from "../../services/AuthenticationService";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [errorMessage, seterrorMessage] = useState("");
-  const [hasError, setHasError] = useState(false);
-  let authenticationService = new AuthenticationService();
 
   const initialValues = {
     username: "",

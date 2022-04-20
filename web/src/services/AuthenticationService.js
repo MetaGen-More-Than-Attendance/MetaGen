@@ -1,5 +1,4 @@
 import axios from "axios";
-import { BASE_URL } from "../.env";
 export default class AuthenticationService {
   login(loginRequest) {
     axios.post(process.env.BASE_URL + "/login", loginRequest);
