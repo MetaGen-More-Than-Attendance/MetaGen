@@ -35,9 +35,9 @@ function App() {
     <div>
       {userHasLogin ? <Header userHasLogin={userHasLogin} /> : null}
       <Routes>
-        <Route element={<HomePage />} path="/" />
+        <Route element={<HomePage />} path="/home" />
         <Route element={<LecturesPage />} path="/lectures" />
-        <Route element={<LoginPage />} path="/login" />
+        <Route element={<LoginPage />} path="/" />
         <Route element={<SignUpPage />} path="/signup" />
         <Route element={<ProfilePage />} path="/profile" />
         <Route element={<LectureDetails />} path="/lectureDetails" />

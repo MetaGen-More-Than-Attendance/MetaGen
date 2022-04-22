@@ -31,7 +31,7 @@ const Header = ({ userHasLogin }) => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={NavLink} to="/" style={{ color: "#EEEEEE" }}>
+            <Nav.Link as={NavLink} to="/home" style={{ color: "#EEEEEE" }}>
               Home
             </Nav.Link>
             <Nav.Link as={NavLink} to="/lectures" style={{ color: "#EEEEEE" }}>
@@ -43,7 +43,7 @@ const Header = ({ userHasLogin }) => {
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <Nav.Link
                   as={NavLink}
-                  to="/login"
+                  to="/"
                   onClick={logout}
                   style={{
                     marginTop: 6,
