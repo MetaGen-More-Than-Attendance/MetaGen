@@ -11,7 +11,6 @@ import LecturesPage from "./pages/LecturePages/LecturesPage";
 import LoginPage from "./pages/Authentication/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
-import SignUpPage from "./pages/Authentication/SignUpPage";
 import AddTeacher from "./pages/AdminPages/AddTeacher";
 import AddStudent from "./pages/AdminPages/AddStudent";
 import AddLecture from "./pages/AdminPages/AddLecture";
@@ -20,9 +19,7 @@ import AdminDisplayLectures from "./pages/AdminPages/AdminDisplayLectures";
 import AdminDisplaySemesters from "./pages/AdminPages/AdminDisplaySemesters";
 import AdminDisplayStudents from "./pages/AdminPages/AdminDisplayStudents";
 import AdminDisplayTeachers from "./pages/AdminPages/AdminDisplayTeachers";
-import AuthenticationService from "./services/AuthenticationService";
 function App() {
-  let authenticationService = new AuthenticationService();
   const [userHasLogin, setUserHasLogin] = useState(false);
 
   useEffect(() => {
@@ -33,48 +30,29 @@ function App() {
 
   return (
     <div>
-      {userHasLogin ? <Header userHasLogin={userHasLogin} /> : null}
+      {userHasLogin && <Header userHasLogin={userHasLogin} />}
       <Routes>
-        <Route element={<HomePage />} path="/home" />
-        <Route element={<LecturesPage />} path="/lectures" />
         <Route element={<LoginPage />} path="/" />
-        <Route element={<SignUpPage />} path="/signup" />
-        <Route element={<ProfilePage />} path="/profile" />
-        <Route element={<LectureDetails />} path="/lectureDetails" />
-        <Route
-          element={<LecDetAnnouncements />}
-          path="/lectureDetails/announcements"
-        />
-        <Route
-          element={<LecDetAttendance />}
-          path="/lectureDetails/attendance"
-        />
-        <Route element={<LecDetCalendar />} path="/lectureDetails/calendar" />
-        <Route element={<LecDetPeople />} path="/lectureDetails/people" />
-        <Route element={<AddTeacher />} path="/admin/addTeacher" />
-        <Route element={<AddStudent />} path="/admin/addStudent" />
-        <Route element={<ProfilePage />} path="/profile" />
-        <Route element={<AddLecture />} path="/admin/addLecture" />
-        <Route element={<AddSemester />} path="/admin/addSemester" />
-        <Route
-          element={<AdminDisplayLectures />}
-          path="/admin/displayLectures"
-        />
-        <Route
-          element={<AdminDisplaySemesters />}
-          path="/admin/displaySemesters"
-        />
-        <Route
-          element={<AdminDisplayStudents />}
-          path="/admin/displayStudents"
-        />
-        <Route
-          element={<AdminDisplayTeachers />}
-          path="/admin/displayTeachers"
-        />
-        <Route path="*" element={<NotFoundPage />} />
+        {userHasLogin && <Route element={<HomePage />} path="/home" />}
+        {userHasLogin && <Route element={<LecturesPage />} path="/lectures" />}
+        {userHasLogin && <Route element={<ProfilePage />} path="/profile" />}
+        {userHasLogin && <Route element={<LectureDetails />} path="/lectureDetails" />}
+        {userHasLogin && <Route element={<LecDetAnnouncements />} path="/lectureDetails/announcements" />}
+        {userHasLogin && <Route element={<LecDetAttendance />} path="/lectureDetails/attendance" />}
+        {userHasLogin && <Route element={<LecDetCalendar />} path="/lectureDetails/calendar" />}
+        {userHasLogin && <Route element={<LecDetPeople />} path="/lectureDetails/people" />}
+        {userHasLogin && <Route element={<AddTeacher />} path="/admin/addTeacher" />}
+        {userHasLogin && <Route element={<AddStudent />} path="/admin/addStudent" />}
+        {userHasLogin && <Route element={<ProfilePage />} path="/profile" />}
+        {userHasLogin && <Route element={<AddLecture />} path="/admin/addLecture" />}
+        {userHasLogin && <Route element={<AddSemester />} path="/admin/addSemester" />}
+        {userHasLogin && <Route element={<AdminDisplayLectures />} path="/admin/displayLectures" />}
+        {userHasLogin && <Route element={<AdminDisplaySemesters />} path="/admin/displaySemesters" />}
+        {userHasLogin && <Route element={<AdminDisplayStudents />} path="/admin/displayStudents" />}
+        {userHasLogin && <Route element={<AdminDisplayTeachers />} path="/admin/displayTeachers" />}
+        <Route element={<NotFoundPage />} path="*" />
       </Routes>
-    </div>
+    </div >
   );
 }
 
