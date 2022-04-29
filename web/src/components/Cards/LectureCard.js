@@ -27,7 +27,7 @@ const LectureCard = ({lectureName, lectureInfo}) => {
                         {lectureInfo}
                     </Card.Text>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5", color:"#222831", fontWeight:"bold", width: '30%', }} onClick={() => navigate("/lectureDetails")} >Details</Button>
+                        <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5", color:"#222831", fontWeight:"bold", width: '35%', }} onClick={() => navigate("/lectureDetails")} >Details</Button>
                         <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5", color:"#222831", fontWeight:"bold", width: '60%', }} onClick={handleShow} >
                             Generate Qr Code
                         </Button>
