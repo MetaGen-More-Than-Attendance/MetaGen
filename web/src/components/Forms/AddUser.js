@@ -22,7 +22,7 @@ const AddUser = () => {
 
   const changeHandler = async (event) => {
     event.persist();
-    
+
     await new Promise((resolve) => {
       setSelectedFile(event.target.files[0]);
       setImage(URL.createObjectURL(event.target.files[0]));
@@ -278,20 +278,22 @@ const AddUser = () => {
                 />
               </Form.Group>
 
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}
-              >
-                Check
-              </Button>
+              <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', width: '60%'}}>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}
+                >
+                  Check
+                </Button>
 
-              <Button
-                type="submit"
-                style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}
-              >
-                Submit
-              </Button>
+                <Button
+                  type="submit"
+                  style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}
+                >
+                  Submit
+                </Button>
+              </div>
             </Form>
           </div>
         )}
