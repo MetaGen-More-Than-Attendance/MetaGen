@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+
 import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import LecDetAnnouncements from "./pages/LecturePages/LecDetAnnouncements";
@@ -19,6 +20,8 @@ import AdminDisplayLectures from "./pages/AdminPages/AdminDisplayLectures";
 import AdminDisplaySemesters from "./pages/AdminPages/AdminDisplaySemesters";
 import AdminDisplayStudents from "./pages/AdminPages/AdminDisplayStudents";
 import AdminDisplayTeachers from "./pages/AdminPages/AdminDisplayTeachers";
+import ProtectedRoutes from "./ProtectedRoutes";
+
 function App() {
   const [userHasLogin, setUserHasLogin] = useState(false);
 
@@ -33,23 +36,74 @@ function App() {
       {userHasLogin && <Header userHasLogin={userHasLogin} />}
       <Routes>
         <Route element={<LoginPage />} path="/" />
-        {userHasLogin && <Route element={<HomePage />} path="/home" />}
-        {userHasLogin && <Route element={<LecturesPage />} path="/lectures" />}
-        {userHasLogin && <Route element={<ProfilePage />} path="/profile" />}
-        {userHasLogin && <Route element={<LectureDetails />} path="/lectureDetails" />}
-        {userHasLogin && <Route element={<LecDetAnnouncements />} path="/lectureDetails/announcements" />}
-        {userHasLogin && <Route element={<LecDetAttendance />} path="/lectureDetails/attendance" />}
-        {userHasLogin && <Route element={<LecDetCalendar />} path="/lectureDetails/calendar" />}
-        {userHasLogin && <Route element={<LecDetPeople />} path="/lectureDetails/people" />}
-        {userHasLogin && <Route element={<AddTeacher />} path="/admin/addTeacher" />}
-        {userHasLogin && <Route element={<AddStudent />} path="/admin/addStudent" />}
-        {userHasLogin && <Route element={<ProfilePage />} path="/profile" />}
-        {userHasLogin && <Route element={<AddLecture />} path="/admin/addLecture" />}
-        {userHasLogin && <Route element={<AddSemester />} path="/admin/addSemester" />}
-        {userHasLogin && <Route element={<AdminDisplayLectures />} path="/admin/displayLectures" />}
-        {userHasLogin && <Route element={<AdminDisplaySemesters />} path="/admin/displaySemesters" />}
-        {userHasLogin && <Route element={<AdminDisplayStudents />} path="/admin/displayStudents" />}
-        {userHasLogin && <Route element={<AdminDisplayTeachers />} path="/admin/displayTeachers" />}
+        <Route element={
+          <ProtectedRoutes>
+            <HomePage />
+          </ProtectedRoutes>
+        } path="/home" />
+        <Route element={
+          <ProtectedRoutes>
+            <LecturesPage />
+          </ProtectedRoutes>
+        } path="/lectures" />
+        <Route element={
+          <ProtectedRoutes>
+            <ProfilePage />
+          </ProtectedRoutes>
+        } path="/profile" />
+        <Route element={
+          <ProtectedRoutes>
+            <LectureDetails />
+          </ProtectedRoutes>
+        } path="/lectureDetails" />
+        <Route element={
+          <ProtectedRoutes>
+            <LecDetAnnouncements />
+          </ProtectedRoutes>} path="/lectureDetails/announcements" />
+        <Route element={
+          <ProtectedRoutes>
+            <LecDetAttendance />
+          </ProtectedRoutes>} path="/lectureDetails/attendance" />
+        <Route element={
+          <ProtectedRoutes>
+            <LecDetCalendar />
+          </ProtectedRoutes>} path="/lectureDetails/calendar" />
+        <Route element={
+          <ProtectedRoutes>
+            <LecDetPeople />
+          </ProtectedRoutes>} path="/lectureDetails/people" />
+        <Route element={
+          <ProtectedRoutes>
+            <AddTeacher />
+          </ProtectedRoutes>} path="/admin/addTeacher" />
+        <Route element={
+          <ProtectedRoutes>
+            <AddStudent />
+          </ProtectedRoutes>} path="/admin/addStudent" />
+        <Route element={
+          <ProtectedRoutes>
+            <AddLecture />
+          </ProtectedRoutes>} path="/admin/addLecture" />
+        <Route element={
+          <ProtectedRoutes>
+            <AddSemester />
+          </ProtectedRoutes>} path="/admin/addSemester" />
+        <Route element={
+          <ProtectedRoutes>
+            <AdminDisplayLectures />
+          </ProtectedRoutes>} path="/admin/displayLectures" />
+        <Route element={
+          <ProtectedRoutes>
+            <AdminDisplaySemesters />
+          </ProtectedRoutes>} path="/admin/displaySemesters" />
+        <Route element={
+          <ProtectedRoutes>
+            <AdminDisplayStudents />
+          </ProtectedRoutes>} path="/admin/displayStudents" />
+        <Route element={
+          <ProtectedRoutes>
+            <AdminDisplayTeachers />
+          </ProtectedRoutes>} path="/admin/displayTeachers" />
         <Route element={<NotFoundPage />} path="*" />
       </Routes>
     </div >

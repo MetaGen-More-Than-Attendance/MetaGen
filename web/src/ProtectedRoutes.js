@@ -1,22 +1,25 @@
 
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+
 import Swal from 'sweetalert2';
 
-const ProtectedRoutes = ({ isLoggedIn, children }) => {
-    if (!isLoggedIn) {
-        return (
-            <Navigate to="/" replace >
+const ProtectedRoutes = ({ children }) => {
+    const token = localStorage.getItem("token")
+    
+    return (
+        token === null
+            ?
+            <Navigate to="/" replace>
                 {Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Something went wrong!',
-                    footer: '<a href="">Why do I have this issue?</a>'
+                    text: 'You need to login!',
                 })}
             </Navigate>
-        );
-    }
-    return children ? children : <Outlet />;
+            :
+            children ? children : <Outlet />
+    )
 }
 
 export default ProtectedRoutes;
