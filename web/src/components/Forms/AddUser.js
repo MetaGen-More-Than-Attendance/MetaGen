@@ -93,12 +93,8 @@ const AddUser = () => {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(selectedFile);
           setDatas(values);
-          console.log(values);
-          console.log(imageBase64);
           let newData = { ...values, imageBase64 };
-          console.log(newData);
           axios
             .post(
               "https://meta-gen.herokuapp.com/api/student/register",
@@ -278,15 +274,14 @@ const AddUser = () => {
                 />
               </Form.Group>
 
-              <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', width: '60%'}}>
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}
-                >
-                  Check
-                </Button>
-
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row-reverse",
+                  width: "60%",
+                  marginTop: 20,
+                }}
+              >
                 <Button
                   type="submit"
                   style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}
