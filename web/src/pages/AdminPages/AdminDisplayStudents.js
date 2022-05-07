@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+
 import { Table, Button, Modal, Form, Image } from 'react-bootstrap'
 import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
 import avatar from '../../images/logo512.png'
+import { fetchStudents } from '../../redux/features/student/studentSlice'
 
 const AdminDisplayStudents = () => {
 
@@ -12,6 +15,16 @@ const AdminDisplayStudents = () => {
 
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
+
+  const allStudents = useSelector((state) => state.students.entities);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchStudents());
+  }, [dispatch]);
+
+  console.log(allStudents);
 
   const changeHandler = (event) => {
     setSelectedFile(URL.createObjectURL(event.target.files[0]));
