@@ -50,27 +50,21 @@ const AdminDisplayStudents = () => {
               <th></th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td><Image src={avatar} rounded={true} style={{ backgroundColor: 'black', width: '2rem' }} /></td>
-              <td>Teoman</td>
-              <td>Bayoglu</td>
-              <td>11111111111</td>
-              <td>Computer</td>
-              <td>bayogluteoman@gmail.com</td>
-              <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow} >Edit</Button></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td><Image src={avatar} rounded={true} style={{ backgroundColor: 'black', width: '2rem' }} /></td>
-              <td>Teoman</td>
-              <td>Bayoglu</td>
-              <td>11111111111</td>
-              <td>Computer</td>
-              <td>bayogluteoman@gmail.com</td>
-              <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}>Edit</Button></td>
-            </tr>
+          <tbody>          
+            {allStudents.map((student) => {
+              return (
+                <tr>
+                  <td>{student.studentId}</td>
+                  <td><Image src={student.photoPath} alt="?" rounded={true} style={{ width: '2rem' }} /></td>
+                  <td>{student.userName}</td>
+                  <td>{student.userSurname}</td>
+                  <td>{student.identityNumber}</td>
+                  <td>Computer</td>
+                  <td>{student.userMail}</td>
+                  <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow} >Edit</Button></td>
+                </tr>
+              )
+            })}
           </tbody>
         </Table>
 
