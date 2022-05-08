@@ -5,7 +5,7 @@ import axios from "axios";
 import Swal from 'sweetalert2';
 
 
-const AddUser = () => {
+const AddTeacherForm = () => {
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [image, setImage] = useState("");
@@ -50,7 +50,7 @@ const AddUser = () => {
     let newData = { ...datas, imageBase64 };
     console.log(newData);
     axios
-      .post("https://meta-gen.herokuapp.com/api/student/register", newData)
+      .post("https://meta-gen.herokuapp.com/api/instructor/register", newData)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
@@ -317,4 +317,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default AddTeacherForm;

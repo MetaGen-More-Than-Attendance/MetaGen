@@ -1,6 +1,6 @@
 import React from 'react'
+import AddStudentForm from '../../components/Forms/AddStudentForm'
 
-import AddUser from '../../components/Forms/AddUser'
 import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
 
 const AddStudent = () => {
@@ -11,7 +11,7 @@ const AddStudent = () => {
                 <h1 style={{ color: '#9C9FA3' }}>Save Student</h1>
                 <hr style={{ color: '#222831', width: '97%' }} />
 
-                <AddUser />
+                <AddStudentForm />
 
             </div>
         </div>
