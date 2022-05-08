@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import { Table, Button, Modal, Form, Image } from 'react-bootstrap'
 import { Formik } from "formik";
 
 import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
-import avatar from '../../images/logo512.png'
+import { fetchTeachers } from '../../redux/features/teacher/teacherSlice';
 
 const AdminDisplayTeachers = () => {
   const [show, setShow] = useState(false);
@@ -13,6 +14,14 @@ const AdminDisplayTeachers = () => {
 
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
+
+  const allTeachers = useSelector((state) => state.teachers.entities);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchTeachers());
+  }, [dispatch]);
 
   const changeHandler = (event) => {
     setSelectedFile(URL.createObjectURL(event.target.files[0]));
@@ -47,26 +56,20 @@ const AdminDisplayTeachers = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td><Image src={avatar} rounded={true} style={{ backgroundColor: 'black', width: '2rem' }} /></td>
-              <td>Teoman</td>
-              <td>Bayoglu</td>
-              <td>11111111111</td>
-              <td>Computer</td>
-              <td>bayogluteoman@gmail.com</td>
-              <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow}>Edit</Button></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td><Image src={avatar} rounded={true} style={{ backgroundColor: 'black', width: '2rem' }} /></td>
-              <td>Teoman</td>
-              <td>Bayoglu</td>
-              <td>11111111111</td>
-              <td>Computer</td>
-              <td>bayogluteoman@gmail.com</td>
-              <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}>Edit</Button></td>
-            </tr>
+            {allTeachers.map((teacher) => {
+              return (
+                <tr>
+                  <td>{teacher.teacherId}</td>
+                  <td><Image src={teacher.photoPath} alt="?" rounded={true} style={{ width: '2rem' }} /></td>
+                  <td>{teacher.name}</td>
+                  <td>{teacher.surname}</td>
+                  <td>{teacher.identityNumber}</td>
+                  <td>Computer</td>
+                  <td>{teacher.userMail}</td>
+                  <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow} >Edit</Button></td>
+                </tr>
+              )
+            })}
           </tbody>
         </Table>
 

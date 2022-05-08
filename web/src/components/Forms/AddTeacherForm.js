@@ -100,7 +100,7 @@ const AddTeacherForm = () => {
           let newData = { ...values, imageBase64 };
           axios
             .post(
-              "https://meta-gen.herokuapp.com/api/student/register",
+              "https://meta-gen.herokuapp.com/api/instructor/register",
               newData
             )
             .then(() =>
