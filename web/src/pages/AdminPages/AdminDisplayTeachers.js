@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Table, Button, Modal, Form, Image } from 'react-bootstrap'
+import { Formik } from "formik";
+
 import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
 import avatar from '../../images/logo512.png'
-import { Formik } from "formik";
 
 const AdminDisplayTeachers = () => {
   const [show, setShow] = useState(false);

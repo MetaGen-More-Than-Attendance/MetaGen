@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button, Form } from 'react-bootstrap'
-import AdminSideMenu from '../../components/SideMenus/AdminSideMenu';
 import { Formik } from "formik";
+
+import AdminSideMenu from '../../components/SideMenus/AdminSideMenu';
 
 const AddSemester = () => {
 

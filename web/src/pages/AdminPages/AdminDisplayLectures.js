@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { Table, Button, Modal, Form } from 'react-bootstrap'
+
 import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
 
 const AdminDisplayLectures = () => {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   return (
     <div style={{ height: "80vh", display: "flex" }}>
       <AdminSideMenu />

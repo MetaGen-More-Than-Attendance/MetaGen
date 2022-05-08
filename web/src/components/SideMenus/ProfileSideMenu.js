@@ -2,7 +2,6 @@ import React from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 
-
 const ProfileSideMenu = () => {
     const navigate = useNavigate();
     return (
