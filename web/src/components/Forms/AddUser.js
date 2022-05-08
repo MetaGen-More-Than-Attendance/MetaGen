@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, Image } from "react-bootstrap";
 import { Formik } from "formik";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 
 const AddUser = () => {
@@ -94,7 +95,7 @@ const AddUser = () => {
 
           return errors;
         }}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values, { resetForm }) => {
           setDatas(values);
           let newData = { ...values, imageBase64 };
           axios
@@ -102,13 +103,29 @@ const AddUser = () => {
               "https://meta-gen.herokuapp.com/api/student/register",
               newData
             )
-            .then((res) => console.log(res))
+            .then(() =>
+              resetForm({
+                values: {
+                  userName: '',
+                  userSurname: '',
+                  identityNumber: '',
+                  departmentId: 0,
+                  userMail: '',
+                  userPassword: '',
+                },
+                isSubmitting: true
+              }),
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+              }),
+              setIsFilePicked(false)
+            )
             .catch((err) => console.log(err));
           postHandling();
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
         }}
       >
         {({
@@ -286,7 +303,8 @@ const AddUser = () => {
               >
                 <Button
                   type="submit"
-                  style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}
+                  disabled={isSubmitting}
+                  style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5", marginBottom: 15 }}
                 >
                   Submit
                 </Button>
