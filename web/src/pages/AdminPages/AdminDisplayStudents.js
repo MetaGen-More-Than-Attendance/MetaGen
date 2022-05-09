@@ -1,33 +1,37 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Table, Button, Modal, Form, Image } from 'react-bootstrap'
-import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
+import { useNavigate } from 'react-router'
+import Swal from 'sweetalert2';
 
-import { fetchStudents } from '../../redux/features/student/studentSlice'
+import { fetchStudents, deleteStudent } from '../../redux/features/student/studentSlice'
+import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
 
 const AdminDisplayStudents = () => {
 
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
 
-  const allStudents = useSelector((state) => state.students.entities);
-
+  const navigate = useNavigate()
   const dispatch = useDispatch();
+
+  const allStudents = useSelector((state) => state.students.entities);
 
   useEffect(() => {
     dispatch(fetchStudents());
   }, [dispatch]);
 
-
   const changeHandler = (event) => {
     setSelectedFile(URL.createObjectURL(event.target.files[0]));
     setIsFilePicked(true);
   };
+
+  const handleDelete = (id) => {
+    dispatch(deleteStudent(id))
+  }
 
   return (
     <div style={{ height: "80vh", display: "flex" }}>
@@ -48,7 +52,7 @@ const AdminDisplayStudents = () => {
               <th></th>
             </tr>
           </thead>
-          <tbody>          
+          <tbody>
             {allStudents.map((student) => {
               return (
                 <tr>
@@ -59,7 +63,28 @@ const AdminDisplayStudents = () => {
                   <td>{student.identityNumber}</td>
                   <td>Computer</td>
                   <td>{student.userMail}</td>
-                  <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow} >Edit</Button></td>
+                  <td style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
+                    <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5", width: '40%' }} onClick={handleShow} >Edit</Button>
+                    <Button style={{ backgroundColor: "red", borderColor: "red", width: '40%' }} onClick={() => {
+                      Swal.fire({
+                        title: 'Do you want to delete the student?',
+                        showDenyButton: true,
+                        showCancelButton: false,
+                        confirmButtonText: 'Delete',
+                        denyButtonText: `Don't delete`,
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          handleDelete(student.studentId)
+                          setTimeout(() => {
+                            navigate(0)
+                          }, 1500)
+                          Swal.fire('Deleted!', '', 'success')
+                        } else if (result.isDenied) {
+                          Swal.fire('Canceled', '', 'info')
+                        }
+                      })
+                    }} >Delete</Button>
+                  </td>
                 </tr>
               )
             })}

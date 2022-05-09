@@ -6,6 +6,14 @@ export const fetchStudents = createAsyncThunk('students/fetchStudents', () => {
     .then((data) => data);
 });
 
+export const deleteStudent = createAsyncThunk('students/deleteStudents', (id) => {
+  return fetch(`https://meta-gen.herokuapp.com/api/student/delete?studentId=${id}`, {
+    method: 'DELETE'
+  })
+    .then((response) => response.json())
+    .then((data) => data);
+});
+
 const studentSlice = createSlice({
   name: 'students',
   initialState: {
