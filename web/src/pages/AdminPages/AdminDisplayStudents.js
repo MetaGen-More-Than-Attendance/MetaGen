@@ -55,7 +55,7 @@ const AdminDisplayStudents = () => {
           <tbody>
             {allStudents.map((student) => {
               return (
-                <tr>
+                <tr key={student.studentId}>
                   <td>{student.studentId}</td>
                   <td><Image src={student.photoPath} alt="?" rounded={true} style={{ width: '2rem' }} /></td>
                   <td>{student.userName}</td>
