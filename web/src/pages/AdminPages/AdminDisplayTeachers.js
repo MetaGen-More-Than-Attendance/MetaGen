@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Table, Button, Modal, Form, Image } from 'react-bootstrap'
 import { Formik } from "formik";
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router'
 
 import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
-import { fetchTeachers } from '../../redux/features/teacher/teacherSlice';
+import { fetchTeachers, deleteTeacher } from '../../redux/features/teacher/teacherSlice';
 
 const AdminDisplayTeachers = () => {
   const [show, setShow] = useState(false);
@@ -16,6 +18,7 @@ const AdminDisplayTeachers = () => {
   const [isFilePicked, setIsFilePicked] = useState(false);
 
   const allTeachers = useSelector((state) => state.teachers.entities);
+  const navigate = useNavigate()
 
   const dispatch = useDispatch();
 
@@ -27,6 +30,10 @@ const AdminDisplayTeachers = () => {
     setSelectedFile(URL.createObjectURL(event.target.files[0]));
     setIsFilePicked(true);
   };
+
+  const handleDelete = (id) => {
+    dispatch(deleteTeacher(id))
+  }
 
   const initialValues = {
     name: "",
@@ -58,15 +65,37 @@ const AdminDisplayTeachers = () => {
           <tbody>
             {allTeachers.map((teacher) => {
               return (
-                <tr>
-                  <td>{teacher.teacherId}</td>
+                <tr key={teacher.instructorId}>
+                  <td>{teacher.instructorId}</td>
                   <td><Image src={teacher.photoPath} alt="?" rounded={true} style={{ width: '2rem' }} /></td>
                   <td>{teacher.name}</td>
                   <td>{teacher.surname}</td>
                   <td>{teacher.identityNumber}</td>
                   <td>Computer</td>
                   <td>{teacher.userMail}</td>
-                  <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow} >Edit</Button></td>
+                  <td style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
+                    <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow} >Edit</Button>
+                    <Button style={{ backgroundColor: "red", borderColor: "red", width: '40%' }} onClick={() => {
+                      Swal.fire({
+                        title: 'Do you want to delete the student?',
+                        showDenyButton: true,
+                        showCancelButton: false,
+                        confirmButtonText: 'Delete',
+                        denyButtonText: `Don't delete`,
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          handleDelete(teacher.instructorId)
+                          setTimeout(() => {
+                            navigate(0)
+                          }, 1500)
+                          Swal.fire('Deleted!', '', 'success')
+                        } else if (result.isDenied) {
+                          Swal.fire('Canceled', '', 'info')
+                        }
+                      })
+                    }} >Delete</Button>
+                    </td>
+                    
                 </tr>
               )
             })}
