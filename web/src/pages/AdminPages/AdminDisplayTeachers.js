@@ -81,7 +81,7 @@ const AdminDisplayTeachers = () => {
                         showDenyButton: true,
                         showCancelButton: false,
                         confirmButtonText: 'Delete',
-                        denyButtonText: `Don't delete`,
+                        denyButtonText: `Cancel`,
                       }).then((result) => {
                         if (result.isConfirmed) {
                           handleDelete(teacher.instructorId)

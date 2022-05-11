@@ -71,7 +71,7 @@ const AdminDisplayStudents = () => {
                         showDenyButton: true,
                         showCancelButton: false,
                         confirmButtonText: 'Delete',
-                        denyButtonText: `Don't delete`,
+                        denyButtonText: `Cancel`,
                       }).then((result) => {
                         if (result.isConfirmed) {
                           handleDelete(student.studentId)
