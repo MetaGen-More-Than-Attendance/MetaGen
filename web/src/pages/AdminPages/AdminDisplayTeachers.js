@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { Table, Button, Modal, Form, Image } from 'react-bootstrap'
-import { Formik } from "formik";
+import { Table, Button, Image } from 'react-bootstrap'
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router'
 
 import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
 import { fetchTeachers, deleteTeacher } from '../../redux/features/teacher/teacherSlice';
+import HelperModal from '../../components/Modals/HelperModal';
 
 const AdminDisplayTeachers = () => {
   const [show, setShow] = useState(false);
+  const [data, setData] = useState({
+    name: "",
+    surname: "",
+    identityNumber: "",
+    department: "",
+    userMail: "",
+  });
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const [selectedFile, setSelectedFile] = useState();
-  const [isFilePicked, setIsFilePicked] = useState(false);
 
   const allTeachers = useSelector((state) => state.teachers.entities);
   const navigate = useNavigate()
@@ -26,21 +29,15 @@ const AdminDisplayTeachers = () => {
     dispatch(fetchTeachers());
   }, [dispatch]);
 
-  const changeHandler = (event) => {
-    setSelectedFile(URL.createObjectURL(event.target.files[0]));
-    setIsFilePicked(true);
-  };
-
   const handleDelete = (id) => {
+    console.log(id)
     dispatch(deleteTeacher(id))
   }
 
-  const initialValues = {
-    name: "",
-    surname: "",
-    identityNumber: "",
-    department: "",
-    email: "",
+  const handleShow = (id) => {
+    const [teacherData] = allTeachers.filter((teacher) => teacher.instructorId === id)
+    setData(teacherData);
+    setShow(true)
   };
 
   return (
@@ -73,8 +70,8 @@ const AdminDisplayTeachers = () => {
                   <td>{teacher.identityNumber}</td>
                   <td>Computer</td>
                   <td>{teacher.userMail}</td>
-                  <td style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
-                    <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow} >Edit</Button>
+                  <td style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                    <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={() => handleShow(teacher.instructorId)}>Edit</Button>
                     <Button style={{ backgroundColor: "red", borderColor: "red", width: '40%' }} onClick={() => {
                       Swal.fire({
                         title: 'Do you want to delete the student?',
@@ -94,183 +91,16 @@ const AdminDisplayTeachers = () => {
                         }
                       })
                     }} >Delete</Button>
-                    </td>
-                    
+                  </td>
+
                 </tr>
               )
             })}
           </tbody>
         </Table>
 
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Teacher</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Formik
-              initialValues={initialValues}
-              validate={(values) => {
-                const errors = {};
-                if (!values.email) {
-                  errors.email = "*";
-                } else if (
-                  !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                ) {
-                  errors.email = "*Invalid email address!";
-                }
-                if (!values.name) {
-                  errors.name = "*";
-                }
-                if (!values.surname) {
-                  errors.surname = "*";
-                }
-                if (!values.identityNumber) {
-                  errors.identityNumber = "*";
-                }
-                if (!values.department) {
-                  errors.department = "*";
-                }
+        <HelperModal show={show} handleClose={handleClose} data={data} />
 
-                return errors;
-              }}
-              onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2));
-                  setSubmitting(false);
-                }, 400);
-              }}
-            >
-              {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting,
-              }) => (
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group className='mb-3'>
-                    <Form.Label>Image</Form.Label>
-                    <Form.Control type="file" onChange={changeHandler} />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <div style={{ display: "flex" }}>
-                      {errors.name && touched.name && (
-                        <div style={{ color: "red", marginRight: 5 }}>
-                          {errors.name}
-                        </div>
-                      )}
-                      <Form.Label>Name</Form.Label>
-                    </div>
-
-                    <Form.Control
-                      type="input"
-                      name="name"
-                      value={values.name}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="Calculus 1"
-                      autoFocus
-                    />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <div style={{ display: "flex" }}>
-                      {errors.surname && touched.surname && (
-                        <div style={{ color: "red", marginRight: 5 }}>
-                          {errors.surname}
-                        </div>
-                      )}
-                      <Form.Label>Surname</Form.Label>
-                    </div>
-
-                    <Form.Control
-                      type="input"
-                      name="surname"
-                      value={values.surname}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="Teoman Bayoğlu"
-                      autoFocus
-                    />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <div style={{ display: "flex" }}>
-                      {errors.identityNumber && touched.identityNumber && (
-                        <div style={{ color: "red", marginRight: 5 }}>
-                          {errors.identityNumber}
-                        </div>
-                      )}
-                      <Form.Label>Identity Number</Form.Label>
-                    </div>
-
-                    <Form.Control
-                      type="input"
-                      name="identityNumber"
-                      value={values.identityNumber}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="21232"
-                      autofocus
-                    />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <div style={{ display: "flex" }}>
-                      {errors.department && touched.department && (
-                        <div style={{ color: "red", marginRight: 5 }}>
-                          {errors.department}
-                        </div>
-                      )}
-                      <Form.Label>Department</Form.Label>
-                    </div>
-
-                    <Form.Control
-                      type="input"
-                      name="department"
-                      value={values.department}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="BIM 344"
-                      autoFocus
-                    />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <div style={{ display: "flex" }}>
-                      {errors.email && touched.email && (
-                        <div style={{ color: "red", marginRight: 5 }}>
-                          {errors.email}
-                        </div>
-                      )}
-                      <Form.Label>Email address</Form.Label>
-                    </div>
-
-                    <Form.Control
-                      type="email"
-                      name="email"
-                      value={values.email}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="test@test.com"
-                      autofocus
-                    />
-                  </Form.Group>
-
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}
-                  >
-                    Submit
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-          </Modal.Body>
-        </Modal>
       </div>
     </div>
   )
