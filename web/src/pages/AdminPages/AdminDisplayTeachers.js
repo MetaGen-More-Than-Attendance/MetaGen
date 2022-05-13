@@ -11,11 +11,13 @@ import HelperModal from '../../components/Modals/HelperModal';
 const AdminDisplayTeachers = () => {
   const [show, setShow] = useState(false);
   const [data, setData] = useState({
-    name: "",
-    surname: "",
+    instructorId: "",
+    userName: "",
+    userSurname: "",
     identityNumber: "",
-    department: "",
+    departmentId: "",
     userMail: "",
+    imageBase64 : ""
   });
 
   const handleClose = () => setShow(false);
@@ -37,6 +39,7 @@ const AdminDisplayTeachers = () => {
   const handleShow = (id) => {
     const [teacherData] = allTeachers.filter((teacher) => teacher.instructorId === id)
     setData(teacherData);
+    console.log(data);
     setShow(true)
   };
 
