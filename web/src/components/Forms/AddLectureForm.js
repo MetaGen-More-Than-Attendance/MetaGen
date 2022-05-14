@@ -1,18 +1,23 @@
 import React from 'react'
+// import { useDispatch } from 'react-redux';
 import { Formik } from "formik";
 import { Button, Form } from 'react-bootstrap'
+// import { postLecture } from '../../redux/features/lecture/lectureSlice';
 
 const AddLectureForm = () => {
-    
+
+    // const dispatch = useDispatch();
+
     const initialValues = {
         lectureName: "",
-        teacherName: "",
-        semester: "",
-        lectureCode: "",
-        startDate: "",
-        startHour: "",
+        instructorId: "",
+        // semester: "",
+        lectureId: "",
+        lectureStartDate: "",
+        // startHour: "",
+        departmentId: "",
     };
-    
+
     return (
         <div>
             <Formik
@@ -23,20 +28,20 @@ const AddLectureForm = () => {
                     if (!values.lectureName) {
                         errors.lectureName = "*";
                     }
-                    if (!values.teacherName) {
-                        errors.teacherName = "*";
+                    if (!values.instructorId) {
+                        errors.instructorId = "*";
                     }
-                    if (!values.semester) {
-                        errors.semester = "*";
+                    // if (!values.semester) {
+                    //     errors.semester = "*";
+                    // }
+                    if (!values.lectureId) {
+                        errors.lectureId = "*";
                     }
-                    if (!values.lectureCode) {
-                        errors.lectureCode = "*";
+                    if (!values.lectureStartDate) {
+                        errors.lectureStartDate = "*";
                     }
-                    if (!values.startDate) {
-                        errors.startDate = "*";
-                    }
-                    if (!values.startHour) {
-                        errors.startHour = "*";
+                    if (!values.departmentId) {
+                        errors.departmentId = "*";
                     }
 
                     return errors;
@@ -46,6 +51,9 @@ const AddLectureForm = () => {
                         alert(JSON.stringify(values, null, 2));
                         setSubmitting(false);
                     }, 400);
+                    // const obj = { content: values };
+                    // console.log(obj)
+                    // dispatch(postLecture(obj))
                 }}
             >
                 {({
@@ -79,17 +87,17 @@ const AddLectureForm = () => {
                         <div style={{ display: 'flex', width: '60%', flexDirection: 'row', justifyContent: 'space-between' }}>
                             <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '60%' }}>
                                 <div style={{ display: "flex" }}>
-                                    {errors.teacherName && touched.teacherName && (
+                                    {errors.instructorId && touched.instructorId && (
                                         <div style={{ color: "red", marginRight: 5 }}>
-                                            {errors.teacherName}
+                                            {errors.instructorId}
                                         </div>
                                     )}
-                                    <Form.Label>Teacher Name</Form.Label>
+                                    <Form.Label>Instructor Name</Form.Label>
                                 </div>
                                 <Form.Control
                                     type="input"
-                                    name="teacherName"
-                                    value={values.teacherName}
+                                    name="instructorId"
+                                    value={values.instructorId}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     placeholder="Search teacher name"
@@ -97,7 +105,7 @@ const AddLectureForm = () => {
                                 />
                             </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '60%' }}>
+                            {/* <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '60%' }}>
                                 <div style={{ display: "flex" }}>
                                     {errors.semester && touched.semester && (
                                         <div style={{ color: "red", marginRight: 5 }}>
@@ -117,47 +125,65 @@ const AddLectureForm = () => {
                                     <option value="Fall" style={{ color: 'black' }}>Fall</option>
                                     <option value="Spring" style={{ color: 'black' }}>Spring</option>
                                 </Form.Select>
-                            </Form.Group>
+                            </Form.Group> */}
                         </div>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '60%' }}>
                             <div style={{ display: "flex" }}>
-                                {errors.lectureCode && touched.lectureCode && (
+                                {errors.lectureId && touched.lectureId && (
                                     <div style={{ color: "red", marginRight: 5 }}>
-                                        {errors.lectureCode}
+                                        {errors.lectureId}
                                     </div>
                                 )}
                                 <Form.Label>Lecture Code</Form.Label>
                             </div>
                             <Form.Control
                                 type="input"
-                                name="lectureCode"
-                                value={values.lectureCode}
+                                name="lectureId"
+                                value={values.lectureId}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 placeholder="Enter lecture code" />
                         </Form.Group>
 
+                        <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '60%' }}>
+                            <div style={{ display: "flex" }}>
+                                {errors.departmentId && touched.departmentId && (
+                                    <div style={{ color: "red", marginRight: 5 }}>
+                                        {errors.departmentId}
+                                    </div>
+                                )}
+                                <Form.Label>Department</Form.Label>
+                            </div>
+                            <Form.Control
+                                type="input"
+                                name="departmentId"
+                                value={values.departmentId}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                placeholder="Enter department id" />
+                        </Form.Group>
+
                         <div style={{ display: 'flex', width: '60%', flexDirection: 'row', justifyContent: 'space-between' }}>
                             <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '40%' }}>
                                 <div style={{ display: "flex" }}>
-                                    {errors.startDate && touched.startDate && (
+                                    {errors.lectureStartDate && touched.lectureStartDate && (
                                         <div style={{ color: "red", marginRight: 5 }}>
-                                            {errors.startDate}
+                                            {errors.lectureStartDate}
                                         </div>
                                     )}
                                     <Form.Label>Start Date</Form.Label>
                                 </div>
                                 <Form.Control
                                     type="date"
-                                    name="startDate"
-                                    value={values.startDate}
+                                    name="lectureStartDate"
+                                    value={values.lectureStartDate}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
                             </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '40%' }}>
+                            {/* <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '40%' }}>
                                 <div style={{ display: "flex" }}>
                                     {errors.startHour && touched.startHour && (
                                         <div style={{ color: "red", marginRight: 5 }}>
@@ -173,7 +199,7 @@ const AddLectureForm = () => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
-                            </Form.Group>
+                            </Form.Group> */}
                         </div>
 
                         <Button
