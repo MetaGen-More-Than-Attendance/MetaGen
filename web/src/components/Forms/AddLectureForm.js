@@ -1,12 +1,13 @@
-import React from 'react'
-// import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from "formik";
 import { Button, Form } from 'react-bootstrap'
-// import { postLecture } from '../../redux/features/lecture/lectureSlice';
+import { postLecture } from '../../redux/features/lecture/lectureSlice';
+import { fetchTeachers } from '../../redux/features/teacher/teacherSlice';
 
 const AddLectureForm = () => {
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const initialValues = {
         lectureName: "",
@@ -17,6 +18,13 @@ const AddLectureForm = () => {
         // startHour: "",
         departmentId: "",
     };
+
+    const allTeachers = useSelector((state) => state.teachers.entities);
+    console.log("🚀 ~ file: AddLectureForm.js ~ line 22 ~ AddLectureForm ~ allTeachers", allTeachers)
+
+    useEffect(() => {
+        dispatch(fetchTeachers());
+    }, [dispatch]);
 
     return (
         <div>
@@ -51,9 +59,9 @@ const AddLectureForm = () => {
                         alert(JSON.stringify(values, null, 2));
                         setSubmitting(false);
                     }, 400);
-                    // const obj = { content: values };
-                    // console.log(obj)
-                    // dispatch(postLecture(obj))
+                    const obj = { content: values };
+                    console.log(obj)
+                    dispatch(postLecture(obj))
                 }}
             >
                 {({
@@ -94,15 +102,18 @@ const AddLectureForm = () => {
                                     )}
                                     <Form.Label>Instructor Name</Form.Label>
                                 </div>
-                                <Form.Control
-                                    type="input"
+
+                                <Form.Select
                                     name="instructorId"
                                     value={values.instructorId}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    placeholder="Search teacher name"
-                                    style={{ width: '60%' }}
-                                />
+                                    style={{ color: 'gray' }}
+                                >
+                                    <option disabled value="" >Choose teacher</option>
+                                    {allTeachers.map((teacher)=> <option value={teacher.instructorId} style={{ color: 'black' }}>{teacher.name}</option> )}
+                                </Form.Select>
+
                             </Form.Group>
 
                             {/* <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '60%' }}>
