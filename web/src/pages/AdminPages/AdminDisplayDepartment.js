@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap'
 import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
+import axios from 'axios'
 
 const AdminDisplayDepartment = () => {
+    const [data, setData] = useState([]);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { data: response } = await axios.get('https://meta-gen.herokuapp.com/api/department/getAll');
+                setData(response);
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
+        fetchData();
+    }, []);
+
+
     return (
         <div style={{ height: "80vh", display: "flex" }}>
             <AdminSideMenu />
@@ -17,10 +34,14 @@ const AdminDisplayDepartment = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr >
-                            <td></td>
-                            <td colSpan={2}>Computer</td>
-                        </tr>                                              
+                        {data.map((dep) => {
+                            return (
+                                <tr >
+                                    <td>{dep.departmentId}</td>
+                                    <td colSpan={2}>{dep.departmentName}</td>
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </Table>
             </div>
