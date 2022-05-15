@@ -21,6 +21,8 @@ import AdminDisplaySemesters from "./pages/AdminPages/AdminDisplaySemesters";
 import AdminDisplayStudents from "./pages/AdminPages/AdminDisplayStudents";
 import AdminDisplayTeachers from "./pages/AdminPages/AdminDisplayTeachers";
 import ProtectedRoutes from "./ProtectedRoutes";
+import AddDepartment from "./pages/AdminPages/AddDepartment";
+import AdminDisplayDepartment from "./pages/AdminPages/AdminDisplayDepartment";
 
 function App() {
   const [userHasLogin, setUserHasLogin] = useState(false);
@@ -90,6 +92,10 @@ function App() {
           </ProtectedRoutes>} path="/admin/addSemester" />
         <Route element={
           <ProtectedRoutes>
+            <AddDepartment />
+          </ProtectedRoutes>} path="/admin/addDepartment" />
+        <Route element={
+          <ProtectedRoutes>
             <AdminDisplayLectures />
           </ProtectedRoutes>} path="/admin/displayLectures" />
         <Route element={
@@ -104,6 +110,10 @@ function App() {
           <ProtectedRoutes>
             <AdminDisplayTeachers />
           </ProtectedRoutes>} path="/admin/displayTeachers" />
+        <Route element={
+          <ProtectedRoutes>
+            <AdminDisplayDepartment />
+          </ProtectedRoutes>} path="/admin/displayDepartments" />
         <Route element={<NotFoundPage />} path="*" />
       </Routes>
     </div >
