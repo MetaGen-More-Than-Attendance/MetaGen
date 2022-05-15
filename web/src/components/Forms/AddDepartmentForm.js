@@ -1,8 +1,14 @@
+import React from 'react'
+import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { Button, Form } from "react-bootstrap";
-import React from 'react'
+
+import { postDepartment } from '../../redux/features/department/departmentSlice';
 
 const AddDepartmentForm = () => {
+
+    const dispatch = useDispatch();
+
     return (
         <div>
             <Formik
@@ -11,14 +17,14 @@ const AddDepartmentForm = () => {
                     const errors = {};
                     if (!values.departmentName) {
                         errors.departmentName = "*";
-                      }
+                    }
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
                         setSubmitting(false);
                     }, 400);
+                    dispatch(postDepartment(values));
                 }}
             >
                 {({
