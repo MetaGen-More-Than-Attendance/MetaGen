@@ -1,15 +1,20 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
 import { Button, Form } from "react-bootstrap";
 import { Formik } from "formik";
+import Swal from 'sweetalert2';
+
+import { postSemester } from '../../redux/features/semester/semesterSlice';
 
 const AddSemesterForm = () => {
 
     const initialValues = {
-        semester: "",
+        semesterName: "",
         startDate: "",
-        finishDate: "",
+        endDate: "",
     };
 
+    const dispatch = useDispatch();
 
     return (
         <div>
@@ -18,23 +23,39 @@ const AddSemesterForm = () => {
                 validate={(values) => {
                     const errors = {};
 
-                    if (!values.semester) {
-                        errors.semester = "*";
+                    if (!values.semesterName) {
+                        errors.semesterName = "*";
                     }
                     if (!values.startDate) {
                         errors.startDate = "*";
                     }
-                    if (!values.finishDate) {
-                        errors.finishDate = "*";
+                    if (!values.endDate) {
+                        errors.endDate = "*";
                     }
 
                     return errors;
                 }}
-                onSubmit={(values, { setSubmitting }) => {
+                onSubmit={(values, { setSubmitting, resetForm }) => {
                     setTimeout(() => {
                         alert(JSON.stringify(values, null, 2));
                         setSubmitting(false);
                     }, 400);
+                    dispatch(postSemester(values));
+                    resetForm({
+                        values: {
+                            semesterName: '',
+                            startDate: '',
+                            endDate: '',
+                        },
+                        isSubmitting: true
+                    })
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 }}
             >
                 {({
@@ -57,8 +78,8 @@ const AddSemesterForm = () => {
                                 <Form.Label>Semester</Form.Label>
                             </div>
                             <Form.Select
-                                name="semester"
-                                value={values.semester}
+                                name="semesterName"
+                                value={values.semesterName}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 style={{ color: 'gray', width: '67%' }}
@@ -89,17 +110,17 @@ const AddSemesterForm = () => {
 
                         <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '40%' }}>
                             <div style={{ display: "flex" }}>
-                                {errors.finishDate && touched.finishDate && (
+                                {errors.endDate && touched.endDate && (
                                     <div style={{ color: "red", marginRight: 5 }}>
-                                        {errors.finishDate}
+                                        {errors.endDate}
                                     </div>
                                 )}
                                 <Form.Label>Finish Date</Form.Label>
                             </div>
                             <Form.Control
                                 type="date"
-                                name="finishDate"
-                                value={values.finishDate}
+                                name="endDate"
+                                value={values.endDate}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
