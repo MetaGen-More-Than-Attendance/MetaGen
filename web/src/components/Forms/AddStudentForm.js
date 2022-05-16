@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, Image } from "react-bootstrap";
 import { Formik } from "formik";
 import axios from "axios";
@@ -11,6 +11,7 @@ const AddStudentForm = () => {
   const [image, setImage] = useState("");
   const [imageBase64, setImageBase64] = useState("");
   const [datas, setDatas] = useState();
+  const [department, setDepartment] = useState([]);
 
   const getBase64 = (file, cb) => {
     let reader = new FileReader();
@@ -63,6 +64,19 @@ const AddStudentForm = () => {
     userMail: "",
     userPassword: "",
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: response } = await axios.get('https://meta-gen.herokuapp.com/api/department/getAll');
+        setDepartment(response);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -243,14 +257,15 @@ const AddStudentForm = () => {
                   <Form.Label>Department</Form.Label>
                 </div>
 
-                <Form.Control
-                  type="input"
+                <Form.Select
                   name="departmentId"
-                  value={values.departmentId}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Enter teacher department"
-                />
+                  style={{ color: 'gray' }}
+                >
+                  <option value="" >Choose department</option>
+                  {department.map((department) => <option value={department.departmentId} style={{ color: 'black' }} key={department.departmentId}>{department.departmentName}</option>)}
+                </Form.Select>
               </Form.Group>
 
               <Form.Group className="mb-1" style={{ width: "60%" }}>
