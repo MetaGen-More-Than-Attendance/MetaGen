@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { Button, Form } from "react-bootstrap";
+import Swal from 'sweetalert2';
 
 import { postDepartment } from '../../redux/features/department/departmentSlice';
 
@@ -25,6 +26,13 @@ const AddDepartmentForm = () => {
                         setSubmitting(false);
                     }, 400);
                     dispatch(postDepartment(values));
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
                 }}
             >
                 {({
