@@ -21,18 +21,24 @@ const AddDepartmentForm = () => {
                     }
                     return errors;
                 }}
-                onSubmit={(values, { setSubmitting }) => {
+                onSubmit={(values, { setSubmitting, resetForm }) => {
                     setTimeout(() => {
                         setSubmitting(false);
                     }, 400);
                     dispatch(postDepartment(values));
+                    resetForm({
+                        values: {
+                            departmentName: '',
+                        },
+                        isSubmitting: true
+                    })
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
                         title: 'Your work has been saved',
                         showConfirmButton: false,
                         timer: 1500
-                      })
+                    })
                 }}
             >
                 {({
