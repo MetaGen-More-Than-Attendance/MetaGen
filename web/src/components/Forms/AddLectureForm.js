@@ -66,7 +66,7 @@ const AddLectureForm = () => {
 
                     return errors;
                 }}
-                onSubmit={(values, { setSubmitting }) => {
+                onSubmit={(values, { setSubmitting, resetForm }) => {
                     setTimeout(() => {
                         setSubmitting(false);
                     }, 400);
@@ -77,6 +77,15 @@ const AddLectureForm = () => {
                         lectureStartDate: values.lectureStartDate
                      };
                     dispatch(postLecture(obj))
+                    resetForm({
+                        values: {
+                            instructorId: 0,
+                            departmentId: 0,
+                            lectureName: '',
+                            lectureStartDate: '',
+                        },
+                        isSubmitting: true
+                    })
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
