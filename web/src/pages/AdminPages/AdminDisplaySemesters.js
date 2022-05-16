@@ -9,20 +9,20 @@ const AdminDisplaySemesters = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-      const [data, setData] = useState([]);
-    
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { data: response } = await axios.get('https://meta-gen.herokuapp.com/api/semester/getAll');
-                setData(response);
-            } catch (error) {
-                console.error(error.message);
-            }
-        }
+  const [data, setData] = useState([]);
 
-        fetchData();
-    }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: response } = await axios.get('https://meta-gen.herokuapp.com/api/semester/getAll');
+        setData(response);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+
+    fetchData();
+  }, []);
 
 
   return (
@@ -42,31 +42,17 @@ const AdminDisplaySemesters = () => {
             </tr>
           </thead>
           <tbody>
-          {data.map((semester) => {
-                            return (
-                              <tr>
-                              <td>{semester.semesterId}</td>
-                              <td>{semester.semesterName}</td>
-                              <td>{semester.startDate}</td>
-                              <td>{semester.endDate}</td>
-                              <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow}>Edit</Button></td>
-                            </tr>
-                            )
-                        })}
-            <tr>
-              <td>1</td>
-              <td>Fall</td>
-              <td>01/09/2021</td>
-              <td>01/01/2022</td>
-              <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow}>Edit</Button></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Spring</td>
-              <td>01/02/2022</td>
-              <td>17/06/2022</td>
-              <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}>Edit</Button></td>
-            </tr>
+            {data.map((semester) => {
+              return (
+                <tr>
+                  <td>{semester.semesterId}</td>
+                  <td>{semester.semesterName}</td>
+                  <td>{semester.startDate}</td>
+                  <td>{semester.endDate}</td>
+                  <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow}>Edit</Button></td>
+                </tr>
+              )
+            })}
           </tbody>
         </Table>
 
