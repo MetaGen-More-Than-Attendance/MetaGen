@@ -68,8 +68,8 @@ const AdminDisplayTeachers = () => {
                 <tr key={teacher.instructorId}>
                   <td>{teacher.instructorId}</td>
                   <td><Image src={teacher.photoPath} alt="?" rounded={true} style={{ width: '2rem' }} /></td>
-                  <td>{teacher.name}</td>
-                  <td>{teacher.surname}</td>
+                  <td>{teacher.userName}</td>
+                  <td>{teacher.userSurname}</td>
                   <td>{teacher.identityNumber}</td>
                   <td>Computer</td>
                   <td>{teacher.userMail}</td>

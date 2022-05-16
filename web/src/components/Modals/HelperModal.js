@@ -32,11 +32,11 @@ const HelperModal = ({ show, handleClose, data }) => {
                         ) {
                             errors.userMail = "*Invalid email address!";
                         }
-                        if (!values.name) {
-                            errors.name = "*";
+                        if (!values.userName) {
+                            errors.userName = "*";
                         }
-                        if (!values.surname) {
-                            errors.surname = "*";
+                        if (!values.userSurname) {
+                            errors.userSurname = "*";
                         }
                         if (!values.identityNumber) {
                             errors.identityNumber = "*";
@@ -73,35 +73,35 @@ const HelperModal = ({ show, handleClose, data }) => {
                             <input type="file" onChange={changeHandler} name="photoPath" />
 
                             <div style={{ display: "flex" }}>
-                                {errors.name && touched.name && (
+                                {errors.userName && touched.userName && (
                                     <div style={{ color: "red", marginRight: 5 }}>
-                                        {errors.name}
+                                        {errors.userName}
                                     </div>
                                 )}
                                 <Form.Label>Name</Form.Label>
                             </div>
                             <Form.Control
                                 type="input"
-                                name="name"
+                                name="userName"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.name}
+                                value={values.userName}
                             />
 
                             <div style={{ display: "flex" }}>
-                                {errors.surname && touched.surname && (
+                                {errors.userSurname && touched.userSurname && (
                                     <div style={{ color: "red", marginRight: 5 }}>
-                                        {errors.surname}
+                                        {errors.userSurname}
                                     </div>
                                 )}
                                 <Form.Label>Surname</Form.Label>
                             </div>
                             <Form.Control
                                 type="input"
-                                name="surname"
+                                name="userSurname"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.surname}
+                                value={values.userSurname}
                             />
 
                             <div style={{ display: "flex" }}>
