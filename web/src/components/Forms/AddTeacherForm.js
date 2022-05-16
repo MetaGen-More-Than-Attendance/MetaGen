@@ -238,7 +238,7 @@ const AddTeacherForm = () => {
                 </div>
 
                 <Form.Control
-                  type="input"
+                  type="number"
                   name="identityNumber"
                   value={values.identityNumber}
                   onChange={handleChange}
