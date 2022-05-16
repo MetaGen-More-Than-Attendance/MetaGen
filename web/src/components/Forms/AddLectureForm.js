@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from "formik";
 import { Button, Form } from 'react-bootstrap'
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
 import { postLecture } from '../../redux/features/lecture/lectureSlice';
 import { fetchTeachers } from '../../redux/features/teacher/teacherSlice';
-import axios from 'axios';
 
 const AddLectureForm = () => {
     const [data, setData] = useState([]);
@@ -75,6 +77,13 @@ const AddLectureForm = () => {
                         lectureStartDate: values.lectureStartDate
                      };
                     dispatch(postLecture(obj))
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
                 }}
             >
                 {({
