@@ -48,7 +48,7 @@ const AdminDisplayLectures = () => {
                 <tr >
                   <td>{lecture.lectureId}</td>
                   <td>{lecture.lectureName}</td>
-                  <td>{lecture.instructorId}</td>
+                  <td>{lecture.instructorName}</td>
                   <td>Semester...</td>
                   <td>{lecture.departmentName}</td>
                   <td>{lecture.lectureStartDate}</td>
