@@ -1,30 +1,43 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from "formik";
 import { Button, Form } from 'react-bootstrap'
 import { postLecture } from '../../redux/features/lecture/lectureSlice';
 import { fetchTeachers } from '../../redux/features/teacher/teacherSlice';
+import axios from 'axios';
 
 const AddLectureForm = () => {
+    const [data, setData] = useState([]);
 
     const dispatch = useDispatch();
 
     const initialValues = {
         lectureName: "",
-        instructorId: "",
+        instructorId: 0,
         // semester: "",
-        lectureId: "",
         lectureStartDate: "",
         // startHour: "",
-        departmentId: "",
+        departmentId: 0,
     };
 
     const allTeachers = useSelector((state) => state.teachers.entities);
-    console.log("🚀 ~ file: AddLectureForm.js ~ line 22 ~ AddLectureForm ~ allTeachers", allTeachers)
 
     useEffect(() => {
         dispatch(fetchTeachers());
     }, [dispatch]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { data: response } = await axios.get('https://meta-gen.herokuapp.com/api/department/getAll');
+                setData(response);
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
+        fetchData();
+    }, []);
 
     return (
         <div>
@@ -41,10 +54,7 @@ const AddLectureForm = () => {
                     }
                     // if (!values.semester) {
                     //     errors.semester = "*";
-                    // }
-                    if (!values.lectureId) {
-                        errors.lectureId = "*";
-                    }
+                    // }                   
                     if (!values.lectureStartDate) {
                         errors.lectureStartDate = "*";
                     }
@@ -56,11 +66,14 @@ const AddLectureForm = () => {
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
                         setSubmitting(false);
                     }, 400);
-                    const obj = { content: values };
-                    console.log(obj)
+                    const obj = {
+                        instructorId: parseInt(values.instructorId),
+                        departmentId: parseInt(values.departmentId),
+                        lectureName: values.lectureName,
+                        lectureStartDate: values.lectureStartDate
+                     };
                     dispatch(postLecture(obj))
                 }}
             >
@@ -105,13 +118,12 @@ const AddLectureForm = () => {
 
                                 <Form.Select
                                     name="instructorId"
-                                    value={values.instructorId}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     style={{ color: 'gray' }}
                                 >
-                                    <option disabled value="" >Choose teacher</option>
-                                    {allTeachers.map((teacher)=> <option value={teacher.instructorId} style={{ color: 'black' }}>{teacher.name}</option> )}
+                                    <option value="" >Choose teacher</option>
+                                    {allTeachers.map((teacher) => <option value={teacher.instructorId} key={teacher.instructorId} style={{ color: 'black' }}>{teacher.userName}</option>)}
                                 </Form.Select>
 
                             </Form.Group>
@@ -141,24 +153,6 @@ const AddLectureForm = () => {
 
                         <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '60%' }}>
                             <div style={{ display: "flex" }}>
-                                {errors.lectureId && touched.lectureId && (
-                                    <div style={{ color: "red", marginRight: 5 }}>
-                                        {errors.lectureId}
-                                    </div>
-                                )}
-                                <Form.Label>Lecture Code</Form.Label>
-                            </div>
-                            <Form.Control
-                                type="input"
-                                name="lectureId"
-                                value={values.lectureId}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                placeholder="Enter lecture code" />
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '60%' }}>
-                            <div style={{ display: "flex" }}>
                                 {errors.departmentId && touched.departmentId && (
                                     <div style={{ color: "red", marginRight: 5 }}>
                                         {errors.departmentId}
@@ -166,13 +160,16 @@ const AddLectureForm = () => {
                                 )}
                                 <Form.Label>Department</Form.Label>
                             </div>
-                            <Form.Control
-                                type="input"
+
+                            <Form.Select
                                 name="departmentId"
-                                value={values.departmentId}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                placeholder="Enter department id" />
+                                style={{ color: 'gray' }}
+                            >
+                                <option value="" >Choose department</option>
+                                {data.map((department) => <option value={department.departmentId} style={{ color: 'black' }} key={department.departmentId}>{department.departmentName}</option>)}
+                            </Form.Select>
                         </Form.Group>
 
                         <div style={{ display: 'flex', width: '60%', flexDirection: 'row', justifyContent: 'space-between' }}>

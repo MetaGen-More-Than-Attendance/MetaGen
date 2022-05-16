@@ -2,16 +2,17 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const postLecture = createAsyncThunk(
     'lectures/postLecture',
-    async (myData) => {
-        const { content } = myData;
-        console.log("🚀 ~ file: lectureSlice.js ~ line 7 ~ myData", myData)
+    async ({ instructorId, departmentId, lectureName, lectureStartDate }) => {
         return fetch(`https://meta-gen.herokuapp.com/api/lecture/save`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                content,
+                instructorId,
+                departmentId,
+                lectureName,
+                lectureStartDate
             }),
         })
             .then((response) => response.json())
