@@ -20,6 +20,12 @@ export const postLecture = createAsyncThunk(
     },
 );
 
+export const fetchLectures = createAsyncThunk('lectures/fetchLecture', () => {
+    return fetch('https://meta-gen.herokuapp.com/api/lecture/getAll')
+      .then((response) => response.json())
+      .then((data) => data);
+  });
+
 const lectureSlice = createSlice({
     name: 'lectures',
     initialState: {
