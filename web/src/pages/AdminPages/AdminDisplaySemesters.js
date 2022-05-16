@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Table, Button, Modal, Form } from 'react-bootstrap'
+import axios from 'axios'
 
 import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
 
@@ -7,7 +8,23 @@ const AdminDisplaySemesters = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
+
+      const [data, setData] = useState([]);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { data: response } = await axios.get('https://meta-gen.herokuapp.com/api/semester/getAll');
+                setData(response);
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
+        fetchData();
+    }, []);
+
+
   return (
     <div style={{ height: "80vh", display: "flex" }}>
       <AdminSideMenu />
@@ -25,6 +42,17 @@ const AdminDisplaySemesters = () => {
             </tr>
           </thead>
           <tbody>
+          {data.map((semester) => {
+                            return (
+                              <tr>
+                              <td>{semester.semesterId}</td>
+                              <td>{semester.semesterName}</td>
+                              <td>{semester.startDate}</td>
+                              <td>{semester.endDate}</td>
+                              <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow}>Edit</Button></td>
+                            </tr>
+                            )
+                        })}
             <tr>
               <td>1</td>
               <td>Fall</td>
