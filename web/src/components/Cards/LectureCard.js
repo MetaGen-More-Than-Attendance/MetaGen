@@ -12,8 +12,8 @@ const LectureCard = ({ lectureName, lectureInfo, isTeacher }) => {
 
     const handleShow = () => {
         setShow(true);
-        const date = new Date();
-        setText(date.toLocaleDateString() + date.toLocaleTimeString());
+        // const date = new Date();
+        setText("1");
     };
     const navigate = useNavigate();
 
