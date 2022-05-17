@@ -26,6 +26,7 @@ import AdminDisplayDepartment from "./pages/AdminPages/AdminDisplayDepartment";
 
 function App() {
   const [userHasLogin, setUserHasLogin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("token") != null) {
@@ -33,6 +34,12 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    if (localStorage.getItem("isAdmin") === "true") {
+      setIsAdmin(true);
+    }
+  }, []);
+  
   return (
     <div>
       {userHasLogin && <Header userHasLogin={userHasLogin} />}
@@ -40,7 +47,7 @@ function App() {
         <Route element={<LoginPage />} path="/" />
         <Route element={
           <ProtectedRoutes>
-            <HomePage />
+            <HomePage isAdmin={isAdmin} />
           </ProtectedRoutes>
         } path="/home" />
         <Route element={
