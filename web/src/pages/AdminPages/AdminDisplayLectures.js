@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux';
 import { Table, Button, Modal, Form } from 'react-bootstrap'
 import axios from 'axios'
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router'
 
 import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
+import { deleteLecture } from '../../redux/features/lecture/lectureSlice';
 
 const AdminDisplayLectures = () => {
   const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
+  const [lecture, setLecture] = useState([]);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +28,19 @@ const AdminDisplayLectures = () => {
 
     fetchData();
   }, []);
-  console.log("🚀 ~ file: AdminDisplayLectures.js ~ line 10 ~ AdminDisplayLectures ~ data", data)
+  const navigate = useNavigate()
+
+  const handleDelete = (id) => {
+    console.log(id)
+    dispatch(deleteLecture(id))
+  }
+
+  const handleShow = () => {
+    // const [teacherData] = data.filter((lecture) => lecture.lectureId === id)
+    // setLecture(teacherData);
+    // console.log(data);
+    setShow(true)
+  };
 
   return (
     <div style={{ height: "80vh", display: "flex" }}>
@@ -52,7 +70,28 @@ const AdminDisplayLectures = () => {
                   <td>Semester...</td>
                   <td>{lecture.departmentName}</td>
                   <td>{lecture.lectureStartDate}</td>
-                  <td> <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} >Edit</Button></td>
+                  <td style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                    <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={() => handleShow()}>Edit</Button>
+                    <Button style={{ backgroundColor: "red", borderColor: "red", width: '40%' }} onClick={() => {
+                      Swal.fire({
+                        title: 'Do you want to delete the lecture?',
+                        showDenyButton: true,
+                        showCancelButton: false,
+                        confirmButtonText: 'Delete',
+                        denyButtonText: `Cancel`,
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          handleDelete(lecture.lectureId)
+                          setTimeout(() => {
+                            navigate(0)
+                          }, 1500)
+                          Swal.fire('Deleted!', '', 'success')
+                        } else if (result.isDenied) {
+                          Swal.fire('Canceled', '', 'info')
+                        }
+                      })
+                    }} >Delete</Button>
+                  </td>
                 </tr>
               )
             })}
