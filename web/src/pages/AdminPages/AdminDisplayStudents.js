@@ -33,6 +33,7 @@ const AdminDisplayStudents = () => {
     dispatch(deleteStudent(id))
   }
 
+
   return (
     <div style={{ height: "80vh", display: "flex" }}>
       <AdminSideMenu />
@@ -57,13 +58,13 @@ const AdminDisplayStudents = () => {
               return (
                 <tr key={student.studentId}>
                   <td>{student.studentId}</td>
-                  <td><Image src={student.photoPath} alt="?" rounded={true} style={{ width: '2rem' }} /></td>
+                  <td style={{ display: 'flex', justifyContent: 'center' }}><Image src={`data:image/jpeg;base64,${student.photo}`} alt="?" rounded={true} style={{ width: '2rem' }} /></td>
                   <td>{student.userName}</td>
                   <td>{student.userSurname}</td>
                   <td>{student.identityNumber}</td>
                   <td>Computer</td>
                   <td>{student.userMail}</td>
-                  <td style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
+                  <td style={{ display: 'flex', justifyContent: 'space-between', textAlign: 'center', flexDirection: 'row' }}>
                     <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5", width: '40%' }} onClick={handleShow} >Edit</Button>
                     <Button style={{ backgroundColor: "red", borderColor: "red", width: '40%' }} onClick={() => {
                       Swal.fire({
