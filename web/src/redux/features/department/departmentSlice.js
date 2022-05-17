@@ -23,6 +23,14 @@ export const postDepartment = createAsyncThunk(
     },
 );
 
+export const deleteDepartment = createAsyncThunk('students/deleteDepartment', (id) => {
+    return fetch(`https://meta-gen.herokuapp.com/api/department/delete?departmentId=${id}`, {
+      method: 'DELETE'
+    })
+      .then((response) => response.json())
+      .then((data) => data);
+  });
+
 const departmentSlice = createSlice({
     name: 'departments',
     initialState: {
