@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-export const fetchLecturesOfStudent = createAsyncThunk('lecturesOfStudent/fetchLecturesOfStudent', () => {
-    return fetch(`https://meta-gen.herokuapp.com/api/student/35/lecture`)
+export const fetchLecturesOfStudent = createAsyncThunk('lecturesOfStudent/fetchLecturesOfStudent', (id) => {
+    return fetch(`https://meta-gen.herokuapp.com/api/student/${id}/lecture`)
         .then((response) => response.json())
         .then((data) => data);
 });

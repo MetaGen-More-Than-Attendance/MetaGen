@@ -9,9 +9,11 @@ const LecturesPage = ({ isTeacher, lectureBg }) => {
   const lecturesOfStudent = useSelector((state) => state.lecturesOfStudent.entities);
   const dispatch = useDispatch();
 
+  const id = localStorage.getItem("userId")
+
   useEffect(() => {
-    dispatch(fetchLecturesOfStudent());
-  }, [dispatch]);
+    dispatch(fetchLecturesOfStudent(id));
+  }, [dispatch, id]);
 
   console.log(lecturesOfStudent);
 
@@ -19,10 +21,15 @@ const LecturesPage = ({ isTeacher, lectureBg }) => {
     <div style={{ backgroundColor: `${lectureBg}` }}>
       <Container>
         <Row md={3} lg={3} sm={2} >
-          <Col><LectureCard isTeacher={isTeacher} lectureName="Lecture Name" lectureInfo="Some quick example text to build on the card title and make up the bulk of the card's content." /> </Col>
+          {lecturesOfStudent?.map((lecture) => {
+            return (
+              <Col><LectureCard isTeacher={isTeacher} lectureName={lecture.lectureName} lectureInfo="Some quick example text to build on the card title and make up the bulk of the card's content." /> </Col>
+            )
+          })}
+{/* 
           <Col><LectureCard lectureName="Lecture Name" lectureInfo="Some quick example text to build on the card title and make up the bulk of the card's content." /> </Col>
           <Col><LectureCard lectureName="Lecture Name" lectureInfo="Some quick example text to build on the card title and make up the bulk of the card's content." /> </Col>
-          <Col><LectureCard lectureName="Lecture Name" lectureInfo="Some quick example text to build on the card title and make up the bulk of the card's content." /> </Col>
+          <Col><LectureCard lectureName="Lecture Name" lectureInfo="Some quick example text to build on the card title and make up the bulk of the card's content." /> </Col> */}
         </Row>
       </Container>
     </div>
