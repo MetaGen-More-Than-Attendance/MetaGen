@@ -66,6 +66,8 @@ const LoginForm = () => {
                 localStorage.setItem("exp", decoded.exp);
                 localStorage.setItem("iat", decoded.iat);
                 localStorage.setItem("isAdmin", decoded.isAdmin);
+                localStorage.setItem("isTeacher", decoded.isTeacher);
+                localStorage.setItem("isStudent", decoded.isStudent);
 
                 axios.defaults.headers.common[
                   "Authorization"
