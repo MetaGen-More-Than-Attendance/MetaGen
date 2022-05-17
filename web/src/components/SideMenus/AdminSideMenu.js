@@ -20,6 +20,7 @@ const AdminSideMenu = () => {
             <DropdownButton action variant="dark" as={ButtonGroup} title="Lecture" id="bg-vertical-dropdown-2" className="mb-3" style={{ backgroundColor: "#222831", color: "#EEE" }}>
                 <Dropdown.Item eventKey="1" onClick={() => navigate("/admin/addLecture")}>Add Lecture</Dropdown.Item>
                 <Dropdown.Item eventKey="2" onClick={() => navigate("/admin/displayLectures")}>Display Lectures</Dropdown.Item>
+                <Dropdown.Item eventKey="3" onClick={() => navigate("/admin/addStudentToLecture")}>Add Lecture's Student</Dropdown.Item>
             </DropdownButton>
 
             <DropdownButton action variant="dark" as={ButtonGroup} title="Semester" id="bg-vertical-dropdown-2" className="mb-3" style={{ backgroundColor: "#222831", color: "#EEE" }}>

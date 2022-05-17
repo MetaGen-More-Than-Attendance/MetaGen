@@ -23,6 +23,7 @@ import AdminDisplayTeachers from "./pages/AdminPages/AdminDisplayTeachers";
 import ProtectedRoutes from "./ProtectedRoutes";
 import AddDepartment from "./pages/AdminPages/AddDepartment";
 import AdminDisplayDepartment from "./pages/AdminPages/AdminDisplayDepartment";
+import AddStudentToLecture from "./pages/AdminPages/AddStudentToLecture";
 
 function App() {
   const [userHasLogin, setUserHasLogin] = useState(false);
@@ -109,6 +110,10 @@ function App() {
           <ProtectedRoutes>
             <AddDepartment />
           </ProtectedRoutes>} path="/admin/addDepartment" />
+          <Route element={
+          <ProtectedRoutes>
+            <AddStudentToLecture />
+          </ProtectedRoutes>} path="/admin/addStudentToLecture" />
         <Route element={
           <ProtectedRoutes>
             <AdminDisplayLectures />
