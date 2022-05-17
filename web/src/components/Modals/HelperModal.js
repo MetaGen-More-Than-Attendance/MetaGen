@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import { Modal, Form } from 'react-bootstrap'
 import axios from "axios";
 import { useNavigate } from 'react-router'
+import Swal from 'sweetalert2';
 
 const HelperModal = ({ show, handleClose, data }) => {
     const [selectedFile, setSelectedFile] = useState();
@@ -48,15 +49,39 @@ const HelperModal = ({ show, handleClose, data }) => {
                         return errors;
                     }}
                     onSubmit={(values) => {
-                        setTimeout(() => {
-                            console.log(values)
-                        }, 400);                       
-                        axios
-                            .put(`https://meta-gen.herokuapp.com/api/instructor/update?instructorId=${values.instructorId}`, values)
-                            .then((res) => console.log(res))
-                            .catch((err) => console.log(err));
+                        let timerInterval
+                        Swal.fire({
+                            title: 'Update Teacher',
+                            html: 'Teacher will update in <b></b> milliseconds.',
+                            timer: 5000,
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.showLoading()
+                                const b = Swal.getHtmlContainer().querySelector('b')
+                                timerInterval = setInterval(() => {
+                                    b.textContent = Swal.getTimerLeft()
+                                }, 100)
+                            },
+                            willClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                        }).then((result) => {
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                console.log('I was closed by the timer')
+                            }
+                        })
 
-                        navigate(0)
+                        setTimeout(() => {
+                            axios
+                                .put(`https://meta-gen.herokuapp.com/api/instructor/update?instructorId=${values.instructorId}`, values)
+                                .then((res) => console.log(res))
+                                .catch((err) => console.log(err));
+                        }, 5000);
+
+                        setTimeout(() => {
+                            navigate(0)
+                        }, 6000);
+                        
                     }}
                 >
                     {({
