@@ -2,9 +2,9 @@ import React from 'react'
 import LectureCard from '../../components/Cards/LectureCard'
 import { Container, Row, Col } from 'react-bootstrap'
 
-const LecturesPage = ({ isTeacher }) => {
+const LecturesPage = ({ isTeacher, lectureBg }) => {
   return (
-    <div>
+    <div style={{ backgroundColor: `${lectureBg}` }}>
       <Container>
         <Row md={3} lg={3} sm={2} >
           <Col><LectureCard isTeacher={isTeacher} lectureName="Lecture Name" lectureInfo="Some quick example text to build on the card title and make up the bulk of the card's content." /> </Col>

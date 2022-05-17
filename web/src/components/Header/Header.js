@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Navbar, Container, Nav, Image } from "react-bootstrap";
+import { Navbar, Container, Nav, Image, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import img from "../../images/logo512.png";
 import AuthenticationService from "../../services/AuthenticationService";
 
-const Header = ({ userHasLogin }) => {
+const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setText, setLectureBg }) => {
   const [hasLogin, setHasLogin] = useState(false);
+  
   let authenticationService = new AuthenticationService();
   useEffect(() => {
     if (localStorage.getItem("token") != null) {
@@ -18,23 +19,40 @@ const Header = ({ userHasLogin }) => {
     setHasLogin(false);
     userHasLogin(false);
   }
+
+  const handleDark = () => {
+   
+    if (bg === "light") {
+      setBg("dark");
+      setFontColor("#EEE")
+      setText("Dark Mode")
+      setLectureBg("white")
+    }
+    else {
+      setBg("light")
+      setFontColor("black")
+      setText("Light Mode")
+      setLectureBg("#222831")
+    }
+
+  }
+
   return (
     <Navbar
       collapseOnSelect
-      bg="dark"
+      bg={bg}
       expand="lg"
       style={{ backgroundColor: "#222831" }}
-      className="mb-3"
     >
       <Container>
-        <Navbar.Brand style={{ color: "#EEEEEE" }}>LOGO</Navbar.Brand>
+        <Navbar.Brand style={{ color: `${fontColor}` }}>LOGO</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={NavLink} to="/home" style={{ color: "#EEEEEE" }}>
+            <Nav.Link as={NavLink} to="/home" style={{ color: `${fontColor}` }}>
               Home
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/lectures" style={{ color: "#EEEEEE" }}>
+            <Nav.Link as={NavLink} to="/lectures" style={{ color: `${fontColor}` }}>
               Lectures
             </Nav.Link>
           </Nav>
@@ -48,8 +66,7 @@ const Header = ({ userHasLogin }) => {
                   style={{
                     marginTop: 6,
                     height: "2.3rem",
-                    color: "#000",
-                    backgroundColor: "#EEE",
+                    color: `${fontColor}`,
                     borderRadius: 10,
                     marginRight: 5,
                   }}
@@ -59,7 +76,7 @@ const Header = ({ userHasLogin }) => {
                 <Nav.Link
                   as={NavLink}
                   to="/profile"
-                  style={{ color: "#EEEEEE" }}
+                  style={{ color: `${fontColor}` }}
                 >
                   <Image style={{ width: "2rem", height: "2rem" }} src={img} />
                 </Nav.Link>
@@ -71,8 +88,8 @@ const Header = ({ userHasLogin }) => {
                 style={{
                   marginTop: 6,
                   height: "2.3rem",
-                  color: "#000",
-                  backgroundColor: "#EEE",
+                  color: `${fontColor}`,
+                  backgroundColor: "red",
                   borderRadius: 10,
                   marginRight: 5,
                 }}
@@ -81,6 +98,7 @@ const Header = ({ userHasLogin }) => {
               </Nav.Link>
             )}
           </Nav>
+          <Button variant="primary" onClick={handleDark}>{text}</Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>

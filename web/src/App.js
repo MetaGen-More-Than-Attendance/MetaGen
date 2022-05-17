@@ -29,6 +29,7 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
   const [bg, setBg] = useState("dark")
+  const [lectureBg, setLectureBg] = useState("white")
   const [fontColor, setFontColor] = useState("white")
   const [text, setText] = useState("Light Mode")
 
@@ -49,7 +50,7 @@ function App() {
 
   return (
     <div>
-      {userHasLogin && <Header userHasLogin={userHasLogin} bg={bg} fontColor={fontColor} text={text} setText={setText} setBg={setBg} setFontColor={setFontColor} />}
+      {userHasLogin && <Header userHasLogin={userHasLogin} bg={bg} fontColor={fontColor} text={text} setText={setText} setBg={setBg} setFontColor={setFontColor} lectureBg={lectureBg} setLectureBg={setLectureBg} />}
       <Routes>
         <Route element={<LoginPage />} path="/" />
         <Route element={
@@ -59,7 +60,7 @@ function App() {
         } path="/home" />
         <Route element={
           <ProtectedRoutes>
-            <LecturesPage isTeacher={isTeacher} />
+            <LecturesPage isTeacher={isTeacher} lectureBg={lectureBg}  />
           </ProtectedRoutes>
         } path="/lectures" />
         <Route element={
