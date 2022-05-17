@@ -27,6 +27,10 @@ import AdminDisplayDepartment from "./pages/AdminPages/AdminDisplayDepartment";
 function App() {
   const [userHasLogin, setUserHasLogin] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isTeacher, setIsTeacher] = useState(false);
+  const [bg, setBg] = useState("dark")
+  const [fontColor, setFontColor] = useState("white")
+  const [text, setText] = useState("Light Mode")
 
   useEffect(() => {
     if (localStorage.getItem("token") != null) {
@@ -38,11 +42,14 @@ function App() {
     if (localStorage.getItem("isAdmin") === "true") {
       setIsAdmin(true);
     }
+    else if(localStorage.getItem("isTeacher") === "true") {
+      setIsTeacher(true);
+    }
   }, []);
-  
+
   return (
     <div>
-      {userHasLogin && <Header userHasLogin={userHasLogin} />}
+      {userHasLogin && <Header userHasLogin={userHasLogin} bg={bg} fontColor={fontColor} text={text} setText={setText} setBg={setBg} setFontColor={setFontColor} />}
       <Routes>
         <Route element={<LoginPage />} path="/" />
         <Route element={
@@ -52,7 +59,7 @@ function App() {
         } path="/home" />
         <Route element={
           <ProtectedRoutes>
-            <LecturesPage />
+            <LecturesPage isTeacher={isTeacher} />
           </ProtectedRoutes>
         } path="/lectures" />
         <Route element={
