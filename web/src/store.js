@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+import lecturesOfStudentSlice from './redux/features/admin/lecturesOfStudentSlice'
 import departmentSlice from './redux/features/department/departmentSlice'
 import lectureSlice from './redux/features/lecture/lectureSlice'
 import semesterSlice from './redux/features/semester/semesterSlice'
@@ -11,6 +12,7 @@ export const store = configureStore({
       teachers: teacherSlice,
       lectures: lectureSlice,
       departments: departmentSlice,
-      semesters: semesterSlice
+      semesters: semesterSlice,
+      lecturesOfStudent: lecturesOfStudentSlice
   },
 })

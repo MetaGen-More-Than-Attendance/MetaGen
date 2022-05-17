@@ -1,8 +1,20 @@
-import React from 'react'
-import LectureCard from '../../components/Cards/LectureCard'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap'
 
+import LectureCard from '../../components/Cards/LectureCard'
+import { fetchLecturesOfStudent } from '../../redux/features/admin/lecturesOfStudentSlice';
+
 const LecturesPage = ({ isTeacher, lectureBg }) => {
+  const lecturesOfStudent = useSelector((state) => state.lecturesOfStudent.entities);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchLecturesOfStudent());
+  }, [dispatch]);
+
+  console.log(lecturesOfStudent);
+
   return (
     <div style={{ backgroundColor: `${lectureBg}` }}>
       <Container>
