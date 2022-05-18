@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { Table, Form, Button } from "react-bootstrap";
 import axios from 'axios'
+import { postStudentToLecture } from '../../redux/features/lecture/lectureSlice';
 
 const AddStudentToLectureForm = () => {
   const [department, setDepartment] = useState([]);
@@ -8,6 +10,8 @@ const AddStudentToLectureForm = () => {
   const [departmentStudents, setDepartmentStudents] = useState([]);
   const [lectures, setLectures] = useState([]);
   const [lectureId, setLectureId] = useState([]);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,32 +62,39 @@ const AddStudentToLectureForm = () => {
   }
 
   const [studentId, setStudentId] = useState({
-    studentList: [],
+    studentIds: [],
   });
 
   const handleAddStudent = (e) => {
     const { value, checked } = e.target;
 
-    const { studentList } = studentId;
+    const { studentIds } = studentId;
     setStudentId({
-      studentList: [...studentList, value],
+      studentIds: [...studentIds, Number(value)],
     });
 
     if (checked) {
       setStudentId({
-        studentList: [...studentList, value],
+        studentIds: [...studentIds, Number(value)],
       });
     }
 
     else {
       setStudentId({
-        studentList: studentList.filter((e) => e !== value),
+        studentIds: studentIds.filter((e) => e !== value),
       });
     }
 
   }
 
-  const handleSubmit = () => {}
+  const handleSubmit = () => {
+    const obj = {
+      lectureId: lectureId,
+      studentIds: studentId.studentIds
+    }
+    console.log("🚀 ~ file: AddStudentToLectureForm.js ~ line 97 ~ handleSubmit ~ obj", obj)
+    dispatch(postStudentToLecture(obj))
+  }
 
   return (
     <div>
@@ -135,8 +146,6 @@ const AddStudentToLectureForm = () => {
         Submit
       </Button>
     </div>
-
-
   )
 }
 

@@ -20,6 +20,23 @@ export const postLecture = createAsyncThunk(
     },
 );
 
+export const postStudentToLecture = createAsyncThunk(
+    'lectures/postStudentToLecture',
+    async ({ lectureId, studentIds }) => {
+        return fetch(`https://meta-gen.herokuapp.com/api/lecture/addStudent?lectureId=${lectureId}`, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                studentIds
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => data);
+    },
+);
+
 export const deleteLecture = createAsyncThunk('lectures/deleteLecture', (id) => {
     return fetch(`https://meta-gen.herokuapp.com/api/lecture/delete?lectureId=${id}`, {
       method: 'DELETE'
