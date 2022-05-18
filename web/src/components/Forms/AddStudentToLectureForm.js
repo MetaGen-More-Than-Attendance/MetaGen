@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Table, Form, Button } from "react-bootstrap";
 import axios from 'axios'
+import Swal from 'sweetalert2';
+
 import { postStudentToLecture } from '../../redux/features/lecture/lectureSlice';
+
 
 const AddStudentToLectureForm = () => {
   const [department, setDepartment] = useState([]);
@@ -12,6 +16,7 @@ const AddStudentToLectureForm = () => {
   const [lectureId, setLectureId] = useState([]);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,8 +97,34 @@ const AddStudentToLectureForm = () => {
       lectureId: lectureId,
       studentIds: studentId.studentIds
     }
-    console.log("🚀 ~ file: AddStudentToLectureForm.js ~ line 97 ~ handleSubmit ~ obj", obj)
-    dispatch(postStudentToLecture(obj))
+    if (obj.lectureId.length !== 0 && obj.studentIds.length !== 0) {
+      dispatch(postStudentToLecture(obj))
+
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 2000
+      })
+
+      setTimeout(() => {
+        navigate(0)
+      }, 2100);
+    }
+    else {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Ooops...Something went wrong!',
+        showConfirmButton: false,
+        timer: 2000
+      })
+
+      setTimeout(() => {
+        navigate(0)
+      }, 2100);
+    }
   }
 
   return (
