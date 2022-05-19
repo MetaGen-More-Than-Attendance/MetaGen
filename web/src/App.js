@@ -29,6 +29,7 @@ function App() {
   const [userHasLogin, setUserHasLogin] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isTeacher, setIsTeacher] = useState(false);
+  const [isStudent, setIsStudent] = useState(false);
   const [bg, setBg] = useState("dark")
   const [lectureBg, setLectureBg] = useState("white")
   const [fontColor, setFontColor] = useState("white")
@@ -47,6 +48,9 @@ function App() {
     else if(localStorage.getItem("isTeacher") === "true") {
       setIsTeacher(true);
     }
+    else {
+      setIsStudent(true);
+    }
   }, []);
 
   return (
@@ -61,7 +65,7 @@ function App() {
         } path="/home" />
         <Route element={
           <ProtectedRoutes>
-            <LecturesPage isTeacher={isTeacher} lectureBg={lectureBg}  />
+            <LecturesPage isTeacher={isTeacher} isAdmin={isAdmin} isStudent={isStudent} lectureBg={lectureBg}  />
           </ProtectedRoutes>
         } path="/lectures" />
         <Route element={

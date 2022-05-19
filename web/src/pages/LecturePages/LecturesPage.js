@@ -6,7 +6,7 @@ import LectureCard from '../../components/Cards/LectureCard'
 import { fetchLecturesOfStudent } from '../../redux/features/admin/lecturesOfStudentSlice';
 import { fetchLecturesOfTeacher } from '../../redux/features/admin/lecturesOfTeacherSlice';
 
-const LecturesPage = ({ isTeacher, lectureBg }) => {
+const LecturesPage = ({ isTeacher, isAdmin, isStudent, lectureBg }) => {
   const lecturesOfStudent = useSelector((state) => state.lecturesOfStudent.entities);
   const lecturesOfTeacher = useSelector((state) => state.lecturesOfTeacher.entities);
 
@@ -29,7 +29,7 @@ const LecturesPage = ({ isTeacher, lectureBg }) => {
         <Row md={3} lg={3} sm={2} >
           {lecturesOfStudent?.map((lecture) => {
             return (
-              <Col><LectureCard isTeacher={isTeacher} lectureName={lecture.lectureName} lectureInfo="Some quick example text to build on the card title and make up the bulk of the card's content." /> </Col>
+              <Col><LectureCard isTeacher={isTeacher} isAdmin={isAdmin} lectureName={lecture.lectureName} lectureInfo="Some quick example text to build on the card title and make up the bulk of the card's content." /> </Col>
             )
           })}
         </Row>
