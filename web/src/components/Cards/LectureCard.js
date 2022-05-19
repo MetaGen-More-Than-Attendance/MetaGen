@@ -4,17 +4,17 @@ import img from "../../images/java.jpeg";
 import QRCode from "react-qr-code";
 import { useNavigate } from 'react-router-dom';
 
-const LectureCard = ({ lectureName, lectureInfo, isTeacher, isStudent, isAdmin }) => {
+const LectureCard = ({ lectureName, lectureInfo, isTeacher, isStudent, isAdmin, lectureId }) => {
     const [text, setText] = useState("");
     const [show, setShow] = useState(false);
-
+    
     const handleClose = () => setShow(false);
 
     const handleShow = () => {
         setShow(true);
-        // const date = new Date();
-        setText("1");
+        setText({lectureId});
     };
+
     const navigate = useNavigate();
 
     return (
@@ -38,10 +38,10 @@ const LectureCard = ({ lectureName, lectureInfo, isTeacher, isStudent, isAdmin }
 
             <Modal show={show} onHide={handleClose} >
                 <Modal.Header closeButton>
-                    <Modal.Title>Today's QR Code</Modal.Title>
+                    <Modal.Title>QR Code of Computer Engineering Design (19.05.2022)</Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{ display: 'flex', justifyContent: "center" }} >
-                    <QRCode value={text} />
+                    <QRCode value={(text.lectureId)?.toString()} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleClose}>
