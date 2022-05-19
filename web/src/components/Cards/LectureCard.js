@@ -38,7 +38,7 @@ const LectureCard = ({ lectureName, lectureInfo, isTeacher, isStudent, isAdmin, 
 
             <Modal show={show} onHide={handleClose} >
                 <Modal.Header closeButton>
-                    <Modal.Title>QR Code of Computer Engineering Design (19.05.2022)</Modal.Title>
+                    <Modal.Title>QR Code of {lectureName}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{ display: 'flex', justifyContent: "center" }} >
                     <QRCode value={(text.lectureId)?.toString()} />
