@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap'
 
@@ -7,6 +7,7 @@ import { fetchLecturesOfStudent } from '../../redux/features/admin/lecturesOfStu
 import { fetchLecturesOfTeacher } from '../../redux/features/admin/lecturesOfTeacherSlice';
 
 const LecturesPage = ({ isTeacher, isAdmin, isStudent, lectureBg }) => {
+  const [data, setData] = useState([]);
   const lecturesOfStudent = useSelector((state) => state.lecturesOfStudent.entities);
   const lecturesOfTeacher = useSelector((state) => state.lecturesOfTeacher.entities);
 
@@ -14,20 +15,25 @@ const LecturesPage = ({ isTeacher, isAdmin, isStudent, lectureBg }) => {
 
   const id = localStorage.getItem("userId")
 
-  useEffect(() => {
-    dispatch(fetchLecturesOfStudent(id));
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    dispatch(fetchLecturesOfTeacher(id));
-  }, [dispatch, id]);
-
+   useEffect(() => {
+    if (isTeacher === true && (isStudent && isAdmin) !== true) {
+      dispatch(fetchLecturesOfTeacher(id));
+      setData(lecturesOfTeacher);
+    }
+    else if (isStudent === true && (isTeacher && isAdmin) !== true) {
+      dispatch(fetchLecturesOfStudent(id));
+      setData(lecturesOfStudent);
+    }
+    else {
+      return null;
+    }
+  }, [dispatch, id, isAdmin, isStudent, isTeacher, lecturesOfStudent, lecturesOfTeacher]);
 
   return (
     <div style={{ backgroundColor: `${lectureBg}` }}>
       <Container>
         <Row md={3} lg={3} sm={2} >
-          {lecturesOfStudent?.map((lecture) => {
+          {data?.map((lecture) => {
             return (
               <Col><LectureCard isTeacher={isTeacher} isAdmin={isAdmin} lectureName={lecture.lectureName} lectureInfo="Some quick example text to build on the card title and make up the bulk of the card's content." /> </Col>
             )
