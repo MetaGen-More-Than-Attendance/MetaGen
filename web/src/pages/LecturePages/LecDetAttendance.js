@@ -1,8 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import { Table } from 'react-bootstrap'
+
 import SideMenu from '../../components/SideMenus/SideMenu'
+import { fetchAbsenteeismLectureIdAndDate } from '../../redux/features/attendance/attendanceSlice';
 
 const LecDetAttendance = () => {
+
+  const attendanceByIdAndDate = useSelector((state) => state.attendances.entities);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // const obj = {
+    //   lectureId: lectureId,
+    //   localDate: localDate
+    // }
+    dispatch(fetchAbsenteeismLectureIdAndDate());
+  }, [dispatch]);
+
   return (
     <div style={{ height: "80vh", display: "flex" }}>
       <SideMenu />
