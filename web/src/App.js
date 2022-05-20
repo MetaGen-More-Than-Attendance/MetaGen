@@ -27,9 +27,16 @@ import AddStudentToLecture from "./pages/AdminPages/AddStudentToLecture";
 
 function App() {
   const [userHasLogin, setUserHasLogin] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isTeacher, setIsTeacher] = useState(false);
-  const [isStudent, setIsStudent] = useState(false);
+  const [user, setUser] = useState(() => {
+    return {
+      isTeacher: false,
+      isStudent: false,
+      isAdmin: false
+    }
+  });
+
+  const { isAdmin } = user;
+
   const [bg, setBg] = useState("dark")
   const [lectureBg, setLectureBg] = useState("white")
   const [fontColor, setFontColor] = useState("white")
@@ -39,19 +46,27 @@ function App() {
     if (localStorage.getItem("token") != null) {
       setUserHasLogin(true);
     }
-  }, []);
 
-  useEffect(() => {
     if (localStorage.getItem("isAdmin") === "true") {
-      setIsAdmin(true);
+      setUser({
+        ...user,
+        isAdmin: true
+      });
     }
-    else if(localStorage.getItem("isTeacher") === "true") {
-      setIsTeacher(true);
+    else if (localStorage.getItem("isTeacher") === "true") {
+      setUser({
+        ...user,
+        isTeacher: true
+      });
     }
     else {
-      setIsStudent(true);
+      setUser({
+        ...user,
+        isStudent: true
+      });
     }
   }, []);
+
 
   return (
     <div>
@@ -65,7 +80,7 @@ function App() {
         } path="/home" />
         <Route element={
           <ProtectedRoutes>
-            <LecturesPage isTeacher={isTeacher} isAdmin={isAdmin} isStudent={isStudent} lectureBg={lectureBg}  />
+            <LecturesPage user={user} setUser={setUser} lectureBg={lectureBg} />
           </ProtectedRoutes>
         } path="/lectures" />
         <Route element={
@@ -114,7 +129,7 @@ function App() {
           <ProtectedRoutes>
             <AddDepartment />
           </ProtectedRoutes>} path="/admin/addDepartment" />
-          <Route element={
+        <Route element={
           <ProtectedRoutes>
             <AddStudentToLecture />
           </ProtectedRoutes>} path="/admin/addStudentToLecture" />
