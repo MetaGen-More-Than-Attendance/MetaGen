@@ -15,6 +15,11 @@ const LectureCard = ({ lectureName, lectureInfo, isTeacher, isStudent, isAdmin, 
         setText({lectureId});
     };
 
+    const handleDetail = () => {
+        navigate("/lectureDetails")
+        localStorage.setItem("lectureId", lectureId)
+    };
+
     const navigate = useNavigate();
 
     return (
@@ -27,7 +32,7 @@ const LectureCard = ({ lectureName, lectureInfo, isTeacher, isStudent, isAdmin, 
                         {lectureInfo}
                     </Card.Text>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5", color: "#222831", fontWeight: "bold", width: '35%', }} onClick={() => navigate("/lectureDetails")} >Details</Button>
+                        <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5", color: "#222831", fontWeight: "bold", width: '35%', }} onClick={handleDetail} >Details</Button>
                         {isTeacher && <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5", color: "#222831", fontWeight: "bold", width: '60%', }} onClick={handleShow} >
                             Generate Qr Code
                         </Button>}
