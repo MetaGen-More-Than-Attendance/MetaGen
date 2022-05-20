@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const fetchAbsenteeismLectureIdAndDate = createAsyncThunk('attendances/fetchLecturesOfStudent', (data) => {
     const { localDate, lectureId} = data
-    return fetch(`https://meta-gen.herokuapp.com/api/absenteeism/getAbseenteismLectureIdandAbsenteeismDate?lectureId=${lectureId}&localDate=${localDate}`)
+    return fetch(`https://meta-gen.herokuapp.com/api/absenteeism/getAbseenteismLectureIdandAbsenteeismDate?lectureId=${lectureId}&localDateString=${localDate}`)
         .then((response) => response.json())
         .then((data) => data);
 });
