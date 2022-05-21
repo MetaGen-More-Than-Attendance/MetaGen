@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Navbar, Container, Nav, Image, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import img from "../../images/logo512.png";
+import logo from "../../images/metagenLogo.png";
 import AuthenticationService from "../../services/AuthenticationService";
 
 const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setText, setLectureBg }) => {
   const [hasLogin, setHasLogin] = useState(false);
-  
+
   let authenticationService = new AuthenticationService();
   useEffect(() => {
     if (localStorage.getItem("token") != null) {
@@ -21,7 +22,7 @@ const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setTex
   }
 
   const handleDark = () => {
-   
+
     if (bg === "light") {
       setBg("dark");
       setFontColor("#EEE")
@@ -45,7 +46,9 @@ const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setTex
       style={{ backgroundColor: "#222831" }}
     >
       <Container>
-        <Navbar.Brand style={{ color: `${fontColor}` }}>LOGO</Navbar.Brand>
+        <Navbar.Brand style={{ color: `${fontColor}` }}>
+          <Image style={{ width: "3rem", height: "3rem" }} src={logo} />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
