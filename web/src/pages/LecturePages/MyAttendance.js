@@ -1,9 +1,55 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import { Table } from 'react-bootstrap'
 
 import SideMenu from '../../components/SideMenus/SideMenu'
+import { fetchStudentAbsenteeism } from '../../redux/features/attendance/attendanceSlice';
 
 const MyAttendance = () => {
+    const [data, setData] = useState({
+        studentId: localStorage.getItem("userId"),
+        lectureId: localStorage.getItem("lectureId"),
+    });
+    const studentAttendance = useSelector((state) => state.attendances.entities);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchStudentAbsenteeism(data));
+    }, [data, dispatch])
+
+    console.log("🚀 ~ file: MyAttendance.js ~ line 14 ~ MyAttendance ~ studentAbsenteeism", studentAttendance)
+
+    const handleRow = () => {
+        return (
+            studentAttendance?.body?.map((row) => {
+                return (
+                    <tr>
+                        {row.map(val => {
+                            if (val === true) {
+                                return (
+                                    <td>{'✅'}</td>
+                                )
+                            }
+                            else if (val === false) {
+                                return (
+                                    <td>{'❌'}</td>
+                                )
+                            }
+                            else {
+                                return (
+                                    <td>{val}</td>
+                                )
+                            }
+
+                        }
+                        )}
+                    </tr>
+
+                )
+            })
+        )
+    }
 
     return (
         <div style={{ height: "80vh", display: "flex" }}>
@@ -15,12 +61,12 @@ const MyAttendance = () => {
                 </div>
                 <Table striped bordered hover responsive="md">
                     <thead>
-                        <tr></tr>
+                        <tr>
+                            {studentAttendance?.head?.map(head => <th>{head}</th>)}
+                        </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                        </tr>
+                        {handleRow()}
                     </tbody>
                 </Table>
             </div>
