@@ -13,8 +13,7 @@ const AllAttendances = () => {
         semesterId: "",
         lectureId: localStorage.getItem("lectureId"),
     });
-     const allAttendances = useSelector((state) => state.attendances.entities);
-     console.log("🚀 ~ file: AllAttendances.js ~ line 18 ~ AllAttendances ~ allAttendances", allAttendances)
+    const allAttendances = useSelector((state) => state.attendances.entities);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,7 +36,36 @@ const AllAttendances = () => {
         setShow(true);
     }
 
-    console.log(data)
+    const handleRow = () => {
+        return (
+            allAttendances?.body?.map((row) => {
+                return (
+                    <tr>
+                        {row.map(val => {
+                            if (val === true) {
+                                return (
+                                    <td>{'✅'}</td>
+                                )
+                            }
+                            else if (val === false) {
+                                return (
+                                    <td>{'❌'}</td>
+                                )
+                            }
+                            else {
+                                return (
+                                    <td>{val}</td>
+                                )
+                            }
+
+                        }
+                        )}
+                    </tr>
+
+                )
+            })
+        )
+    }
 
     return (
         <div style={{ height: "80vh", display: "flex" }}>
@@ -67,57 +95,11 @@ const AllAttendances = () => {
                     <Table striped bordered hover responsive="md">
                         <thead>
                             <tr>
-                                <th colspan="0"></th>
-                                <th>Name-Surname</th>
-                                <th>DD/MM/YYYY</th>
-
+                                {allAttendances?.head?.map(head => <th>{head}</th>)}
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>YES</td>
-
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>No</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Larry</td>
-                                <td>Yes</td>
-                            </tr> <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>YES</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>No</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Larry</td>
-                                <td>Yes</td>
-                            </tr> <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>YES</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>No</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Larry</td>
-                                <td>Yes</td>
-                            </tr>
+                            {handleRow()}
                         </tbody>
                     </Table>}
             </div>
