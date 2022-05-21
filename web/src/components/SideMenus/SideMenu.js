@@ -8,7 +8,11 @@ const SideMenu = () => {
     return (
         <ListGroup style={{ height: "80%", backgroundColor: "#222831", marginTop: 75, borderTopRightRadius: 10, borderBottomRightRadius: 10 }}>
             <ListGroup.Item action variant="dark" style={{ backgroundColor: "#222831", color: "#EEE", marginTop: 110 }} onClick={() => navigate("/lectureDetails")}>Home</ListGroup.Item>
-            <ListGroup.Item action variant="dark" style={{ backgroundColor: "#222831", color: "#EEE" }} onClick={() => navigate("/lectureDetails/people")}>People</ListGroup.Item>
+            {localStorage.getItem("isTeacher") === "true" ?
+                <ListGroup.Item action variant="dark" style={{ backgroundColor: "#222831", color: "#EEE" }} onClick={() => navigate("/lectureDetails/people")}>People</ListGroup.Item>
+                :
+                null
+            }
             <DropdownButton action variant="dark" as={ButtonGroup} title="Attendance" id="bg-vertical-dropdown-2" style={{ backgroundColor: "#222831", color: "#EEE" }}>
                 {localStorage.getItem("isStudent") === "true" ?
                     <Dropdown.Item eventKey="3" onClick={() => navigate("/lectureDetails/myAttendances")}>My Attendances</Dropdown.Item> :
