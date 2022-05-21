@@ -57,7 +57,8 @@ const LecDetAttendance = () => {
     <div style={{ height: "80vh", display: "flex" }}>
       <SideMenu />
       <div style={{ marginLeft: 15, width: '100%', }}>
-        <h1 style={{ color: '#9C9FA3' }}>Lecture Name</h1>
+        <h1 style={{ color: '#9C9FA3' }}>{localStorage.getItem("lectureName")}</h1>
+        <hr style={{ color: '#222831', width: '100%' }} />
         <Form.Label>Choose Specific Date</Form.Label>
         <div style={{ display: 'flex', flexDirection: 'row', marginBottom: 15 }}>
           <Form.Group style={{ width: '50%', display: 'flex', flexDirection: 'row' }}>

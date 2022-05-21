@@ -18,6 +18,7 @@ const LectureCard = ({ lectureName, lectureInfo, isTeacher, isStudent, isAdmin, 
     const handleDetail = () => {
         navigate("/lectureDetails")
         localStorage.setItem("lectureId", lectureId)
+        localStorage.setItem("lectureName", lectureName)
     };
 
     const navigate = useNavigate();
