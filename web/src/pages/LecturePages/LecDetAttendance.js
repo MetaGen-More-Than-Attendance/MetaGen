@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Form, Table } from 'react-bootstrap'
 
@@ -12,7 +12,7 @@ const LecDetAttendance = () => {
     lectureId: localStorage.getItem("lectureId"),
   });
 
-  const attendanceByIdAndDate = useSelector((state) => state.attendances.entities);
+  const specificDayAttendance = useSelector((state) => state.attendances.entities);
 
   const dispatch = useDispatch();
 
@@ -21,7 +21,38 @@ const LecDetAttendance = () => {
     setShow(true);
   }
 
-  console.log("🚀 ~ file: LecDetAttendance.js ~ line 10 ~ LecDetAttendance ~ data", data)
+  const handleRow = () => {
+    return (
+      specificDayAttendance?.body?.map((row) => {
+        return (
+          <tr>
+            {row.map(val => {
+              if (val === true) {
+                return (
+                  <td>{'✅'}</td>
+                )
+              }
+              else if (val === false) {
+                return (
+                  <td>{'❌'}</td>
+                )
+              }
+              else {
+                return (
+                  <td>{val}</td>
+                )
+              }
+
+            }
+            )}
+          </tr>
+
+        )
+      })
+    )
+  }
+
+
   return (
     <div style={{ height: "80vh", display: "flex" }}>
       <SideMenu />
@@ -49,57 +80,11 @@ const LecDetAttendance = () => {
           <Table striped bordered hover responsive="md">
             <thead>
               <tr>
-                <th colspan="0"></th>
-                <th>Name-Surname</th>
-                <th>DD/MM/YYYY</th>
-
+                {specificDayAttendance?.head?.map(head => <th>{head}</th>)}
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>YES</td>
-
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>No</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Larry</td>
-                <td>Yes</td>
-              </tr> <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>YES</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>No</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Larry</td>
-                <td>Yes</td>
-              </tr> <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>YES</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>No</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Larry</td>
-                <td>Yes</td>
-              </tr>
+              {handleRow()}
             </tbody>
           </Table>
         }
