@@ -10,9 +10,13 @@ const SideMenu = () => {
             <ListGroup.Item action variant="dark" style={{ backgroundColor: "#222831", color: "#EEE", marginTop: 110 }} onClick={() => navigate("/lectureDetails")}>Home</ListGroup.Item>
             <ListGroup.Item action variant="dark" style={{ backgroundColor: "#222831", color: "#EEE" }} onClick={() => navigate("/lectureDetails/people")}>People</ListGroup.Item>
             <DropdownButton action variant="dark" as={ButtonGroup} title="Attendance" id="bg-vertical-dropdown-2" style={{ backgroundColor: "#222831", color: "#EEE" }}>
-                <Dropdown.Item eventKey="1" onClick={() => navigate("/lectureDetails/attendance")}>Specific Attendances</Dropdown.Item>
-                <Dropdown.Item eventKey="2" onClick={() => navigate("/lectureDetails/allAttandances")}>All Attendances</Dropdown.Item>
-                <Dropdown.Item eventKey="3" onClick={() => navigate("/lectureDetails/myAttendances")}>My Attendances</Dropdown.Item>
+                {localStorage.getItem("isStudent") === "true" ?
+                    <Dropdown.Item eventKey="3" onClick={() => navigate("/lectureDetails/myAttendances")}>My Attendances</Dropdown.Item> :
+                    <>
+                        <Dropdown.Item eventKey="1" onClick={() => navigate("/lectureDetails/attendance")}>Specific Attendances</Dropdown.Item>
+                        <Dropdown.Item eventKey="2" onClick={() => navigate("/lectureDetails/allAttandances")}>All Attendances</Dropdown.Item>
+                    </>
+                }
             </DropdownButton>
             <ListGroup.Item action variant="dark" style={{ backgroundColor: "#222831", color: "#EEE" }} onClick={() => navigate("/lectureDetails/calendar")}>Calendar</ListGroup.Item>
             <ListGroup.Item action variant="dark" style={{ backgroundColor: "#222831", color: "#EEE" }} onClick={() => navigate("/lectureDetails/announcements")}>Announcements</ListGroup.Item>
