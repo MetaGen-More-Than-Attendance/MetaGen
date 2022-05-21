@@ -62,7 +62,7 @@ const AdminDisplayStudents = () => {
                   <td>{student.userName}</td>
                   <td>{student.userSurname}</td>
                   <td>{student.identityNumber}</td>
-                  <td>Computer</td>
+                  <td>{student.departmentName}</td>
                   <td>{student.userMail}</td>
                   <td style={{ display: 'flex', justifyContent: 'space-between', textAlign: 'center', flexDirection: 'row' }}>
                     <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5", width: '40%' }} onClick={handleShow} >Edit</Button>
