@@ -49,9 +49,6 @@ const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setTex
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={NavLink} to="/home" style={{ color: `${fontColor}` }}>
-              Home
-            </Nav.Link>
             <Nav.Link as={NavLink} to="/lectures" style={{ color: `${fontColor}` }}>
               Lectures
             </Nav.Link>
