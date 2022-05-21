@@ -25,6 +25,7 @@ import AddDepartment from "./pages/AdminPages/AddDepartment";
 import AdminDisplayDepartment from "./pages/AdminPages/AdminDisplayDepartment";
 import AddStudentToLecture from "./pages/AdminPages/AddStudentToLecture";
 import AllAttendances from "./pages/LecturePages/AllAttendances";
+import MyAttendance from "./pages/LecturePages/MyAttendance";
 
 function App() {
   const [userHasLogin, setUserHasLogin] = useState(false);
@@ -106,6 +107,10 @@ function App() {
           <ProtectedRoutes>
             <AllAttendances />
           </ProtectedRoutes>} path="/lectureDetails/allAttandances" />
+        <Route element={
+          <ProtectedRoutes>
+            <MyAttendance />
+          </ProtectedRoutes>} path="/lectureDetails/myAttendances" />
         <Route element={
           <ProtectedRoutes>
             <LecDetCalendar />
