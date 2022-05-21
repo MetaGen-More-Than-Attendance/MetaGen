@@ -6,7 +6,7 @@ const NotFoundPage = () => {
   const navigate = useNavigate();
   
   const handleClick =  () => {
-    navigate("/home")
+    navigate("/lectures")
   }
 
   return (
