@@ -14,6 +14,13 @@ export const fetchAllAbsenteeism = createAsyncThunk('attendances/fetchAllAbsente
         .then((data) => data);
 });
 
+export const fetchStudentAbsenteeism = createAsyncThunk('attendances/fetchStudentAbsenteeism', (data) => {
+    const { studentId, lectureId} = data
+    return fetch(`https://meta-gen.herokuapp.com/api/absenteeism/getStudentAbseenteisms?lectureId=${lectureId}&studentId=${studentId}`)
+        .then((response) => response.json())
+        .then((data) => data);
+});
+
 const attendanceSlice = createSlice({
     name: 'attendances',
     initialState: {
@@ -32,11 +39,18 @@ const attendanceSlice = createSlice({
         [fetchAllAbsenteeism.pending](state) {
             state.status = 'loading';
         },
+        [fetchStudentAbsenteeism.pending](state) {
+            state.status = 'loading';
+        },
         [fetchAbsenteeismLectureIdAndDate.fulfilled](state, action) {
             state.entities = action.payload;
             state.status = 'idle';
         },
         [fetchAllAbsenteeism.fulfilled](state, action) {
+            state.entities = action.payload;
+            state.status = 'idle';
+        },
+        [fetchStudentAbsenteeism.fulfilled](state, action) {
             state.entities = action.payload;
             state.status = 'idle';
         },
