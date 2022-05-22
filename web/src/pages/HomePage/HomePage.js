@@ -1,6 +1,6 @@
 import React from 'react'
 import AdminSideMenu from '../../components/SideMenus/AdminSideMenu'
-import background from '../../images/homeBg.jpg';
+import background from '../../images/homeBg2.jpg';
 
 const HomePage = ({ isAdmin }) => {
     return (
