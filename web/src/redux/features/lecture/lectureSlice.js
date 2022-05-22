@@ -51,6 +51,12 @@ export const fetchLectures = createAsyncThunk('lectures/fetchLecture', () => {
       .then((data) => data);
   });
 
+export const fetchLectureStudents = createAsyncThunk('lectures/fetchLectureStudents', (id) => {
+    return fetch(`https://meta-gen.herokuapp.com/api/lecture/getLectureStudents?lectureId=${id}`)
+      .then((response) => response.json())
+      .then((data) => data);
+  });
+
 const lectureSlice = createSlice({
     name: 'lectures',
     initialState: {
@@ -66,7 +72,14 @@ const lectureSlice = createSlice({
         [postLecture.pending](state) {
             state.status = 'loading';
         },
+        [fetchLectureStudents.pending](state) {
+            state.status = 'loading';
+        },
         [postLecture.fulfilled](state, action) {
+            state.entities = action.payload;
+            state.status = 'idle';
+        },
+        [fetchLectureStudents.fulfilled](state, action) {
             state.entities = action.payload;
             state.status = 'idle';
         },
