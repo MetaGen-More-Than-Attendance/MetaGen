@@ -9,10 +9,13 @@ import { fetchGivenStudentIdData } from "../../redux/features/student/studentSli
 
 const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setText, setLectureBg }) => {
   const [hasLogin, setHasLogin] = useState(false);
+  const id = localStorage.getItem("userId");
+  const isAdmin = localStorage.getItem("isAdmin");
   const dispatch = useDispatch();
 
   const student = useSelector((state) => state.students.entities);
-  const id = localStorage.getItem("userId");
+
+
   useEffect(() => {
     dispatch(fetchGivenStudentIdData(id));
   }, [dispatch, id]);
@@ -61,9 +64,9 @@ const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setTex
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={NavLink} to="/lectures" style={{ color: `${fontColor}` }}>
+            {isAdmin === "true" ? null : <Nav.Link as={NavLink} to="/lectures" style={{ color: `${fontColor}` }}>
               Lectures
-            </Nav.Link>
+            </Nav.Link>}
           </Nav>
           <Nav>
             {hasLogin ? (
@@ -82,13 +85,13 @@ const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setTex
                 >
                   logout
                 </Nav.Link>
-                <Nav.Link
+                {isAdmin === "true" ? null : <Nav.Link
                   as={NavLink}
                   to="/profile"
                   style={{ color: `${fontColor}` }}
                 >
-                  <Image src={`data:image/jpeg;base64,${student.photo}`}  roundedCircle={true} style={{ width: "2rem", height: "2rem" }} />
-                </Nav.Link>
+                  <Image src={`data:image/jpeg;base64,${student.photo}`} roundedCircle={true} style={{ width: "2rem", height: "2rem" }} />
+                </Nav.Link>}
               </div>
             ) : (
               <Nav.Link

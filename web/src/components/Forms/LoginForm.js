@@ -75,7 +75,7 @@ const LoginForm = () => {
                 ] = `Bearer ${result.data}`;
 
                 if (result.data) {
-                  navigate("/lectures");
+                  navigate("/home");
                   window.location.reload(true);
                 }
               })

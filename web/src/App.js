@@ -77,6 +77,11 @@ function App() {
         <Route element={<LoginPage />} path="/" />
         <Route element={
           <ProtectedRoutes>
+            <HomePage isAdmin={isAdmin} />
+          </ProtectedRoutes>
+        } path="/home" />
+        <Route element={
+          <ProtectedRoutes>
             <LecturesPage user={user} setUser={setUser} lectureBg={lectureBg} />
           </ProtectedRoutes>
         } path="/lectures" />
