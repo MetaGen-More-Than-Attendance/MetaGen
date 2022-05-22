@@ -7,7 +7,7 @@ import logo from "../../images/metagenLogo.png";
 import AuthenticationService from "../../services/AuthenticationService";
 import { fetchGivenStudentIdData } from "../../redux/features/student/studentSlice";
 
-const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setText, setLectureBg }) => {
+const Header = ({ isAdmin, userHasLogin, bg, setBg, fontColor, setFontColor, text, setText, setLectureBg }) => {
   const [hasLogin, setHasLogin] = useState(false);
   const dispatch = useDispatch();
 
@@ -61,9 +61,9 @@ const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setTex
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={NavLink} to="/lectures" style={{ color: `${fontColor}` }}>
+            {!isAdmin && <Nav.Link as={NavLink} to="/lectures" style={{ color: `${fontColor}` }}>
               Lectures
-            </Nav.Link>
+            </Nav.Link>}
           </Nav>
           <Nav>
             {hasLogin ? (
@@ -82,13 +82,13 @@ const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setTex
                 >
                   logout
                 </Nav.Link>
-                <Nav.Link
+               {!isAdmin && <Nav.Link
                   as={NavLink}
                   to="/profile"
                   style={{ color: `${fontColor}` }}
                 >
                   <Image src={`data:image/jpeg;base64,${student.photo}`}  roundedCircle={true} style={{ width: "2rem", height: "2rem" }} />
-                </Nav.Link>
+                </Nav.Link>}
               </div>
             ) : (
               <Nav.Link

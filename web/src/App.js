@@ -67,14 +67,19 @@ function App() {
         isStudent: true
       });
     }
-  }, []);
+  }, [user]);
 
 
   return (
     <div>
-      {userHasLogin && <Header userHasLogin={userHasLogin} bg={bg} fontColor={fontColor} text={text} setText={setText} setBg={setBg} setFontColor={setFontColor} lectureBg={lectureBg} setLectureBg={setLectureBg} />}
+      {userHasLogin && <Header isAdmin={isAdmin} userHasLogin={userHasLogin} bg={bg} fontColor={fontColor} text={text} setText={setText} setBg={setBg} setFontColor={setFontColor} lectureBg={lectureBg} setLectureBg={setLectureBg} />}
       <Routes>
         <Route element={<LoginPage />} path="/" />
+        <Route element={
+          <ProtectedRoutes>
+            <HomePage isAdmin={isAdmin}/>
+          </ProtectedRoutes>
+        } path="/admin" />
         <Route element={
           <ProtectedRoutes>
             <LecturesPage user={user} setUser={setUser} lectureBg={lectureBg} />
