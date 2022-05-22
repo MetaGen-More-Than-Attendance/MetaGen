@@ -59,15 +59,20 @@ const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setTex
     >
       <Container>
         <Navbar.Brand style={{ color: `${fontColor}` }}>
-          <Image style={{ width: "3rem", height: "3rem" }} src={logo} />
+          <Nav.Link as={NavLink} to="/home" style={{ color: `${fontColor}`, padding:0 }}>
+            <Image style={{ width: "3rem", height: "3rem" }} src={logo} />
+          </Nav.Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            {isAdmin === "true" ? null : <Nav.Link as={NavLink} to="/lectures" style={{ color: `${fontColor}` }}>
-              Lectures
-            </Nav.Link>}
-          </Nav>
+          <Nav.Link className="me-auto">
+            {isAdmin === "true" ?
+              null :
+              <Nav.Link as={NavLink} to="/lectures" style={{ color: `${fontColor}` }}>
+                Lectures
+              </Nav.Link>
+            }
+          </Nav.Link>
           <Nav>
             {hasLogin ? (
               <div style={{ display: "flex", flexDirection: "row" }}>
