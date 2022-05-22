@@ -58,17 +58,18 @@ const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setTex
       style={{ backgroundColor: "#222831" }}
     >
       <Container>
-        <Navbar.Brand style={{ color: `${fontColor}` }}>
-          <Nav.Link as={NavLink} to="/home" style={{ color: `${fontColor}`, padding:0 }}>
+        <Navbar.Brand style={{ color: `${fontColor}`, display: 'flex', flexDirection: 'row' }}>
+          <Nav.Link as={NavLink} to="/home" style={{ color: `${fontColor}`, padding: 0 }}>
             <Image style={{ width: "3rem", height: "3rem" }} src={logo} />
           </Nav.Link>
+          <h1 style={{ color: "#00ADB5", fontSize: 25, marginTop: 7, marginLeft: 5,}}>MetaGen</h1>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
+        <Navbar.Collapse id="responsive-navbar-nav" style={{padding: 0 }}>
           <Nav.Link className="me-auto">
             {isAdmin === "true" ?
               null :
-              <Nav.Link as={NavLink} to="/lectures" style={{ color: `${fontColor}` }}>
+              <Nav.Link as={NavLink} to="/lectures" style={{ color: `${fontColor}`, padding: 0 }}>
                 Lectures
               </Nav.Link>
             }
@@ -115,7 +116,7 @@ const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setTex
               </Nav.Link>
             )}
           </Nav>
-          <Button style={{backgroundColor: "#00ADB5"}} onClick={handleDark}>{text}</Button>
+          <Button style={{ backgroundColor: "#00ADB5" }} onClick={handleDark}>{text}</Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>
