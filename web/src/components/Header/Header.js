@@ -115,7 +115,7 @@ const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setTex
               </Nav.Link>
             )}
           </Nav>
-          <Button variant="primary" onClick={handleDark}>{text}</Button>
+          <Button style={{backgroundColor: "#00ADB5"}} onClick={handleDark}>{text}</Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>
