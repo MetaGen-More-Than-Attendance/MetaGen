@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import { Navbar, Container, Nav, Image, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import img from "../../images/logo512.png";
 import logo from "../../images/metagenLogo.png";
 import AuthenticationService from "../../services/AuthenticationService";
+import { fetchGivenStudentIdData } from "../../redux/features/student/studentSlice";
 
 const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setText, setLectureBg }) => {
   const [hasLogin, setHasLogin] = useState(false);
+  const dispatch = useDispatch();
+
+  const student = useSelector((state) => state.students.entities);
+  const id = localStorage.getItem("userId");
+  useEffect(() => {
+    dispatch(fetchGivenStudentIdData(id));
+  }, [dispatch, id]);
 
   let authenticationService = new AuthenticationService();
   useEffect(() => {
@@ -78,7 +87,7 @@ const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setTex
                   to="/profile"
                   style={{ color: `${fontColor}` }}
                 >
-                  <Image style={{ width: "2rem", height: "2rem" }} src={img} />
+                  <Image src={`data:image/jpeg;base64,${student.photo}`}  roundedCircle={true} style={{ width: "2rem", height: "2rem" }} />
                 </Nav.Link>
               </div>
             ) : (
