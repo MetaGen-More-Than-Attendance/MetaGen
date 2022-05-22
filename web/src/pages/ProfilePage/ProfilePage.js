@@ -23,12 +23,12 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-   if(isTeacher === "true"){
-    dispatch(fetchGivenTeacherIdData(id));
-   }
-   if(isStudent === "true"){
-    dispatch(fetchGivenStudentIdData(id));
-   }
+    if (isTeacher === "true") {
+      dispatch(fetchGivenTeacherIdData(id));
+    }
+    if (isStudent === "true") {
+      dispatch(fetchGivenStudentIdData(id));
+    }
   }, [dispatch, id, isStudent, isTeacher]);
 
   return (
@@ -39,12 +39,12 @@ const ProfilePage = () => {
         <hr style={{ color: '#222831', width: '97%' }} />
 
         <div style={{ display: 'flex', float: 'left ', width: '30%', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }} >
-          <Image src={`data:image/jpeg;base64,${data?.photo}`} style={{ backgroundColor: 'black', width: '70%', marginTop: 30 }} alt="?" roundedCircle={true}  />
+          <Image src={`data:image/jpeg;base64,${data?.photo}`} style={{ backgroundColor: 'black', width: '70%', marginTop: 30 }} alt="?" roundedCircle={true} />
         </div>
 
         <div style={{ width: '70%', float: "right" }}>
           <h1 style={{ fontSize: '2rem', fontWeight: 'bold' }}>{data?.userName + " "}{data?.userSurname}</h1>
-          <hr style={{ color: '#222831', width: '96%' }} /> 
+          <hr style={{ color: '#222831', width: '96%' }} />
           {!isTeacher && <p style={{ fontSize: '1.5rem' }}>Department</p>}
           <p style={{ fontSize: '1.1rem' }}>{data?.departmentName}</p>
           <p style={{ fontSize: '1.5rem' }}>Identity Number</p>
