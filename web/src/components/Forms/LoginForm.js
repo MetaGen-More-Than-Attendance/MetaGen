@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import loginImg from "../../images/java.jpeg";
-import logoImg from "../../images/logo512.png";
+import loginImg from "../../images/homeBg2.jpg";
+import logoImg from "../../images/metagenLogo.png";
 import { Formik } from "formik";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
@@ -99,6 +99,15 @@ const LoginForm = () => {
               onSubmit={handleSubmit}
               style={{ padding: "1rem", width: "70%" }}
             >
+               <Form.Group
+                className="mb-3"
+                controlId="formBasicEmail"
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <Form.Label style={{ color: "#00ADB5", fontWeight:'bold' }}>
+                  MetaGen
+                </Form.Label>
+              </Form.Group>
               <Form.Group
                 className="mb-3"
                 style={{ display: "flex", justifyContent: "center" }}
@@ -106,7 +115,7 @@ const LoginForm = () => {
                 <img
                   src={logoImg}
                   alt="logo"
-                  style={{ width: "2rem", height: "2rem" }}
+                  style={{ width: "10rem", height: "10rem" }}
                 />
               </Form.Group>
 
@@ -115,8 +124,8 @@ const LoginForm = () => {
                 controlId="formBasicEmail"
                 style={{ display: "flex", justifyContent: "center" }}
               >
-                <Form.Label style={{ color: "#EEE" }}>
-                  Login into your account
+                <Form.Label style={{ color: "#00ADB5", fontWeight:'bold' }}>
+                  More Than Attendance
                 </Form.Label>
               </Form.Group>
 
@@ -156,13 +165,15 @@ const LoginForm = () => {
                 />
               </Form.Group>
 
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}
-              >
-                Submit
-              </Button>
+              <div style={{display:'flex', justifyContent:'center'}}>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5", marginTop: 8 }}
+                >
+                  Submit
+                </Button>
+              </div>
               {errorMessage && <p style={{ color: "red" }}> {errorMessage} </p>}
             </Form>
           )}
