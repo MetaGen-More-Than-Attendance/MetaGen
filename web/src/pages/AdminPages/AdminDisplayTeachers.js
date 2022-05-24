@@ -56,7 +56,6 @@ const AdminDisplayTeachers = () => {
               <th>Name</th>
               <th>Surname</th>
               <th>Identity Number</th>
-              <th>Department</th>
               <th>Email</th>
               <th></th>
             </tr>
@@ -69,7 +68,6 @@ const AdminDisplayTeachers = () => {
                   <td>{teacher.userName}</td>
                   <td>{teacher.userSurname}</td>
                   <td>{teacher.identityNumber}</td>
-                  <td>Computer</td>
                   <td>{teacher.userMail}</td>
                   <td style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
                     <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={() => handleShow(teacher.instructorId)}>Edit</Button>
