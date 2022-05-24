@@ -45,13 +45,12 @@ const ProfilePage = () => {
         <div style={{ width: '70%', float: "right" }}>
           <h1 style={{ fontSize: '2rem', fontWeight: 'bold' }}>{data?.userName + " "}{data?.userSurname}</h1>
           <hr style={{ color: '#222831', width: '96%' }} />
-          {!isTeacher && <p style={{ fontSize: '1.5rem' }}>Department</p>}
+          {isTeacher === "false" && isStudent === "true" ? <p style={{ fontSize: '1.5rem' }}>Department</p> : null}
           <p style={{ fontSize: '1.1rem' }}>{data?.departmentName}</p>
           <p style={{ fontSize: '1.5rem' }}>Identity Number</p>
           <p style={{ fontSize: '1.1rem' }}>{data?.identityNumber}</p>
           <p style={{ fontSize: '1.5rem' }}>My Contact Info</p>
           <p style={{ fontSize: '1.1rem' }}>{data?.userMail}</p>
-          <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}>Edit</Button>
         </div>
 
       </div>
