@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from "formik";
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, FloatingLabel } from 'react-bootstrap'
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -20,6 +20,7 @@ const AddLectureForm = () => {
         lectureStartDate: "",
         // startHour: "",
         departmentId: 0,
+        description: ""
     };
 
     const allTeachers = useSelector((state) => state.teachers.entities);
@@ -63,6 +64,9 @@ const AddLectureForm = () => {
                     if (!values.departmentId) {
                         errors.departmentId = "*";
                     }
+                    if (!values.description) {
+                        errors.description = "*";
+                    }
 
                     return errors;
                 }}
@@ -74,8 +78,10 @@ const AddLectureForm = () => {
                         instructorId: parseInt(values.instructorId),
                         departmentId: parseInt(values.departmentId),
                         lectureName: values.lectureName,
-                        lectureStartDate: values.lectureStartDate
-                     };
+                        lectureStartDate: values.lectureStartDate,
+                        description: values.description
+                    };
+                    
                     dispatch(postLecture(obj))
                     resetForm({
                         values: {
@@ -83,6 +89,7 @@ const AddLectureForm = () => {
                             departmentId: 0,
                             lectureName: '',
                             lectureStartDate: '',
+                            description: ''
                         },
                         isSubmitting: true
                     })
@@ -92,7 +99,7 @@ const AddLectureForm = () => {
                         title: 'Your work has been saved',
                         showConfirmButton: false,
                         timer: 1500
-                      })
+                    })
                 }}
             >
                 {({
@@ -121,6 +128,29 @@ const AddLectureForm = () => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 placeholder="Enter lecture name" />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '60%' }}>
+                            <div style={{ display: "flex" }}>
+                                {errors.description && touched.description && (
+                                    <div style={{ color: "red", marginRight: 5 }}>
+                                        {errors.description}
+                                    </div>
+                                )}
+                                <Form.Label>Description</Form.Label>
+                            </div>
+
+                            <FloatingLabel controlId="floatingTextarea2" label="Write general info about lecture">
+                                <Form.Control
+                                    as="textarea"
+                                    placeholder='Write general info about lecture'
+                                    name="description"
+                                    value={values.description}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    style={{ height: '10%' }}
+                                />
+                            </FloatingLabel>
                         </Form.Group>
 
                         <div style={{ display: 'flex', width: '60%', flexDirection: 'row', justifyContent: 'space-between' }}>

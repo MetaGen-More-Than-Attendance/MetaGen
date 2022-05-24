@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const postLecture = createAsyncThunk(
     'lectures/postLecture',
-    async ({ instructorId, departmentId, lectureName, lectureStartDate }) => {
+    async ({ instructorId, departmentId, lectureName, lectureStartDate, description }) => {
         return fetch(`https://meta-gen.herokuapp.com/api/lecture/save`, {
             method: 'post',
             headers: {
@@ -12,7 +12,8 @@ export const postLecture = createAsyncThunk(
                 instructorId,
                 departmentId,
                 lectureName,
-                lectureStartDate
+                lectureStartDate,
+                description
             }),
         })
             .then((response) => response.json())
