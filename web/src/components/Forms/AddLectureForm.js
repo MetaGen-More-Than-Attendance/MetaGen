@@ -81,7 +81,7 @@ const AddLectureForm = () => {
                         lectureStartDate: values.lectureStartDate,
                         description: values.description
                     };
-                    
+
                     dispatch(postLecture(obj))
                     resetForm({
                         values: {
@@ -143,6 +143,7 @@ const AddLectureForm = () => {
                             <FloatingLabel controlId="floatingTextarea2" label="Write general info about lecture">
                                 <Form.Control
                                     as="textarea"
+                                    maxLength={90}
                                     placeholder='Write general info about lecture'
                                     name="description"
                                     value={values.description}
