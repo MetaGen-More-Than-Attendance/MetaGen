@@ -60,7 +60,7 @@ const AddTeacherForm = () => {
     userName: "",
     userSurname: "",
     identityNumber: "",
-    departmentId: 0,
+    // departmentId: 0,
     userMail: "",
     userPassword: "",
   };
@@ -100,9 +100,6 @@ const AddTeacherForm = () => {
           if (!values.identityNumber) {
             errors.identityNumber = "*";
           }
-          if (!values.departmentId) {
-            errors.departmentId = "*";
-          }
           if (!values.userPassword) {
             errors.userPassword = "*";
           }
@@ -123,7 +120,7 @@ const AddTeacherForm = () => {
                   userName: '',
                   userSurname: '',
                   identityNumber: '',
-                  departmentId: 0,
+                  // departmentId: 0,
                   userMail: '',
                   userPassword: '',
                 },
@@ -247,7 +244,7 @@ const AddTeacherForm = () => {
                 />
               </Form.Group>
 
-              <Form.Group className="mb-1" style={{ width: "60%" }}>
+              {/* <Form.Group className="mb-1" style={{ width: "60%" }}>
                 <div style={{ display: "flex" }}>
                   {errors.departmentId && touched.departmentId && (
                     <div style={{ color: "red", marginRight: 5 }}>
@@ -266,7 +263,7 @@ const AddTeacherForm = () => {
                   <option value="" >Choose department</option>
                   {department.map((department) => <option value={department.departmentId} style={{ color: 'black' }} key={department.departmentId}>{department.departmentName}</option>)}
                 </Form.Select>
-              </Form.Group>
+              </Form.Group> */}
 
               <Form.Group className="mb-1" style={{ width: "60%" }}>
                 <div style={{ display: "flex" }}>

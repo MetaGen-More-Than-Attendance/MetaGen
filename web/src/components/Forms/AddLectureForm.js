@@ -16,9 +16,7 @@ const AddLectureForm = () => {
     const initialValues = {
         lectureName: "",
         instructorId: 0,
-        // semester: "",
         lectureStartDate: "",
-        // startHour: "",
         departmentId: 0,
         description: ""
     };
@@ -55,9 +53,6 @@ const AddLectureForm = () => {
                     if (!values.instructorId) {
                         errors.instructorId = "*";
                     }
-                    // if (!values.semester) {
-                    //     errors.semester = "*";
-                    // }                   
                     if (!values.lectureStartDate) {
                         errors.lectureStartDate = "*";
                     }
@@ -172,32 +167,11 @@ const AddLectureForm = () => {
                                     style={{ color: 'gray' }}
                                 >
                                     <option value="" >Choose teacher</option>
-                                    {allTeachers.map((teacher) => <option value={teacher.instructorId} key={teacher.instructorId} style={{ color: 'black' }}>{teacher.userName}</option>)}
+                                    {allTeachers.map((teacher) => <option value={teacher.instructorId} key={teacher.instructorId} style={{ color: 'black' }}>{teacher.userName +' '+ teacher.userSurname}</option>)}
                                 </Form.Select>
 
                             </Form.Group>
-
-                            {/* <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '60%' }}>
-                                <div style={{ display: "flex" }}>
-                                    {errors.semester && touched.semester && (
-                                        <div style={{ color: "red", marginRight: 5 }}>
-                                            {errors.semester}
-                                        </div>
-                                    )}
-                                    <Form.Label>Semester</Form.Label>
-                                </div>
-                                <Form.Select
-                                    name="semester"
-                                    value={values.semester}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    style={{ color: 'gray' }}
-                                >
-                                    <option disabled value="" >Choose one semester</option>
-                                    <option value="Fall" style={{ color: 'black' }}>Fall</option>
-                                    <option value="Spring" style={{ color: 'black' }}>Spring</option>
-                                </Form.Select>
-                            </Form.Group> */}
+                        
                         </div>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '60%' }}>
@@ -240,23 +214,6 @@ const AddLectureForm = () => {
                                 />
                             </Form.Group>
 
-                            {/* <Form.Group className="mb-3" controlId="formBasicEmail" style={{ width: '40%' }}>
-                                <div style={{ display: "flex" }}>
-                                    {errors.startHour && touched.startHour && (
-                                        <div style={{ color: "red", marginRight: 5 }}>
-                                            {errors.startHour}
-                                        </div>
-                                    )}
-                                    <Form.Label>Start Hour</Form.Label>
-                                </div>
-                                <Form.Control
-                                    type="time"
-                                    name="startHour"
-                                    value={values.startHour}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                />
-                            </Form.Group> */}
                         </div>
 
                         <Button

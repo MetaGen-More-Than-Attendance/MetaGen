@@ -203,7 +203,7 @@ const AddStudentForm = () => {
                   value={values.userName}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Enter teacher name"
+                  placeholder="Enter student name"
                 />
               </Form.Group>
 
@@ -223,7 +223,7 @@ const AddStudentForm = () => {
                   value={values.userSurname}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Enter teacher surname"
+                  placeholder="Enter student surname"
                 />
               </Form.Group>
 
@@ -243,7 +243,7 @@ const AddStudentForm = () => {
                   value={values.identityNumber}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Enter teacher identity number"
+                  placeholder="Enter student identity number"
                 />
               </Form.Group>
 

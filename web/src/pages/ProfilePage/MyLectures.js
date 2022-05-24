@@ -40,7 +40,6 @@ const MyLectures = () => {
                 <Table striped bordered hover responsive="md">
                     <thead>
                         <tr>
-                            <th></th>
                             <th>Lecture Name</th>
                         </tr>
                     </thead>
@@ -48,7 +47,6 @@ const MyLectures = () => {
                         {data?.map((lectures) => {
                             return (
                                 <tr>
-                                    <td>{lectures.lectureId}</td>
                                     <td>{lectures.lectureName}</td>
                                 </tr>
                             )

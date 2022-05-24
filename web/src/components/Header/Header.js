@@ -2,23 +2,38 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Navbar, Container, Nav, Image, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import img from "../../images/logo512.png";
 import logo from "../../images/metagenLogo.png";
 import AuthenticationService from "../../services/AuthenticationService";
 import { fetchGivenStudentIdData } from "../../redux/features/student/studentSlice";
+import { fetchGivenTeacherIdData } from "../../redux/features/teacher/teacherSlice";
 
 const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setText, setLectureBg }) => {
   const [hasLogin, setHasLogin] = useState(false);
   const id = localStorage.getItem("userId");
   const isAdmin = localStorage.getItem("isAdmin");
+  const isTeacher = localStorage.getItem("isTeacher");
+  const isStudent = localStorage.getItem("isStudent");
   const dispatch = useDispatch();
 
-  const student = useSelector((state) => state.students.entities);
 
+  const data = useSelector((state) => {
+    if (state.students.entities?.identityNumber !== undefined) {
+      return state.students.entities;
+    }
+    if (state.teachers.entities?.identityNumber !== undefined) {
+      return state.teachers.entities;
+    }
+  });
+  console.log("🚀 ~ file: Header.js ~ line 27 ~ data ~ data", data)
 
   useEffect(() => {
-    dispatch(fetchGivenStudentIdData(id));
-  }, [dispatch, id]);
+    if (isTeacher === "true") {
+      dispatch(fetchGivenTeacherIdData(id));
+    }
+    if (isStudent === "true") {
+      dispatch(fetchGivenStudentIdData(id));
+    }
+  }, [dispatch, id, isStudent, isTeacher]);
 
   let authenticationService = new AuthenticationService();
   useEffect(() => {
@@ -82,21 +97,21 @@ const Header = ({ userHasLogin, bg, setBg, fontColor, setFontColor, text, setTex
                   to="/"
                   onClick={logout}
                   style={{
-                    marginTop: 6,
+                    marginTop: 2,
                     height: "2.3rem",
                     color: `${fontColor}`,
                     borderRadius: 10,
                     marginRight: 5,
                   }}
                 >
-                  logout
+                  Logout
                 </Nav.Link>
                 {isAdmin === "true" ? null : <Nav.Link
                   as={NavLink}
                   to="/profile"
                   style={{ color: `${fontColor}` }}
                 >
-                  <Image src={`data:image/jpeg;base64,${student.photo}`} roundedCircle={true} style={{ width: "2rem", height: "2rem" }} />
+                  <Image src={`data:image/jpeg;base64,${data?.photo}`} roundedCircle={true} style={{ width: "2rem", height: "2rem" }} />
                 </Nav.Link>}
               </div>
             ) : (

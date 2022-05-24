@@ -52,8 +52,7 @@ const AdminDisplayTeachers = () => {
         <Table striped bordered hover responsive="md">
           <thead>
             <tr>
-              <th></th>
-              <th>Image</th>
+              <th style={{display: 'flex', justifyContent: "center"}}>Image</th>
               <th>Name</th>
               <th>Surname</th>
               <th>Identity Number</th>
@@ -66,7 +65,6 @@ const AdminDisplayTeachers = () => {
             {allTeachers.map((teacher) => {
               return (
                 <tr key={teacher.instructorId}>
-                  <td>{teacher.instructorId}</td>
                   <td style={{ display: 'flex', justifyContent: 'center' }}><Image src={`data:image/jpeg;base64,${teacher.photo}`} alt="?" rounded={true} style={{ width: '2rem' }} /></td>
                   <td>{teacher.userName}</td>
                   <td>{teacher.userSurname}</td>

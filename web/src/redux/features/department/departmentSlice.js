@@ -1,11 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-// export const fetchDepartments = createAsyncThunk('departments/fetchDepartments', () => {
-//     return fetch('https://meta-gen.herokuapp.com/api/department/getAll')
-//       .then((response) => response.json())
-//       .then((data) => data);
-//   });
-
 export const postDepartment = createAsyncThunk(
     'departments/postDepartment',
     async ({ departmentName }) => {  

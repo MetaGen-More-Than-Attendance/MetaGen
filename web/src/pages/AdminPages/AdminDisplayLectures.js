@@ -36,9 +36,6 @@ const AdminDisplayLectures = () => {
   }
 
   const handleShow = () => {
-    // const [teacherData] = data.filter((lecture) => lecture.lectureId === id)
-    // setLecture(teacherData);
-    // console.log(data);
     setShow(true)
   };
 
@@ -51,7 +48,6 @@ const AdminDisplayLectures = () => {
         <Table striped bordered hover responsive="md">
           <thead>
             <tr>
-              <th></th>
               <th>Lecture</th>
               <th>Teacher</th>
               <th>Semester</th>
@@ -64,14 +60,13 @@ const AdminDisplayLectures = () => {
             {data.map((lecture) => {
               return (
                 <tr >
-                  <td>{lecture.lectureId}</td>
                   <td>{lecture.lectureName}</td>
                   <td>{lecture.instructorName}</td>
                   <td>Semester...</td>
                   <td>{lecture.departmentName}</td>
                   <td>{lecture.lectureStartDate}</td>
                   <td style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                    <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={() => handleShow()}>Edit</Button>
+                    <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5", width: '40%' }} onClick={() => handleShow()}>Edit</Button>
                     <Button style={{ backgroundColor: "red", borderColor: "red", width: '40%' }} onClick={() => {
                       Swal.fire({
                         title: 'Do you want to delete the lecture?',
@@ -131,27 +126,11 @@ const AdminDisplayLectures = () => {
                 />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Lecture Code</Form.Label>
-                <Form.Control
-                  type="input"
-                  placeholder="BIM 344"
-                  autoFocus
-                />
-              </Form.Group>
 
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>Start Date</Form.Label>
                 <Form.Control
                   type="date"
-                  autoFocus
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Start Hour</Form.Label>
-                <Form.Control
-                  type="time"
                   autoFocus
                 />
               </Form.Group>

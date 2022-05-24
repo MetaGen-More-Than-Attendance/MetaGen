@@ -40,18 +40,17 @@ const AdminDisplayDepartment = () => {
                 <Table striped bordered hover responsive="md">
                     <thead>
                         <tr>
-                            <th></th>
                             <th>Department</th>
                         </tr>
                     </thead>
                     <tbody>
                         {data.map((department) => {
                             return (
-                                <tr >
-                                    <td>{department.departmentId}</td>
+                                <tr key={department.departmentId}>
                                     <td colSpan={2}>{department.departmentName}</td>
-                                    <td style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                                        <Button style={{ backgroundColor: "red", borderColor: "red", width: '40%' }} onClick={() => {
+                                    <td style={{ display: 'flex', justifyContent: 'space-around', flexDirection: 'row' }}>
+                                    <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5", width: '20%' }}>Edit</Button>
+                                        <Button style={{ backgroundColor: "red", borderColor: "red", width: '20%' }} onClick={() => {
                                             Swal.fire({
                                                 title: 'Do you want to delete the department?',
                                                 showDenyButton: true,

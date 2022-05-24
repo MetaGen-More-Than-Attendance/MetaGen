@@ -34,7 +34,6 @@ const AdminDisplaySemesters = () => {
         <Table striped bordered hover responsive="md">
           <thead>
             <tr>
-              <th></th>
               <th>Semester</th>
               <th>Start Date</th>
               <th>Finish Date</th>
@@ -45,11 +44,13 @@ const AdminDisplaySemesters = () => {
             {data.map((semester) => {
               return (
                 <tr>
-                  <td>{semester.semesterId}</td>
                   <td>{semester.semesterName}</td>
                   <td>{semester.startDate}</td>
                   <td>{semester.endDate}</td>
-                  <td style={{ display: 'flex', justifyContent: 'center' }}><Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }} onClick={handleShow}>Edit</Button></td>
+                  <td style={{ display: 'flex', justifyContent: 'space-between', textAlign: 'center', flexDirection: 'row' }}>
+                  <Button style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5", width: '40%' }} onClick={handleShow} >Edit</Button>
+                    <Button style={{ backgroundColor: "red", borderColor: "red", width: '40%' }} onClick={handleShow} >Delete</Button>
+                    </td>
                 </tr>
               )
             })}

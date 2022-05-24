@@ -104,7 +104,7 @@ const LoginForm = () => {
                 controlId="formBasicEmail"
                 style={{ display: "flex", justifyContent: "center" }}
               >
-                <Form.Label style={{ color: "#00ADB5", fontWeight:'bold' }}>
+                <Form.Label style={{ color: "#00ADB5", fontWeight:'bold', fontSize: 25 }}>
                   MetaGen
                 </Form.Label>
               </Form.Group>

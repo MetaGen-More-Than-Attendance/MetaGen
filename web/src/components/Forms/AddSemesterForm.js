@@ -37,7 +37,6 @@ const AddSemesterForm = () => {
                 }}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
                         setSubmitting(false);
                     }, 400);
                     dispatch(postSemester(values));
