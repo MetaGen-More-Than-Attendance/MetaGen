@@ -36,7 +36,7 @@ const LecturesPage = ({ user, lectureBg }) => {
         <Row md={3} lg={3} sm={2} >
           {data?.map((lecture) => {
             return (
-              <Col><LectureCard isTeacher={isTeacher} isAdmin={isAdmin} lectureName={lecture.lectureName} lectureId={lecture.lectureId} lectureInfo="Some quick example text to build on the card title and make up the bulk of the card's content." /> </Col>
+              <Col><LectureCard isTeacher={isTeacher} isAdmin={isAdmin} lectureName={lecture.lectureName} lectureId={lecture.lectureId} lectureInfo={lecture.description} /> </Col>
             )
           })}
         </Row>

@@ -4,7 +4,7 @@ import img from "../../images/java.jpeg";
 import QRCode from "react-qr-code";
 import { useNavigate } from 'react-router-dom';
 
-const LectureCard = ({ lectureName, lectureInfo, isTeacher, isStudent, isAdmin, lectureId }) => {
+const LectureCard = ({ lectureName, lectureInfo, isTeacher, lectureId }) => {
     const [text, setText] = useState("");
     const [show, setShow] = useState(false);
     
