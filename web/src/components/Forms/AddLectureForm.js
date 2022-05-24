@@ -259,14 +259,6 @@ const AddLectureForm = () => {
               style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}>
               Submit
             </Button>
-
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              style={{ backgroundColor: "#00ADB5", borderColor: "#00ADB5" }}
-            >
-              Submit
-            </Button>
           </Form>
         )}
       </Formik>
