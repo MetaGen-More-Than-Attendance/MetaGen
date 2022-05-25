@@ -155,7 +155,6 @@ const AddStudentToLectureForm = () => {
         <Table striped bordered hover responsive="md">
           <thead>
             <tr>
-              <th></th>
               <th>Students</th>
               <th></th>
             </tr>
@@ -164,7 +163,6 @@ const AddStudentToLectureForm = () => {
             {departmentStudents.map((student) => {
               return (
                 <tr key={student.studentId}>
-                  <td>{student.studentId}</td>
                   <td>{student.userName + " "} {student.userSurname}</td>
                   <td style={{ display: 'flex', justifyContent: 'center' }}><Form.Check aria-label="option 1" value={student.studentId} onChange={handleAddStudent} /></td>
                 </tr>
