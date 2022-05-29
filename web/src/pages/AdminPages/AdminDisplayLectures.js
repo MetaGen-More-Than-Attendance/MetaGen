@@ -33,7 +33,6 @@ const AdminDisplayLectures = () => {
   const navigate = useNavigate();
 
   const handleDelete = (id) => {
-    console.log(id);
     dispatch(deleteLecture(id));
   };
 

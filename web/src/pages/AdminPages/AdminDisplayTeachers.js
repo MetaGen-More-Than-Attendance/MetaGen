@@ -32,7 +32,6 @@ const AdminDisplayTeachers = () => {
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    console.log(id)
     dispatch(deleteTeacher(id))
   }
 

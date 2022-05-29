@@ -18,7 +18,6 @@ const MyAttendance = () => {
         dispatch(fetchStudentAbsenteeism(data));
     }, [data, dispatch])
 
-    console.log("🚀 ~ file: MyAttendance.js ~ line 14 ~ MyAttendance ~ studentAbsenteeism", studentAttendance)
 
     const handleRow = () => {
         return (

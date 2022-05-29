@@ -47,7 +47,6 @@ const AddStudentForm = () => {
 
   const postHandling = (e) => {
     e.preventDefault();
-    console.log(imageBase64);
     let newData = { ...datas, imageBase64 };
     console.log(newData);
     axios

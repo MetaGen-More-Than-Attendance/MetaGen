@@ -80,7 +80,6 @@ const LoginForm = () => {
                 }
               })
               .catch((err) => {
-                console.log(err);
                 seterrorMessage("Wrong password or username");
                 resetForm();
               });
